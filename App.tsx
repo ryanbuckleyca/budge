@@ -30,7 +30,7 @@ function App() {
     e.preventDefault();
     // TODO: perform checks before POSTing
     postLogRecord(entry)
-      .then(res => setLogs([...logs, res]))
+      .then(res => setLogs([res, ...logs]))
       .catch(err => console.log('error in posting: ', err))
       .finally(console.log('submitted: state of logs is ', logs))
     setEntry(blankEntry)

@@ -1,10 +1,11 @@
 import { AIRTABLE_ID } from '@env';
 
-const airtableLogsURL = 'https://api.airtable.com/v0/appA67zYW50gE6q8E/LOG'
+const sort = '?sort%5B0%5D%5Bfield%5D=Time&sort%5B0%5D%5Bdirection%5D=desc'
+const urlLOGS = `https://api.airtable.com/v0/appA67zYW50gE6q8E/LOG${sort}`
 const headers = { Authorization: `Bearer ${AIRTABLE_ID}` }
 
 const callAPI = (options) => {
-  return fetch(airtableLogsURL, options)
+  return fetch(urlLOGS, options)
     .then(res => res.json())
 }
 
