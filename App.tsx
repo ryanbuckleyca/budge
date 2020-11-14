@@ -1,48 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { AIRTABLE_ID } from '@env';
+import { getLogRecords, postLogRecord } from './scripts/airtable.js'
 
 function App() {
   const [ data, setData ] = useState([]);
   const [ entry, setEntry ] = useState({});
 
-  const airTableURL = 'https://api.airtable.com/v0/appA67zYW50gE6q8E/LOG'
-  const APIpost = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${AIRTABLE_ID}`
-    },
-    data: {
-      "records": [
-        {
-          "fields": {}
-        },
-        {
-          "fields": {}
-        }
-      ]
-    }
-  }
-  const APIget = {
-    method: 'GET',
-    headers: { Authorization: `Bearer ${AIRTABLE_ID}` },
-  }
-
   useEffect(() => {
-    fetch(airTableURL, APIget)
-    .then(res => res.json())
+    getLogRecords()
     .then(data => setData(data.records))
+    .catch(err => console.log('fetch error: ', err.message))
   }, [])
 
   const handleChange = (e) => {
-    entry[e.target.name] = e.target.value
+    const { name, value } = e.target
+    entry[name] = name === 'Amount' ? parseFloat(value) : value
     console.log('entry is now ', entry)
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // TODO: perform checks before POSTing
+    postLogRecord(entry)
+    .then(data => console.log(data))
+
+  }
+
   const printLogs = data.map(record => {
-    const { Type, Amount, Description, Notes } = record.fields
+    const { Type, Amount, Description, Category, Notes } = record.fields
     return (
       <tr key={record.id} style={styles.textLeft}>
         <td>
@@ -51,7 +37,7 @@ function App() {
           </h2>
         </td>
         <td><strong>{ Description }</strong></td>
-        <td>{ Type }</td>
+        <td>{ Category }</td>
         <td>{ Notes }</td>
       </tr>
     )
@@ -60,24 +46,24 @@ function App() {
   const newEntry =
     <tr style={styles.textLeft}>
       <td>
-        <input type="text" name="amount" value={entry.Amount} onChange={(e) => handleChange(e)} />
+        <input type="number" name="Amount" value={entry.Amount} onChange={(e) => handleChange(e)} />
         <span>
-          <input type="radio" name="type" value="Expense" selected={entry.Type==='Expense'} onChange={(e) => handleChange(e)} />
+          <input type="radio" name="Type" value="Expense" selected={entry.Type==='Expense'} onChange={(e) => handleChange(e)} />
           Expense
-          <input type="radio" name="type" value="Income" selected={entry.Type==='Income'} onChange={(e) => handleChange(e)} />
+          <input type="radio" name="Type" value="Income" selected={entry.Type==='Income'} onChange={(e) => handleChange(e)} />
           Income
         </span>
       </td>
       <td>
-        <input type="text" name="description" value={ entry.Description } onChange={(e) => handleChange(e)} />
+        <input type="text" name="Description" value={ entry.Description } onChange={(e) => handleChange(e)} />
       </td>
       <td>
-        <input type="text" name="type" value={ entry.Type } onChange={(e) => handleChange(e)} />
+        <input type="text" name="Category" value={ entry.Category } onChange={(e) => handleChange(e)} />
       </td>
       <td>
         <span style={styles.nowrap}>
-        <input type="text" name="notes" value={ entry.Notes } onChange={(e) => handleChange(e)} />
-        <button>add</button>
+        <input type="text" name="Notes" value={ entry.Notes } onChange={(e) => handleChange(e)} />
+        <button onClick={(e) => handleSubmit(e)}>+</button>
         </span>
       </td>
     </tr>
@@ -85,13 +71,13 @@ function App() {
   return (
     <View style={ styles.container }>
       <Text style={styles.h}>{ `${ data.length } items in LOG:` }</Text>
-      <Text style={styles.w100}>
+      <View style={styles.w100}>
         <table style={styles.w100}>
           <thead style={styles.textLeft}>
             <tr>
               <td>AMOUNT</td>
               <td>DESCRIPTION</td>
-              <td>TYPE</td>
+              <td>CATEGORY</td>
               <td>NOTES</td>
             </tr>
           </thead>
@@ -100,7 +86,7 @@ function App() {
           { printLogs }
           </tbody>
         </table>
-      </Text>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
