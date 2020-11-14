@@ -8,16 +8,16 @@ import EntryForm from './components/log-entry-form.tsx'
 import styles from './styles.tsx'
 
 function App() {
-  const blankEntry = {
+  const newEntry = {
     Type: 'Expense', Amount: '', Description: '', Category: '', Notes: ''
   }
   const [ logs, setLogs ] = useState();
-  const [ entry, setEntry ] = useState(blankEntry);
+  const [ entry, setEntry ] = useState(newEntry);
 
   useEffect(() => {
     getLogRecords()
       .then(data => setLogs(data.records))
-      .catch(err => console.log('fetch error: ', err.message))
+      .catch(err => console.log('fetch error: ', err))
   }, [])
 
   const handleChange = (e) => {
@@ -28,12 +28,12 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: perform checks before POSTing
+    // TODO: perform checks before POST
     postLogRecord(entry)
       .then(res => setLogs([res, ...logs]))
       .catch(err => console.log('error in posting: ', err))
       .finally(console.log('submitted: state of logs is ', logs))
-    setEntry(blankEntry)
+    setEntry(newEntry)
   }
 
   return (

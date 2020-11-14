@@ -2,9 +2,6 @@ import React from 'react';
 import styles from '../styles.tsx'
 
 function ListLogs(props) {
-  // if(!props.logs || props.logs.length < 1)
-  //   return "Loading..."
-  //
   const logs = props.logs
 
   return(
@@ -13,9 +10,9 @@ function ListLogs(props) {
       return (
         <tr key={log.id} style={styles.textLeft}>
           <td>
-            <h2 style={{ color: Type === 'Expense' ? 'red' : 'green' }}>
+            <h3 style={{ color: Type === 'Expense' ? 'red' : 'green' }}>
               { Amount }
-            </h2>
+            </h3>
           </td>
           <td><strong>{ Description }</strong></td>
           <td>{ Category }</td>
