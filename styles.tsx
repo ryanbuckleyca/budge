@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 const Container = styled.View`
   color: white;
   display: flex;
-  padding: 2em;
+  padding: 32px;
   flex-direction: column;
   background-color: #222;
   align-items: center;
@@ -16,7 +16,7 @@ const Menu = styled.View`
   display: flex;
   width: 100%;
   height: 10%;
-  margin-bottom: 2em;
+  margin-bottom: 32px;
   flex-direction: row;
   justify-content: space-between;
 `
@@ -29,7 +29,7 @@ const Icon = styled.Text`
   border: 1px solid black;
   border-radius: 10px;
   font-weight: 900;
-  font-size: 200%;
+  font-size: 32px;
   align-items: center;
   justify-content: center;
 `
@@ -53,13 +53,12 @@ const Input = styled.TextInput`
   height: 15vh;
   background: #444;
   border-radius: 50px;
-  font-size: 250%;
-  padding: 0 1em;
+  font-size: 40px;
+  padding: 0 16px;
   text-align: center;
   color: white;
 `
 const AmountBG = styled.View`
-  display: block;
   position: relative;
   align-items: center;
   height: 15vh;
@@ -74,14 +73,15 @@ const InputSlider = styled(Input)`
   left: 0;
   transition: .3s;
 `
-const PlusMinus = styled.TouchableOpacity`
+const PlusMinus = styled.Text`
   margin: auto;
   height: 100%;
-  float: ${props => props.entry.Type==='Expense' ? 'left' : 'right'};
+  position: absolute;
+  left: ${props => props.entry.Type==='Expense' ? '0' : '80%'};
   color: white;
   width: 20%;
   padding: ${props => props.entry.Type==='Expense' ? '0 2% 0 0' : '0 0 0 2%'};
-  font-size: 200%;
+  font-size: 32px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -96,8 +96,8 @@ const Submit = styled.TouchableOpacity`
   background: green;
   width: 100%;
   height: 15vh;
-  border-radius: .5em;
-  font-size: 200%;
+  border-radius: 8px;
+  font-size: 32px;
 `
 
 export {
