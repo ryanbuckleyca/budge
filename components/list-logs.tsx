@@ -30,6 +30,7 @@ function ListLogs(props) {
                 { Amount }
                 </View>
                 <View heavy>{ Description }</View>
+                {/* TODO: Category is a controlled list */}
                 <View>{ Category }</View>
               </Row>
             </Card>
