@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { getLogRecords, postLogRecord } from './scripts/airtable.tsx'
 // components
 import ListLogs from './components/list-logs.tsx'
-import EntryForm from './components/log-entry-form.tsx'
-import styles from './styles.tsx'
+import EntryForm from './components/entry-form.tsx'
+import {Container, Content, Menu, Icon, Table, Row} from './styles.tsx'
 
 function App() {
   const newEntry = {
@@ -20,13 +20,16 @@ function App() {
       .catch(err => console.log('fetch error: ', err))
   }, [])
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  const handleChange = (e, name) => {
+    e.persist();
+    const { value } = e.target
     entry[name] = name === 'Amount' ? parseFloat(value) : value
+    console.log(name, ' is ', value)
     setEntry({...entry})
   }
 
   const handleSubmit = (e) => {
+    console.log('event is ', e)
     e.preventDefault();
     // TODO: perform checks before POST
     postLogRecord(entry)
@@ -37,31 +40,20 @@ function App() {
   }
 
   return (
-    <View style={ styles.container }>
-      <Text style={styles.h}>
-        { `${ logs && logs.length || 'no' } items in LOG:` }
-      </Text>
-      <View style={styles.w100}>
-        <table style={styles.w100}>
-          <thead style={styles.textLeft}>
-            <tr>
-              <td>AMOUNT</td>
-              <td>DESCRIPTION</td>
-              <td>CATEGORY</td>
-              <td>NOTES</td>
-            </tr>
-          </thead>
-          <tbody>
-          <EntryForm
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            entry={entry} />
-          {logs && (logs.length > 0) && <ListLogs logs={logs} />}
-          </tbody>
-        </table>
-      </View>
+    <Container>
+      <Menu>
+        <Icon><Text>b</Text></Icon>
+        <Icon><Text>u</Text></Icon>
+        <Icon><Text>d</Text></Icon>
+        <Icon><Text>g</Text></Icon>
+        <Icon><Text>e</Text></Icon>
+      </Menu>
+      <Content>
+        <EntryForm handleChange={handleChange} handleSubmit={handleSubmit} entry />
+        {/* <ListLogs logs={logs} /> */}
+      </Content>
       <StatusBar style="auto" />
-    </View>
+    </Container>
   );
 }
 
