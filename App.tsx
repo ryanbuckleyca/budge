@@ -20,16 +20,17 @@ function App() {
       .catch(err => console.log('fetch error: ', err))
   }, [])
 
-  const handleChange = (e, name) => {
-    e.persist();
-    const { value } = e.target
+  useEffect(()=>{
+    console.log('entry state changed to ', entry)
+  }, [entry])
+
+  const handleChange = (name, value) => {
     entry[name] = name === 'Amount' ? parseFloat(value) : value
     console.log(name, ' is ', value)
     setEntry({...entry})
   }
 
   const handleSubmit = (e) => {
-    console.log('event is ', e)
     e.preventDefault();
     // TODO: perform checks before POST
     postLogRecord(entry)
@@ -49,7 +50,12 @@ function App() {
         <Icon><Text>e</Text></Icon>
       </Menu>
       <Content>
-        <EntryForm handleChange={handleChange} handleSubmit={handleSubmit} entry />
+        <EntryForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          setEntry={setEntry}
+          entry={entry}
+        />
         {/* <ListLogs logs={logs} /> */}
       </Content>
       <StatusBar style="auto" />

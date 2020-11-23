@@ -31,6 +31,8 @@ function ListLogs(props) {
                 </View>
                 <View heavy>{ Description }</View>
                 {/* TODO: Category is a controlled list */}
+                {/* Categories should be part of the Budget section */}
+                {/* https://www.npmjs.com/package/react-select2-native */}
                 <View>{ Category }</View>
               </Row>
             </Card>

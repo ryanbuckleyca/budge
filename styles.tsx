@@ -9,7 +9,6 @@ const Container = styled.View`
   background-color: #222;
   align-items: center;
   justify-content: center;
-  border: 1px solid red;
   height: 100vh;
   width: 100vw;
 `
@@ -60,22 +59,33 @@ const Input = styled.TextInput`
   color: white;
 `
 const AmountBG = styled.View`
-  display: flex;
-  flex-direction: ${props => props.entry.Type==='Expense' ? 'row-reverse' : 'row'};
+  display: block;
+  position: relative;
   align-items: center;
-  justify-items: space-around;
   height: 15vh;
   border-radius: 50px;
   text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
   background: ${props => props.entry.Type==='Expense' ? 'red' : 'green'}
+  transition: .3s;
 `
-const PlusMinus = styled.Text`
+const InputSlider = styled(Input)`
+  width: 80%;
+  position: absolute;
+  left: 0;
+  transition: .3s;
+`
+const PlusMinus = styled.TouchableOpacity`
   margin: auto;
+  height: 100%;
+  float: ${props => props.entry.Type==='Expense' ? 'left' : 'right'};
   color: white;
   width: 20%;
-  padding-right: 2%;
+  padding: ${props => props.entry.Type==='Expense' ? '0 2% 0 0' : '0 0 0 2%'};
   font-size: 200%;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center
   text-align: center;
 `
 const Submit = styled.TouchableOpacity`
@@ -98,6 +108,7 @@ export {
   Card,
   Row,
   Input,
+  InputSlider,
   AmountBG,
   Submit,
   PlusMinus
