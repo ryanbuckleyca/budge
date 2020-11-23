@@ -65,13 +65,6 @@ const AmountBG = styled.View`
   border-radius: 50px;
   text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
   background: ${props => props.entry.Type==='Expense' ? 'red' : 'green'}
-  transition: .3s;
-`
-const InputSlider = styled(Input)`
-  width: 80%;
-  position: absolute;
-  left: 0;
-  transition: .3s;
 `
 const PlusMinus = styled.Text`
   margin: auto;
@@ -80,7 +73,7 @@ const PlusMinus = styled.Text`
   left: ${props => props.entry.Type==='Expense' ? '0' : '80%'};
   color: white;
   width: 20%;
-  padding: ${props => props.entry.Type==='Expense' ? '0 2% 0 0' : '0 0 0 2%'};
+  padding: ${props => props.entry.Type==='Expense' ? '0 0 0 2%' : '0 2% 0 0'};
   font-size: 32px;
   font-weight: 700;
   display: flex;
@@ -108,7 +101,6 @@ export {
   Card,
   Row,
   Input,
-  InputSlider,
   AmountBG,
   Submit,
   PlusMinus

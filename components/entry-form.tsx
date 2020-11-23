@@ -1,35 +1,30 @@
-import React from 'react';
-import { Text, View, RadioButton} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import { Animated, Text, View, RadioButton} from 'react-native';
 import SlideView from './slider-view'
-import { Animated, AmountBG, Container, Input,
-         InputSlider, PlusMinus, Row, Submit } from '../styles.tsx'
-
+import { AmountBG, Container, Input,
+         PlusMinus, Row, Submit } from '../styles.tsx'
 
 function EntryForm(props) {
   const { handleChange, handleSubmit, entry, setEntry } = props;
 
+  const fadeIn = new Animated.Value(0);
+  Animated.timing(fadeIn, {
+  	toValue: 1,
+  	duration: 500,
+  }).start()
+
   return(
     <>
-      <View style={{ background: 'white', position: 'relative', height: '15vh' }}>
-        <SlideView style={{ height: '100%', width: '80%', position: 'absolute' }} entry={ entry }>
-          <Input style={{ height: '100%', width: '100%' }} placeholder="SliderView" />
-        </SlideView>
-      </View>
       <AmountBG entry={entry}>
-        <InputSlider
-          style={{left: entry.Type==='Expense'?'20%':'0'}}
-          type="number"
-          placeholder="Amount"
-          value={ entry.Amount }
-          onChange={(e) => handleChange('Amount', e.target.value)}
-        />
-        <PlusMinus
-          entry={entry}
+        <SlideView style={{ height: '100%', width: '80%', position: 'absolute', left: 0 }} entry={ entry }>
+          <Input placeholder="Amount" />
+        </SlideView>
+        <PlusMinus entry={entry}
           onPress={() => entry.Type === 'Expense'
             ? setEntry({...entry, Type: 'Income'})
             : setEntry({...entry, Type: 'Expense'})
         }>
-          {entry.Type==='Expense' ? '-' : '+'}
+          <Animated.Text style={{opacity: fadeIn}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
         </PlusMinus>
       </AmountBG>
       <Input

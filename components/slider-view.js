@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Animated, View } from 'react-native';
+import styled from 'styled-components/native'
+
 
 const SlideView = (props) => {
   const start = props.entry.Type === "Expense" ? 1 : 0
@@ -8,12 +10,12 @@ const SlideView = (props) => {
   Animated.timing(
    slider,
    {
-     toValue: props.entry.Type === "Expense" ? 1 : 0,
+     toValue: start > 0 ? 1 : 0,
      duration: 300
    }
   ).start();
 
-  const transformStyle = {
+  const slideStyle = {
     transform : [{
       translateX : slider.interpolate({
          inputRange: [0, 1],
@@ -23,7 +25,7 @@ const SlideView = (props) => {
   }
 
   return (
-    <Animated.View style={{ ...props.style, ...transformStyle }}>
+    <Animated.View style={{ ...props.style, ...slideStyle }}>
       {props.children}
     </Animated.View>
   );
