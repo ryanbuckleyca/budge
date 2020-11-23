@@ -43,11 +43,11 @@ function App() {
   return (
     <Container>
       <Menu>
-        <Icon><Text>b</Text></Icon>
-        <Icon><Text>u</Text></Icon>
-        <Icon><Text>d</Text></Icon>
-        <Icon><Text>g</Text></Icon>
-        <Icon><Text>e</Text></Icon>
+        <Icon>b</Icon>
+        <Icon>u</Icon>
+        <Icon>d</Icon>
+        <Icon>g</Icon>
+        <Icon>e</Icon>
       </Menu>
       <Content>
         <EntryForm

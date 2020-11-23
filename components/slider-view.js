@@ -11,7 +11,8 @@ const SlideView = (props) => {
    slider,
    {
      toValue: start > 0 ? 1 : 0,
-     duration: 300
+     duration: 300,
+     useNativeDriver: true
    }
   ).start();
 

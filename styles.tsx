@@ -9,8 +9,8 @@ const Container = styled.View`
   background-color: #222;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 `
 const Menu = styled.View`
   display: flex;
@@ -18,19 +18,24 @@ const Menu = styled.View`
   height: 10%;
   margin-bottom: 32px;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `
 const Icon = styled.Text`
   height: 100%;
   color: white;
   display: flex;
-  flex: 1 1 20%;
+  flex: 1;
   background: rgba(251, 251, 251, 0.3);
   border: 1px solid black;
   border-radius: 10px;
+  overflow: hidden;
   font-weight: 900;
+  text-align: center;
   font-size: 32px;
+  line-height: 64px;
   align-items: center;
+  align-self: center;
   justify-content: center;
 `
 const Content = styled.View`
@@ -50,7 +55,8 @@ const Row = styled.View`
 const Input = styled.TextInput`
   border: 1px solid black;
   width: 100%;
-  height: 15vh;
+  height: 18%;
+  overflow: hidden;
   background: #444;
   border-radius: 50px;
   font-size: 40px;
@@ -61,7 +67,7 @@ const Input = styled.TextInput`
 const AmountBG = styled.View`
   position: relative;
   align-items: center;
-  height: 15vh;
+  height: 18%;
   border-radius: 50px;
   text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
   background: ${props => props.entry.Type==='Expense' ? 'red' : 'green'}
@@ -88,7 +94,7 @@ const Submit = styled.TouchableOpacity`
   justify-content: center;
   background: green;
   width: 100%;
-  height: 15vh;
+  height: 18%;
   border-radius: 8px;
   font-size: 32px;
 `

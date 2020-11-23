@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import { Animated, Text, View, RadioButton} from 'react-native';
 import SlideView from './slider-view'
 import { AmountBG, Container, Input,
-         PlusMinus, Row, Submit } from '../styles.tsx'
+         PlusMinus, Submit } from '../styles.tsx'
 
 function EntryForm(props) {
   const { handleChange, handleSubmit, entry, setEntry } = props;
@@ -11,13 +11,14 @@ function EntryForm(props) {
   Animated.timing(fadeIn, {
   	toValue: 1,
   	duration: 500,
+    useNativeDriver: true
   }).start()
 
   return(
     <>
       <AmountBG entry={entry}>
         <SlideView style={{ height: '100%', width: '80%', position: 'absolute', left: 0 }} entry={ entry }>
-          <Input placeholder="Amount" />
+          <Input style={{ height: '100%' }} placeholder="Amount" />
         </SlideView>
         <PlusMinus entry={entry}
           onPress={() => entry.Type === 'Expense'
