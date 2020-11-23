@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Container, Row, Input, InputSlider,
-         AmountBG, Submit, PlusMinus } from '../styles.tsx'
+import React from 'react';
 import { Text, View, RadioButton} from 'react-native';
+import SlideView from './slider-view'
+import { Animated, AmountBG, Container, Input,
+         InputSlider, PlusMinus, Row, Submit } from '../styles.tsx'
 
 
 function EntryForm(props) {
@@ -9,6 +10,11 @@ function EntryForm(props) {
 
   return(
     <>
+      <View style={{ background: 'white', position: 'relative', height: '15vh' }}>
+        <SlideView style={{ height: '100%', width: '80%', position: 'absolute' }} entry={ entry }>
+          <Input style={{ height: '100%', width: '100%' }} placeholder="SliderView" />
+        </SlideView>
+      </View>
       <AmountBG entry={entry}>
         <InputSlider
           style={{left: entry.Type==='Expense'?'20%':'0'}}
