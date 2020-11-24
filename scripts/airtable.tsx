@@ -10,7 +10,10 @@ const callAPI = (table, options) => {
   console.log('calling api with options: ', options)
   return fetch(url+table, options)
     .then(res => res.json())
-    .catch(err => {error: err})
+    .catch(err => {
+      console.log(err)
+      return {error: err}
+    })
 }
 
 const getLogRecords = () => {

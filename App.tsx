@@ -9,7 +9,7 @@ import {Container, Content, Menu, Icon, Table, Row} from './styles.tsx'
 
 function App() {
   const newEntry = {
-    Type: 'Expense', Amount: '', Description: '', Category: '', Notes: ''
+    Type: 'Expense', Amount: '', Description: '', Category: [], Notes: ''
   }
   const [ logs, setLogs ] = useState();
   const [ cats, setCats ] = useState();
@@ -29,7 +29,7 @@ function App() {
   }, [entry])
 
   const handleChange = (name, value) => {
-    entry[name] = name === 'Amount' ? parseFloat(value) : value
+    entry[name] = (name === 'Amount') ? parseFloat(value) : value
     console.log(name, ' is ', value)
     setEntry({...entry})
   }
@@ -43,6 +43,9 @@ function App() {
       .finally(console.log('submitted: state of logs is ', logs))
     setEntry(newEntry)
   }
+
+  console.log('cats are: ', cats)
+  console.log('logs are: ', logs)
 
   return (
     <Container>

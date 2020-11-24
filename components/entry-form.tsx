@@ -16,17 +16,24 @@ function EntryForm(props) {
     useNativeDriver: true
   }).start()
 
-  const renderItem = ({ item }) => (
-      <TouchableOpacity>
-        <Input style={{height:"100%"}} value={item.fields.Category} disabled />
+  const renderItem = ({ item }) => {
+    console.log('item prop in renderItem is ', item)
+    const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
+    return(
+      <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
+        <Input style={{height:"100%", color: color}} value={item.fields.Category} disabled />
       </TouchableOpacity>
-  );
+    )
+  };
 
   return(
     <>
       <AmountBG entry={entry}>
         <SlideView style={{ height: '100%', width: '80%', position: 'absolute', left: 0 }} entry={ entry }>
-          <Input style={{ height: '100%' }} placeholder="Amount" />
+          <Input
+            style={{ height: '100%' }}
+            placeholder="Amount"
+            onChange={(e) => handleChange('Amount', e.target.value)} />
         </SlideView>
         <PlusMinus entry={entry}
           onPress={() => entry.Type === 'Expense'
@@ -36,12 +43,13 @@ function EntryForm(props) {
           <Animated.Text style={{opacity: fadeIn}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
         </PlusMinus>
       </AmountBG>
-      <Text style={{textAlign: 'center', color: 'white'}}>Category:</Text>
+      <Text style={{textAlign: 'center', color: 'white', marginTop: 8}}>Categories: (Edit)</Text>
       <ScrollView style={{height: '15%'}}>
         <FlatList
           height="100%"
           data={props.cats}
           renderItem={renderItem}
+          extraData={props.entry.Category}
           keyExtractor={item => item.id}
         />
       </ScrollView>
