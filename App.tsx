@@ -1,6 +1,6 @@
 import React, {useState, useEffect, Component} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { getLogRecords, postLogRecord, getBudgetRecords } from './scripts/airtable.tsx'
 // components
 import ListLogs from './components/list-logs.tsx'
@@ -50,7 +50,7 @@ function App() {
   return (
     <Container>
       <Menu>
-        <Icon>b</Icon>
+        <Icon><Image source={require('./assets/weekly.png')} style={{width:'100%', height: '100%'}} /></Icon>
         <Icon>u</Icon>
         <Icon>d</Icon>
         <Icon>g</Icon>

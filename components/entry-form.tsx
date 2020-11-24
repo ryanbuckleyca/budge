@@ -21,7 +21,7 @@ function EntryForm(props) {
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
-        <Text style={{height:50, fontSize: 32, textAlign: 'center', color: color}}>{item.fields.Category}</Text>
+        <Text style={{height:60, fontSize: 32, textAlign: 'center', color: color}}>{item.fields.Category}</Text>
       </TouchableOpacity>
     )
   };
@@ -33,6 +33,8 @@ function EntryForm(props) {
           <Input
             style={{ height: '100%', left: entry.Type==='Expense' ? '20%' : '0%' }}
             placeholder="Amount"
+            placeholderTextColor="grey"
+            value={entry.Amount}
             onChange={(e) => handleChange('Amount', e.target.value)} />
         </SlideView>
         <PlusMinus entry={entry}
@@ -43,34 +45,37 @@ function EntryForm(props) {
           <Animated.Text style={{opacity: fadeIn, lineHeight: '100%'}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
         </PlusMinus>
       </AmountBG>
-      <Text style={{textAlign: 'center', color: 'white', marginTop: 8}}>Categories: (Edit)</Text>
-      <FlatList
-        height="15%"
-        data={props.cats}
-        renderItem={renderItem}
-        extraData={props.entry.Category}
-        keyExtractor={item => item.id}
-      />
+      <View style={{flex: 1}}>
+        <Text style={{textAlign: 'center', color: 'white', margin: 16, fontSize: 16}}>Category: (Edit)</Text>
+        <FlatList
+          data={props.cats}
+          renderItem={renderItem}
+          extraData={props.entry.Category}
+          keyExtractor={item => item.id}
+        />
+      </View>
       <Input
-        style={{marginTop: 8, height: '10%'}}
+        style={{marginTop: 8, height: '13%', fontSize: 32}}
         type="text"
         placeholder="Description"
+        placeholderTextColor="grey"
         value={ entry.Description }
         onChange={(e) => handleChange('Description', e.target.value)}
       />
       <Input
-        style={{marginTop: 8, height: '10%'}}
+      style={{marginTop: 8, height: '13%', fontSize: 32}}
         type="text"
         placeholder="Notes"
+        placeholderTextColor="grey"
         value={ entry.Note }
         onChange={(e) => handleChange('Notes', e.target.value)}
       />
       <Submit
-        style={{marginTop: 8, height: '10%'}}
+        style={{marginTop: 8, height: '15%'}}
         onPress={(e) => handleSubmit(e)}
         accessibilityLabel="Submit log"
       >
-        <Text>submit</Text>
+        <Text style={{fontSize: 32, color: 'rgba(255, 255, 255, 0.8)'}}>submit</Text>
       </Submit>
     </>
   )

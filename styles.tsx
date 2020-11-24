@@ -53,13 +53,13 @@ const Row = styled.View`
   justify-content: space-between;
 `
 const Input = styled.TextInput`
-  border: 1px solid black;
+  border: 1px solid rgba(1, 1, 1, .6);
   width: 100%;
   height: 18%;
   overflow: hidden;
-  background: #444;
+  background: #282828;
   border-radius: 50px;
-  font-size: 40px;
+  font-size: 36px;
   padding: 0 16px;
   text-align: center;
   color: white;
@@ -69,7 +69,7 @@ const AmountBG = styled.View`
   height: 18%;
   border-radius: 50px;
   text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
-  background: ${props => props.entry.Type==='Expense' ? 'red' : 'green'}
+  background: ${props => props.entry.Type==='Expense' ? '#7C5454' : '#455E52'}
 `
 const PlusMinus = styled.Text`
   margin: auto;
@@ -94,10 +94,11 @@ const Submit = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: green;
+  background: #507272;
+  color: #2C4E3D;
   width: 100%;
-  height: 18%;
-  border-radius: 8px;
+  height: 20%;
+  border-radius: 50px;
   font-size: 32px;
 `
 
