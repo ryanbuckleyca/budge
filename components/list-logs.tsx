@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Row, Card } from '../styles.tsx'
 import { Text, View } from 'react-native';
 
-
 function ListLogs(props) {
   const logs = props.logs
 

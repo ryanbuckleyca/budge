@@ -1,7 +1,7 @@
 import React, {useState, useEffect, Component} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
-import { getLogRecords, postLogRecord } from './scripts/airtable.tsx'
+import { getLogRecords, postLogRecord, getBudgetRecords } from './scripts/airtable.tsx'
 // components
 import ListLogs from './components/list-logs.tsx'
 import EntryForm from './components/entry-form.tsx'
@@ -12,12 +12,16 @@ function App() {
     Type: 'Expense', Amount: '', Description: '', Category: '', Notes: ''
   }
   const [ logs, setLogs ] = useState();
+  const [ cats, setCats ] = useState();
   const [ entry, setEntry ] = useState(newEntry);
 
   useEffect(() => {
     getLogRecords()
       .then(data => setLogs(data.records))
-      .catch(err => console.log('fetch error: ', err))
+      .catch(err => console.log('fetch log error: ', err))
+    getBudgetRecords()
+      .then(data => setCats(data.records))
+      .catch(err => console.log('fetch cats error: ', err))
   }, [])
 
   useEffect(()=>{
@@ -55,6 +59,7 @@ function App() {
           handleSubmit={handleSubmit}
           setEntry={setEntry}
           entry={entry}
+          cats={cats}
         />
         {/* <ListLogs logs={logs} /> */}
       </Content>
