@@ -40,7 +40,7 @@ function EntryForm(props) {
             ? setEntry({...entry, Type: 'Income'})
             : setEntry({...entry, Type: 'Expense'})
         }>
-          <Animated.Text style={{opacity: fadeIn}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
+          <Animated.Text style={{opacity: fadeIn, lineHeight: '100%'}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
         </PlusMinus>
       </AmountBG>
       <Text style={{textAlign: 'center', color: 'white', marginTop: 8}}>Categories: (Edit)</Text>

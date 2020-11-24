@@ -75,17 +75,19 @@ const PlusMinus = styled.Text`
   margin: auto;
   height: 100%;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  align-content: center;
   left: ${props => props.entry.Type==='Expense' ? '0' : '80%'};
   color: white;
   width: 20%;
   padding: ${props => props.entry.Type==='Expense' ? '0 0 0 2%' : '0 2% 0 0'};
   font-size: 32px;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center
   text-align: center;
-  line-height: 64px;
 `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;
