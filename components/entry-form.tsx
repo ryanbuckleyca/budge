@@ -21,7 +21,7 @@ function EntryForm(props) {
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
-        <Input style={{height:"100%", color: color}} value={item.fields.Category} disabled />
+        <Text style={{height:50, fontSize: 32, textAlign: 'center', color: color}}>{item.fields.Category}</Text>
       </TouchableOpacity>
     )
   };
@@ -31,7 +31,7 @@ function EntryForm(props) {
       <AmountBG entry={entry}>
         <SlideView style={{ height: '100%', width: '80%', position: 'absolute', left: 0 }} entry={ entry }>
           <Input
-            style={{ height: '100%' }}
+            style={{ height: '100%', left: entry.Type==='Expense' ? '20%' : '0%' }}
             placeholder="Amount"
             onChange={(e) => handleChange('Amount', e.target.value)} />
         </SlideView>
@@ -44,15 +44,13 @@ function EntryForm(props) {
         </PlusMinus>
       </AmountBG>
       <Text style={{textAlign: 'center', color: 'white', marginTop: 8}}>Categories: (Edit)</Text>
-      <ScrollView style={{height: '15%'}}>
-        <FlatList
-          height="100%"
-          data={props.cats}
-          renderItem={renderItem}
-          extraData={props.entry.Category}
-          keyExtractor={item => item.id}
-        />
-      </ScrollView>
+      <FlatList
+        height="15%"
+        data={props.cats}
+        renderItem={renderItem}
+        extraData={props.entry.Category}
+        keyExtractor={item => item.id}
+      />
       <Input
         style={{marginTop: 8, height: '10%'}}
         type="text"

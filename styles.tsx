@@ -66,7 +66,6 @@ const Input = styled.TextInput`
 `
 const AmountBG = styled.View`
   position: relative;
-  align-items: center;
   height: 18%;
   border-radius: 50px;
   text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
@@ -86,6 +85,7 @@ const PlusMinus = styled.Text`
   align-items: center;
   justify-content: center
   text-align: center;
+  line-height: 64px;
 `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;
