@@ -26,14 +26,12 @@ const Icon = styled.Text`
   color: white;
   display: flex;
   flex: 1;
-  background: rgba(251, 251, 251, 0.3);
-  border: 1px solid black;
-  border-radius: 10px;
+  padding: 5px;
   overflow: hidden;
   font-weight: 900;
   text-align: center;
   font-size: 32px;
-  line-height: 64px;
+  line-height: 100%;
   align-items: center;
   align-self: center;
   justify-content: center;
