@@ -26,7 +26,8 @@ const Icon = styled.Text`
   color: white;
   display: flex;
   flex: 1;
-  padding: 5px;
+  margin: 0 5px;
+  padding: 5px 0;
   overflow: hidden;
   font-weight: 900;
   text-align: center;

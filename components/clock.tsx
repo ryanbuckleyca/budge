@@ -12,11 +12,11 @@ export default class Clock extends Component {
   }
 
   _timer = 0;
-  _ticker = null;
+  _ticker = 0;
 
   componentDidMount() {
     const current = dayjs();
-    const diff = current.endOf('day').diff(current, 'seconds');
+    const diff = current.endOf('day').diff(current, 'second');
     const oneDay = 24 * 60 * 60;
 
     this._timer = oneDay - diff;
@@ -33,7 +33,7 @@ export default class Clock extends Component {
 
   componentWillUnmount() {
     clearInterval(this._ticker);
-    this._ticker = null;
+    this._ticker = 0;
   }
 
   _animate = () => {

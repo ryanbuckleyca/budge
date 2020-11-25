@@ -1,10 +1,11 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { getLogRecords, postLogRecord, getBudgetRecords } from './scripts/airtable.tsx'
 // components
 import ListLogs from './components/list-logs.tsx'
-import Clock from './components/clock.js'
+import Clock from './components/clock.tsx'
+import Cal from './components/cal.tsx'
 import EntryForm from './components/entry-form.tsx'
 import {Container, Content, Menu, Icon, Table, Row} from './styles.tsx'
 
@@ -52,9 +53,9 @@ function App() {
     <Container>
       <Menu>
         <Icon><Clock /></Icon>
-        <Icon><Image source={require('./assets/weekly.png')} style={{width:'100%', height: '100%'}} /></Icon>
-        <Icon><Image source={require('./assets/monthly.png')} style={{width:'100%', height: '100%'}} /></Icon>
-        <Icon><Image source={require('./assets/yearly.png')} style={{width:'100%', height: '100%'}} /></Icon>
+        <Icon><Cal type='week' /></Icon>
+        <Icon><Cal type='month' /></Icon>
+        <Icon><Cal type='year' /></Icon>
         <Icon><View style={{width: '100%', height: '100%', border: '10px solid #507272', borderRadius: '50%'}} /></Icon>
       </Menu>
       <Content>

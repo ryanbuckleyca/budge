@@ -1,8 +1,7 @@
-import React, {useRef, useEffect} from 'react';
-import { Animated, Item, Text, View, RadioButton, FlatList, ScrollView, TouchableOpacity} from 'react-native';
-import SlideView from './slider-view'
-import { AmountBG, Container, Input,
-         PlusMinus, Submit } from '../styles.tsx'
+import React from 'react';
+import { Animated, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import SlideView from './slider-view.tsx'
+import { AmountBG, Input, PlusMinus, Submit } from '../styles.tsx'
 
 function EntryForm(props) {
   const { handleChange, handleSubmit, entry, setEntry } = props;
@@ -17,7 +16,6 @@ function EntryForm(props) {
   }).start()
 
   const renderItem = ({ item }) => {
-    console.log('item prop in renderItem is ', item)
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
