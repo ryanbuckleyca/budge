@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Image } from 'react-native';
-import { getLogRecords, postLogRecord, getBudgetRecords } from './scripts/airtable.tsx'
+import { getLogRecords, postLogRecord, getBudgetRecords } from './scripts/airtable'
 // components
-import ListLogs from './components/list-logs.tsx'
-import Clock from './components/clock.tsx'
-import Cal from './components/cal.tsx'
-import EntryForm from './components/entry-form.tsx'
-import {Container, Content, Menu, Icon, Table, Row} from './styles.tsx'
+import ListLogs from './components/list-logs'
+import { PieChart } from 'react-minimal-pie-chart';
+import Clock from './components/clock'
+import Cal from './components/cal'
+import EntryForm from './components/entry-form'
+import {Container, Content, Menu, Icon, Row} from './styles'
 
 function App() {
   const newEntry = {
@@ -30,7 +31,7 @@ function App() {
     console.log('entry state changed to ', entry)
   }, [entry])
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: string, value: string) => {
     entry[name] = (name === 'Amount') ? parseFloat(value) : value
     console.log(name, ' is ', value)
     setEntry({...entry})
@@ -56,7 +57,20 @@ function App() {
         <Icon><Cal type='week' /></Icon>
         <Icon><Cal type='month' /></Icon>
         <Icon><Cal type='year' /></Icon>
-        <Icon><View style={{width: '100%', height: '100%', border: '10px solid #507272', borderRadius: '50%'}} /></Icon>
+        <Icon>
+          <PieChart 
+            data={[{ value: 82, color: '#92727D' }]}
+            totalValue={100}
+            lineWidth={20}
+            rounded
+            label={({ dataEntry }) => `${dataEntry.value}%`}
+            labelStyle={{
+              fontSize: '28px',
+              fontFamily: 'sans-serif',
+              fill: '#92727D',
+            }}
+            labelPosition={0}          />
+        </Icon>
       </Menu>
       <Content>
         <EntryForm

@@ -43,8 +43,8 @@ function EntryForm(props) {
           <Animated.Text style={{opacity: fadeIn, lineHeight: '100%'}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
         </PlusMinus>
       </AmountBG>
-      <View style={{flex: 1}}>
-        <Text style={{textAlign: 'center', color: 'white', margin: 16, fontSize: 16}}>Category: (Edit)</Text>
+      <View style={{flex: 1, backgroundColor: '#292929', marginTop: 8, borderRadius: 25 }}>
+        <Text style={{textAlign: 'center', color: 'grey', textDecoration: 'underline', fontSize: 16, margin: 8}}>Category: (Edit)</Text>
         <FlatList
           data={props.cats}
           renderItem={renderItem}

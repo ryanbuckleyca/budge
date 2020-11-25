@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { JSXElementConstructor } from 'react';
 import { View, ImageBackground, Text, StyleSheet } from 'react-native';
 
-export default function Cal(props) {
+export default function Cal(props: { type: string }) {
   const bg = require('../assets/cal.png')
   const d = new Date();
 
@@ -29,7 +29,7 @@ export default function Cal(props) {
       <Text style={[styles.textMd]}>
         { d.getFullYear() }
       </Text>
-  }
+  } 
 
   return(
     <View style={styles.fill}>
