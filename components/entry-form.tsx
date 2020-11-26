@@ -13,7 +13,10 @@ function BottomElements(props) {
     cats
   } = props;
 
+  console.log('entry in bottomelements is ', entry)
+
   const renderItem = ({ item }) => {
+    console.log('entry state in renderItem is ', props.entry)
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
@@ -28,7 +31,7 @@ function BottomElements(props) {
       <FlatList
         data={cats}
         renderItem={renderItem}
-        extraData={entry.Category}
+        extraData={entry}
         keyExtractor={item => item.id}
       />
     </View>
@@ -68,8 +71,6 @@ function EntryForm(props) {
     showNumPad,
     setShowNumPad
   } = props;
-
-  console.log('cats: ', props.cats)
 
   const fadeIn = new Animated.Value(0);
   Animated.timing(fadeIn, {

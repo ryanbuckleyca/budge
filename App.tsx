@@ -30,6 +30,7 @@ function App() {
   }, [entry])
 
   const handleChange = (name: string, value: string) => {
+    console.log('state of entry WAS: ', entry)
     entry[name] = (name === 'Amount') ? parseFloat(value) : value
     console.log(name, ' is ', value)
     setEntry({...entry})
@@ -44,9 +45,6 @@ function App() {
       .finally(console.log('submitted: state of logs is ', logs))
     setEntry(newEntry)
   }
-
-  console.log('cats are: ', cats)
-  console.log('logs are: ', logs)
 
   return (
     <Container>

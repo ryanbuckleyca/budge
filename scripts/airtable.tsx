@@ -6,32 +6,30 @@ const filterBUDGET = 'filterByFormula=NOT(Right(%7BCategory%7D%2C+1)+%3D+%22%3D%
 const url = `https://api.airtable.com/v0/appA67zYW50gE6q8E/`
 const headers = { Authorization: `Bearer ${AIRTABLE_ID}` }
 
-const callAPI = (table, options) => {
-  console.log('calling api with options: ', options)
-  return fetch(url+table, options)
+const callAPI = (table, options) => (
+  fetch(url+table, options)
     .then(res => res.json())
     .catch(err => {
       console.log(err)
       return {error: err}
     })
-}
+)
 
-const getLogRecords = () => {
-  return callAPI('LOG?'+sortLOGS, {
+const getLogRecords = () => (
+  callAPI('LOG?'+sortLOGS, {
     method: 'GET',
     headers: headers
   })
-}
+)
 
-const getBudgetRecords = () => {
-  return callAPI('Budget?'+sortBUDGET+'&'+filterBUDGET, {
+const getBudgetRecords = () => (
+  callAPI('Budget?'+sortBUDGET+'&'+filterBUDGET, {
     method: 'GET',
     headers: headers
   })
-}
+)
 
 const postLogRecord = (fields) => {
-  console.log('will process fields: ', fields)
   headers['Content-Type'] = 'application/json'
   return callAPI('LOG', {
     method: 'POST',

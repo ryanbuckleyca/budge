@@ -6,11 +6,10 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function NumPad(props) {
   const {entry, setEntry, showNumPad, setShowNumPad} = props
-  console.log('props in NumPad is ', props)
   const buttons = [
     1, 2, 3, 4, 5, 6, 7, 8, 9,
     <MaterialIcons name="keyboard-backspace" size={24} />,
-    0, <MaterialIcons name="check" size={24} />,
+    0, <MaterialIcons name="check" size={24} style={{color:'#507272'}} />,
   ]
 
   const OnPress = (item, index) => {
