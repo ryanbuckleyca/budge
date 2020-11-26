@@ -12,31 +12,6 @@ const Container = styled.View`
   height: 100%;
   width: 100%;
 `
-const Menu = styled.View`
-  display: flex;
-  width: 100%;
-  height: 10%;
-  margin-bottom: 32px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-const Icon = styled.Text`
-  height: 100%;
-  color: white;
-  display: flex;
-  flex: 1;
-  margin: 0 5px;
-  padding: 5px 0;
-  overflow: hidden;
-  font-weight: 900;
-  text-align: center;
-  font-size: 32px;
-  line-height: 100%;
-  align-items: center;
-  align-self: center;
-  justify-content: center;
-`
 const Content = styled.View`
   flex: 1;
   width: 100%;
@@ -51,65 +26,10 @@ const Row = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `
-const Input = styled.TextInput`
-  border: 1px solid rgba(1, 1, 1, .6);
-  width: 100%;
-  height: 18%;
-  overflow: hidden;
-  background: #282828;
-  border-radius: 50px;
-  font-size: 36px;
-  padding: 0 16px;
-  text-align: center;
-  color: white;
-`
-const AmountBG = styled.View`
-  position: relative;
-  height: 18%;
-  border-radius: 50px;
-  text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
-  background: ${props => props.entry.Type==='Expense' ? '#7C5454' : '#455E52'}
-`
-const PlusMinus = styled.Text`
-  margin: auto;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  bottom: 0;
-  align-content: center;
-  left: ${props => props.entry.Type==='Expense' ? '0' : '80%'};
-  color: white;
-  width: 20%;
-  padding: ${props => props.entry.Type==='Expense' ? '0 0 0 2%' : '0 2% 0 0'};
-  font-size: 32px;
-  font-weight: 700;
-  text-align: center;
-`
-const Submit = styled.TouchableOpacity`
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #507272;
-  color: #2C4E3D;
-  width: 100%;
-  height: 20%;
-  border-radius: 50px;
-  font-size: 32px;
-`
 
 export {
   Container,
   Content,
-  Menu,
-  Icon,
   Card,
-  Row,
-  Input,
-  AmountBG,
-  Submit,
-  PlusMinus
+  Row
 };

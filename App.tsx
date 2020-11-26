@@ -1,14 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Image } from 'react-native';
 import { getLogRecords, postLogRecord, getBudgetRecords } from './scripts/airtable'
 // components
+import Menu from './components/menu'
 import ListLogs from './components/list-logs'
-import { PieChart } from 'react-minimal-pie-chart';
-import Clock from './components/clock'
-import Cal from './components/cal'
 import EntryForm from './components/entry-form'
-import {Container, Content, Menu, Icon, Row} from './styles'
+import {Container, Content} from './styles'
 
 function App() {
   const newEntry = {
@@ -17,6 +14,7 @@ function App() {
   const [ logs, setLogs ] = useState();
   const [ cats, setCats ] = useState();
   const [ entry, setEntry ] = useState(newEntry);
+  const [ showNumPad, setShowNumPad ] = useState(true);
 
   useEffect(() => {
     getLogRecords()
@@ -52,32 +50,15 @@ function App() {
 
   return (
     <Container>
-      <Menu>
-        <Icon><Clock /></Icon>
-        <Icon><Cal type='week' /></Icon>
-        <Icon><Cal type='month' /></Icon>
-        <Icon><Cal type='year' /></Icon>
-        <Icon>
-          <PieChart 
-            data={[{ value: 82, color: '#92727D' }]}
-            totalValue={100}
-            lineWidth={20}
-            rounded
-            label={({ dataEntry }) => `${dataEntry.value}%`}
-            labelStyle={{
-              fontSize: '28px',
-              fontFamily: 'sans-serif',
-              fill: '#92727D',
-            }}
-            labelPosition={0}          />
-        </Icon>
-      </Menu>
+      <Menu />
       <Content>
         <EntryForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           setEntry={setEntry}
           entry={entry}
+          setShowNumPad={setShowNumPad}
+          showNumPad={showNumPad}
           cats={cats}
         />
       {/*

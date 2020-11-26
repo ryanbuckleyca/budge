@@ -88,8 +88,8 @@ export default class Clock extends Component {
 const styles = StyleSheet.create({
   container: {
     borderRadius: '50%',
-    width: '100%',
-    height: '100%',
+    width: '60px',
+    height: '60px',
     margin: 'auto 0',
     background: 'none',
     border: '4px solid white',
