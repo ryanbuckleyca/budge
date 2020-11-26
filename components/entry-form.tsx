@@ -16,7 +16,6 @@ function BottomElements(props) {
   console.log('entry in bottomelements is ', entry)
 
   const renderItem = ({ item }) => {
-    console.log('entry state in renderItem is ', props.entry)
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
@@ -26,7 +25,7 @@ function BottomElements(props) {
   };
 
   return(showNumPad ? null : <>
-    <View style={{flex: 1, backgroundColor: '#292929', marginTop: 8, borderRadius: 25 }}>
+    <Categories>
       <CategoryHeader>Category: (Edit)</CategoryHeader>
       <FlatList
         data={cats}
@@ -34,7 +33,7 @@ function BottomElements(props) {
         extraData={entry}
         keyExtractor={item => item.id}
       />
-    </View>
+    </Categories>
     <Input
       style={{marginTop: 8, height: '13%', fontSize: 32}}
       type="text"
@@ -48,7 +47,7 @@ function BottomElements(props) {
       type="text"
       placeholder="Notes"
       placeholderTextColor="grey"
-      value={ entry.Note }
+      value={ entry.Notes }
       onChange={(e) => handleChange('Notes', e.target.value)}
     />
     <Submit
@@ -95,7 +94,9 @@ function EntryForm(props) {
             ? setEntry({...entry, Type: 'Income'})
             : setEntry({...entry, Type: 'Expense'})
         }>
-          <Animated.Text style={{opacity: fadeIn, lineHeight: '100%'}}>{entry.Type==='Expense' ? '-' : '+'}</Animated.Text>
+          <Animated.Text style={{opacity: fadeIn, lineHeight: '100%'}}>
+            {entry.Type==='Expense' ? '-' : '+'}
+          </Animated.Text>
         </PlusMinus>
       </AmountBG>
 
@@ -123,6 +124,12 @@ const AmountBG = styled.View`
   border-radius: 50px;
   text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
   background: ${props => props.entry.Type==='Expense' ? '#7C5454' : '#455E52'}
+`
+const Categories = styled.View`
+  flex: 1;
+  background-color: #292929;
+  margin-top: 8px;
+  border-radius: 25px;
 `
 const CategoryHeader = styled.Text`
   text-align: center;

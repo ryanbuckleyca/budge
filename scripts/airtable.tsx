@@ -29,12 +29,14 @@ const getBudgetRecords = () => (
   })
 )
 
-const postLogRecord = (fields) => {
+const postLogRecord = (fields: object) => {
+  console.log('will try to save fields: ', fields)
+  fields.Amount = parseInt(fields.Amount)
   headers['Content-Type'] = 'application/json'
   return callAPI('LOG', {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ "fields": fields })
+    body: JSON.stringify({"fields":fields})
   })
 }
 
