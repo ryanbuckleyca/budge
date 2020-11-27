@@ -72,7 +72,7 @@ function App() {
           cats={cats}
         />
       {/*
-         <ListLogs logs={logs} />
+        <ListLogs logs={logs} />
       */}
       </Content>
       <StatusBar style="auto" />
