@@ -19,21 +19,28 @@ function App() {
 
   useEffect(() => {
     getLogRecords()
-      .then(data => setLogs(data.records))
+      .then(data => {
+        setLogs(data.records)
+        localStorage.setItem("logs", JSON.stringify(data.records))
+      })
       .catch(err => console.log('fetch log error: ', err))
     getBudgetRecords()
-      .then(data => setCats(data.records))
+      .then(data => {
+        setCats(data.records)
+        localStorage.setItem("cats", JSON.stringify(data.records))
+      })
       .catch(err => console.log('fetch cats error: ', err))
-  }, [])
+  }, []) //first render
 
   useEffect(()=>{
-    console.log('entry state changed to ', entry)
-  }, [entry])
+    localStorage.setItem("entry", JSON.stringify(entry))
+    console.log('logs from localStorage: ', localStorage.getItem("logs"))
+  }, [entry]) //only when entry changes
 
   const handleChange = (name: string, value: string) => {
     console.log('state of entry WAS: ', entry)
     entry[name] = (name === 'Amount') ? parseFloat(value) : value
-    console.log(name, ' is ', value)
+    console.log(name, ' is ', value) 
     setEntry({...entry})
   }
 
@@ -41,10 +48,14 @@ function App() {
     e.preventDefault();
     // TODO: perform checks before POST
     postLogRecord({...entry, Amount: parseInt(entry.Amount)})
-      .then(res => setLogs([res, ...logs]))
+      .then(res => {
+        setLogs([res, ...logs])
+        // TODO: update localStorage too
+      })
       .catch(err => console.log('error in posting: ', err))
       .finally(() => console.log('submitted: state of logs is ', logs))
     setEntry(newEntry)
+    
   }
 
   return (
