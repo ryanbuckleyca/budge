@@ -177,6 +177,7 @@ const PlusMinus = styled.Text<Obj>`
   font-size: 32px;
   font-weight: 700;
   text-align: center;
+  line-height: 108px;
 `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, Text, StyleSheet } from 'react-native';
+import { ImageBackground } from 'react-native';
 import {Obj, DMY} from '../interfaces/'
 import styled from 'styled-components/native';
 
@@ -14,7 +14,7 @@ export default function Cal(props: Obj) {
         <TextCenter size={12} style={{opacity: 0.8}}>
           {new Date(d.getTime() - 864e5).getDate()}
         </TextCenter>
-        <TextCenter size={18} style={{padding: '0 5px'}}>
+        <TextCenter size={18} style={{paddingLeft: 5, paddingRight: 5}}>
           {d.getDate()}
         </TextCenter>
           <TextCenter size={12} style={{opacity: 0.8}}>
@@ -29,8 +29,8 @@ export default function Cal(props: Obj) {
         }
       </TextCenter>,
     year:
-      <TextCenter size={18} style={{padding: '0 5px'}}>
-        { d.getFullYear() }
+    <TextCenter size={18} style={{paddingLeft: 5, paddingRight: 5}}>
+    { d.getFullYear() }
       </TextCenter>
   } 
 

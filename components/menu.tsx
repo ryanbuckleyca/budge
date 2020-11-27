@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
 import { PieChart } from 'react-minimal-pie-chart';
 import Clock from './clock'
 import Cal from './cal'

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+import {Obj} from '../interfaces/'
 import { MaterialIcons } from "@expo/vector-icons";
 const windowWidth = Dimensions.get('window').width;
 
-export default function NumPad(props) {
+export default function NumPad(props:Obj) {
   const {entry, setEntry, showNumPad, setShowNumPad} = props
   const buttons = [
     1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -12,7 +13,7 @@ export default function NumPad(props) {
     0, <MaterialIcons name="check" size={24} style={{color:'#507272'}} />,
   ]
 
-  const OnPress = (item, index) => {
+  const OnPress = (item:any, index:number) => {
     if(index === 9)
      setEntry({
        ...entry, 
