@@ -1,72 +1,64 @@
-import React, { JSXElementConstructor } from 'react';
+import React from 'react';
 import { View, ImageBackground, Text, StyleSheet } from 'react-native';
+import {Obj, DMY} from '../interfaces/'
+import styled from 'styled-components/native';
 
-export default function Cal(props: { type: string }) {
+
+export default function Cal(props: Obj) {
   const bg = require('../assets/cal.png')
   const d = new Date();
 
-  const date = {
+  const date:DMY = {
     week:
       <>
-        <Text style={styles.textSm}>
+        <TextCenter size={12} style={{opacity: 0.8}}>
           {new Date(d.getTime() - 864e5).getDate()}
-        </Text>
-        <Text style={styles.textMd}>
+        </TextCenter>
+        <TextCenter size={18} style={{padding: '0 5px'}}>
           {d.getDate()}
-        </Text>
-          <Text style={styles.textSm}>
+        </TextCenter>
+          <TextCenter size={12} style={{opacity: 0.8}}>
           {new Date(d.getTime() + 864e5).getDate()}
-        </Text>
+        </TextCenter>
       </>,
     month:
-      <Text style={styles.textLg}>
+      <TextCenter size={20}>
         {
           d.toLocaleString('US', { month: 'short' })
           .toUpperCase()
         }
-      </Text>,
+      </TextCenter>,
     year:
-      <Text style={[styles.textMd]}>
+      <TextCenter size={18} style={{padding: '0 5px'}}>
         { d.getFullYear() }
-      </Text>
+      </TextCenter>
   } 
 
   return(
-    <View style={styles.fill}>
-      <ImageBackground source={bg} style={styles.fill}>
-        <View style={[styles.row, styles.fill]}>
+    <Block>
+      <ImageBackground source={bg} style={{height: 60}}>
+        <Row>
           { date[props.type] }
-        </View>
+        </Row>
       </ImageBackground>
-    </View>
+    </Block>
   )
 }
 
-const styles = StyleSheet.create({
-  fill: {
-    overflow: 'hidden',
-    width: '60px', 
-    height: '60px'
-  },
-  row: {
-    display: 'flex', 
-    flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'center',
-    marginTop: '8%'
-  },
-  textSm: {
-    fontSize: 12,
-    alignSelf: 'center',
-    opacity: 0.8
-  },
-  textMd: {
-    fontSize: 18,
-    alignSelf: 'center',
-    paddingHorizontal: 5
-  },
-  textLg: {
-    fontSize: 20,
-    alignSelf: 'center'
-  }
-})
+const Block = styled.View`
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+`
+const Row = styled(Block)`
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  margin-top: 8px;
+`
+const TextCenter = styled.Text<Obj>`
+  font-size: ${(props: Obj) => props.size}px;
+  align-self: center;
+  color: white;
+`

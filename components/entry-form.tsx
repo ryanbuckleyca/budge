@@ -1,10 +1,13 @@
 import React from 'react';
-import { Animated, Text, View, FlatList, TouchableOpacity} from 'react-native';
-import SlideView from './slider-view.tsx'
+import { Animated, Text, FlatList, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native';
 import styled from 'styled-components/native';
+import {Obj} from '../interfaces/'
+// @ts-ignore -- remove .tsx before compiling
 import NumPad from './numpad.tsx'
+// @ts-ignore -- remove .tsx before compiling
+import SlideView from './slider-view.tsx'
 
-function BottomElements(props) {
+function BottomElements(props:Obj) {
   const { 
     handleChange, 
     handleSubmit, 
@@ -15,7 +18,7 @@ function BottomElements(props) {
 
   console.log('entry in bottomelements is ', entry)
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: { item: Obj }) => {
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
@@ -36,19 +39,17 @@ function BottomElements(props) {
     </Categories>
     <Input
       style={{marginTop: 8, height: '13%', fontSize: 32}}
-      type="text"
       placeholder="Description"
       placeholderTextColor="grey"
       value={ entry.Description }
-      onChange={(e) => handleChange('Description', e.target.value)}
+      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Description', e.nativeEvent.text)}
     />
     <Input
     style={{marginTop: 8, height: '13%', fontSize: 32}}
-      type="text"
       placeholder="Notes"
       placeholderTextColor="grey"
       value={ entry.Notes }
-      onChange={(e) => handleChange('Notes', e.target.value)}
+      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Notes', e.nativeEvent.text)}
     />
     <Submit
       style={{marginTop: 8, height: '15%'}}
@@ -60,7 +61,7 @@ function BottomElements(props) {
   </>)
 }
 
-function EntryForm(props) {
+function EntryForm(props:Obj) {
   const { 
     handleChange, 
     handleSubmit, 
@@ -87,14 +88,18 @@ function EntryForm(props) {
             placeholder="Amount"
             placeholderTextColor="grey"
             value={entry.Amount}
-            onChange={(e) => handleChange('Amount', e.target.value)} />
+            onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Amount', e.nativeEvent.text)}
+          />
         </SlideView>
-        <PlusMinus entry={entry}
-          onPress={() => entry.Type === 'Expense'
+        <PlusMinus 
+          entry={entry}
+          onPress={
+            () => entry.Type === 'Expense'
             ? setEntry({...entry, Type: 'Income'})
             : setEntry({...entry, Type: 'Expense'})
-        }>
-          <Animated.Text style={{opacity: fadeIn, lineHeight: '100%'}}>
+          }
+        >
+          <Animated.Text style={{opacity: fadeIn}}>
             {entry.Type==='Expense' ? '-' : '+'}
           </Animated.Text>
         </PlusMinus>
@@ -118,12 +123,12 @@ function EntryForm(props) {
   )
 }
 
-const AmountBG = styled.View`
+const AmountBG = styled.View<Obj>`
   position: relative;
   height: 18%;
   border-radius: 50px;
-  text-align: ${props => props.entry.Type==='Expense' ? 'left' : 'right'}
-  background: ${props => props.entry.Type==='Expense' ? '#7C5454' : '#455E52'}
+  text-align: ${(props: Obj) => props.entry.Type==='Expense' ? 'left' : 'right'}
+  background: ${(props: Obj) => props.entry.Type==='Expense' ? '#7C5454' : '#455E52'}
 `
 const Categories = styled.View`
   flex: 1;
@@ -137,7 +142,7 @@ const CategoryHeader = styled.Text`
   font-size: 16px;
   margin: 8px;
 `
-const CatText = styled.Text`
+const CatText = styled.Text<Obj>`
   height: 60px;
   font-size: 32px;
   text-align: center;
@@ -155,7 +160,7 @@ const Input = styled.TextInput`
   text-align: center;
   color: white;
 `
-const PlusMinus = styled.Text`
+const PlusMinus = styled.Text<Obj>`
   margin: auto;
   height: 100%;
   position: absolute;

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { Animated, View } from 'react-native';
+import React, { useRef } from 'react';
+import { Animated } from 'react-native';
 
 const SlideView = (props) => {
   const start = props.entry.Type === "Expense" ? 1 : 0

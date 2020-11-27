@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { MaterialIcons } from "@expo/vector-icons";
 const windowWidth = Dimensions.get('window').width;
@@ -56,9 +56,9 @@ const KeyPad = styled.View`
 `;
 
 const Number = styled.TouchableOpacity`
-  width: ${windowWidth / 4.5};
-  height: ${windowWidth / 4.5};
-  border-radius: ${windowWidth / 9};
+  width: ${windowWidth / 4.5}px;
+  height: ${windowWidth / 4.5}px;
+  border-radius: ${windowWidth / 9}px;
   align-items: center;
   justify-content: center;
   margin: 8px;
@@ -68,5 +68,5 @@ const Number = styled.TouchableOpacity`
 const Key = styled.Text`
   font-weight: 500;
   color: #ffffff80;
-  font-size: ${windowWidth / 12};
+  font-size: ${windowWidth / 12}px;
 `;

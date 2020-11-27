@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { Text } from 'react-native';
 import { PieChart } from 'react-minimal-pie-chart';
 import Clock from './clock'
 import Cal from './cal'
@@ -12,19 +13,19 @@ export default function Menu() {
       <Icon><Cal type='month' /></Icon>
       <Icon><Cal type='year' /></Icon>
       <Icon>
-        <PieChart 
+        {/* <PieChart 
           data={[{ value: 82, color: '#92727D' }]}
           totalValue={100}
           lineWidth={20}
           rounded
-          label={({ dataEntry }) => `${dataEntry.value}%`}
+          label={({ dataEntry }) => <Text>`${dataEntry.value}%`</Text>}
           labelStyle={{
             fontSize: '28px',
             fontFamily: 'sans-serif',
             fill: '#92727D',
           }}
           labelPosition={0}          
-        />
+        /> */}
       </Icon>
     </Row>
   )
@@ -33,7 +34,7 @@ export default function Menu() {
 const Row = styled.View`
   display: flex;
   width: 100%;
-  height: 10%;
+  height: 70px;
   margin-bottom: 32px;
   flex-direction: row;
   align-items: center;
@@ -49,8 +50,8 @@ const Icon = styled.Text`
   font-weight: 900;
   text-align: center;
   font-size: 32px;
-  line-height: 100%;
   align-items: center;
   align-self: center;
+  line-height: 70px;
   justify-content: center;
 `

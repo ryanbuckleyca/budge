@@ -6,14 +6,15 @@ import Menu from './components/menu'
 import ListLogs from './components/list-logs'
 import EntryForm from './components/entry-form'
 import {Container, Content} from './styles'
+import {Entry, Obj} from './interfaces'
 
 function App() {
-  const newEntry = {
+  const newEntry:Entry = {
     Type: 'Expense', Amount: '', Description: '', Category: [], Notes: ''
   }
-  const [ logs, setLogs ] = useState();
+  const [ logs, setLogs ] = useState([,]);
   const [ cats, setCats ] = useState();
-  const [ entry, setEntry ] = useState(newEntry);
+  const [ entry, setEntry ] = useState<Entry>(newEntry);
   const [ showNumPad, setShowNumPad ] = useState(true);
 
   useEffect(() => {
@@ -36,13 +37,13 @@ function App() {
     setEntry({...entry})
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:Obj) => {
     e.preventDefault();
     // TODO: perform checks before POST
-    postLogRecord(entry)
+    postLogRecord({...entry, Amount: parseInt(entry.Amount)})
       .then(res => setLogs([res, ...logs]))
       .catch(err => console.log('error in posting: ', err))
-      .finally(console.log('submitted: state of logs is ', logs))
+      .finally(() => console.log('submitted: state of logs is ', logs))
     setEntry(newEntry)
   }
 

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Row, Card } from '../styles.tsx'
+import React from 'react';
+import { Row, Card } from '../styles.tsx'
 import { Text, View } from 'react-native';
 
 function ListLogs(props) {
@@ -26,13 +26,13 @@ function ListLogs(props) {
             <Card key={log.id} left>
               <Row>
                 <View color={Type === 'Expense' ? 'red' : 'green' }>
-                { Amount }
+                  <Text>{ Amount }</Text>
                 </View>
-                <View heavy>{ Description }</View>
+                <View heavy><Text>{ Description }</Text></View>
                 {/* TODO: Category is a controlled list */}
                 {/* Categories should be part of the Budget section */}
                 {/* https://www.npmjs.com/package/react-select2-native */}
-                <View>{ Category }</View>
+                <View><Text>{ Category }</Text></View>
               </Row>
             </Card>
           )

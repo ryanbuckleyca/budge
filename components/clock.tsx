@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import { Animated, StatusBar, StyleSheet, Dimensions, View } from 'react-native';
+import { Animated, StatusBar, StyleSheet } from 'react-native';
 import dayjs from 'dayjs';
+import styled from 'styled-components/native';
+
 
 const TICK_INTERVAL = 1000;
 
@@ -25,7 +27,7 @@ export default class Clock extends Component {
 
     this._animate();
 
-    this._ticker = setInterval(() => {
+    this._ticker = window.setInterval(() => {
       this._timer += 1;
       this.state.tick.setValue(this._timer);
     }, TICK_INTERVAL)
@@ -69,59 +71,58 @@ export default class Clock extends Component {
     };
 
     return (
-      <View style={styles.container}>
+      <Container>
         <StatusBar hidden={true} />
         <Animated.View style={[styles.mover, transformHours]}>
-          <View style={styles.hours} />
+          <Hours />
         </Animated.View>
         <Animated.View style={[styles.mover, transformMinutes]}>
-          <View style={styles.minutes} />
+          <Minutes />
         </Animated.View>
         <Animated.View style={[styles.mover, transformSeconds]}>
-          <View style={styles.seconds} />
+          <Seconds />
         </Animated.View>
-      </View>
+      </Container>
     )
   }
 }
 
+const Container = styled.View`
+  border-radius: 30;
+  width: 60px;
+  height: 60px;
+  margin: auto 0;
+  border: 4px solid white;
+  align-items: center;
+  justify-content: center;
+`
+const Hours = styled.View`
+  background-color: rgba(255, 255, 255, 1);
+  height: 35%;
+  margin-top: 15%;
+  width: 4px;
+  border-radius: 5;
+`
+const Minutes = styled.View`
+  background-color: rgba(255, 255, 255, 1);
+  height: 45%;
+  margin-top: 5%;
+  width: 4px;
+  border-radius: 5;
+`
+const Seconds = styled.View`
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 50%;
+  width: 2px;
+  border-radius: 5;
+`
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: '50%',
-    width: '60px',
-    height: '60px',
-    margin: 'auto 0',
-    background: 'none',
-    border: '4px solid white',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   mover: {
     position: 'absolute',
     width: '100%',
     height: '100%',
-    borderRadius: '50%',
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'flex-start'
-  },
-  hours: {
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-    height: '35%',
-    marginTop: '15%',
-    width: 4,
-    borderRadius: 5
-  },
-  minutes: {
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-    height: '45%',
-    marginTop: '5%',
-    width: 4,
-    borderRadius: 5
-  },
-  seconds: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    height: '50%',
-    width: 2,
-    borderRadius: 5
   }
 })
