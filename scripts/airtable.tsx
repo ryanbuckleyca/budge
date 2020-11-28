@@ -1,6 +1,6 @@
 // @ts-ignore
 import { AIRTABLE_ID } from '@env';
-import { Headers, Entry } from './interfaces';
+import { Headers, Entry } from '../interfaces';
 
 const sortLOGS = 'sort%5B0%5D%5Bfield%5D=Time&sort%5B0%5D%5Bdirection%5D=desc'
 const sortBUDGET = 'sort%5B0%5D%5Bfield%5D=Category&sort%5B0%5D%5Bdirection%5D=asc'

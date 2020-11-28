@@ -16,8 +16,6 @@ function BottomElements(props:Obj) {
     cats
   } = props;
 
-  console.log('entry in bottomelements is ', entry)
-
   const renderItem = ({ item }: { item: Obj }) => {
     const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
     return(
@@ -191,6 +189,5 @@ const Submit = styled.TouchableOpacity`
   border-radius: 50px;
   font-size: 32px;
 `
-
 
 export default EntryForm;
