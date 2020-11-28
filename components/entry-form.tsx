@@ -90,12 +90,9 @@ function EntryForm(props:Obj) {
           values={["Income", "Expense"]}
           selected={ entry.Type } 
           onPress={() => toggleType(entry.Type)} 
-          style={{ width: '40%', maxWidth: `${SIZES.largeText*2}px` }}
+          style={{width: SIZES.largeText*2.5}}
         />
-        <Price
-          onPress={() => setShowNumPad(true)}
-          style={{ minWidth: '60%' }}
-        >
+        <Price onPress={() => setShowNumPad(true)}>
           <Amount>{entry.Amount || '$'}</Amount>
         </Price>
       </Transaction>
@@ -126,6 +123,22 @@ const Transaction = styled.View<Obj>`
   text-align: left;
   overflow: hidden;
 `
+const Price = styled.TouchableOpacity`
+  flex: 1;
+  overflow: hidden;
+`
+const Amount = styled.Text`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(1, 1, 1, 0.2);
+  width: 100%;
+  height: 100%;
+  font-size: ${SIZES.largeText}px;
+  line-height: ${SIZES.fieldHeight}px;
+  text-align: center;
+  color: white;
+  `
 const Categories = styled.View`
   flex: 1;
   background-color: #292929;
@@ -157,23 +170,6 @@ const Input = styled.TextInput`
   text-align: center;
   color: white;
 `
-const Price = styled.TouchableOpacity`
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-`
-const Amount = styled.Text`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(1, 1, 1, 0.2);
-  width: 100%;
-  height: 100%;
-  font-size: ${SIZES.largeText}px;
-  line-height: ${SIZES.fieldHeight}px;
-  text-align: center;
-  color: white;
-  `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;
   display: flex;

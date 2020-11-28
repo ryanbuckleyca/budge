@@ -20,6 +20,7 @@ const Switch = (props:Obj) => {
 
 const Toggle = styled.TouchableOpacity`
   height: 100%;
+  flex: 0 0 auto;
   display: flex;
   padding: 0;
   position: relative;  
