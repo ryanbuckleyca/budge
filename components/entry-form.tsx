@@ -1,11 +1,17 @@
 import React from 'react';
-import { Keyboard, Text, FlatList, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData, Slider, TouchableWithoutFeedback} from 'react-native';
+import { 
+  Text, 
+  FlatList, 
+  TouchableOpacity, 
+  NativeSyntheticEvent, 
+  TextInputChangeEventData
+} from 'react-native';
+import SIZES from '../utils/sizes'
 import styled from 'styled-components/native';
 import {Obj} from '../interfaces/'
-// @ts-ignore -- remove .tsx before compiling
-import NumPad from './numpad.tsx'
-// @ts-ignore -- remove .tsx before compiling
-import Switch from './switch.tsx'
+import NumPad from './numpad'
+import Switch from './switch'
+
 
 function BottomElements(props:Obj) {
   const { 
@@ -36,25 +42,26 @@ function BottomElements(props:Obj) {
       />
     </Categories>
     <Input
-      style={{marginTop: 8, height: '13%', fontSize: 32}}
       placeholder="Description"
       placeholderTextColor="grey"
       value={ entry.Description }
-      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Description', e.nativeEvent.text)}
+      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
+        handleChange('Description', e.nativeEvent.text)}
     />
     <Input
-    style={{marginTop: 8, height: '13%', fontSize: 32}}
       placeholder="Notes"
       placeholderTextColor="grey"
       value={ entry.Notes }
-      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Notes', e.nativeEvent.text)}
+      onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
+        handleChange('Notes', e.nativeEvent.text)}
     />
     <Submit
-      style={{marginTop: 8, height: '15%'}}
       onPress={(e) => handleSubmit(e)}
       accessibilityLabel="Submit log"
     >
-      <Text style={{fontSize: 32, color: 'rgba(255, 255, 255, 0.8)'}}>submit</Text>
+      <Text style={{fontSize: SIZES.mediumText, color: 'rgba(255, 255, 255, 0.8)'}}>
+        submit
+      </Text>
     </Submit>
   </>)
 }
@@ -76,32 +83,22 @@ function EntryForm(props:Obj) {
     : setEntry({...entry, Type: 'Expense'})
   }
 
-  const toggleKeyPad = () => {
-    Keyboard.dismiss()
-    setShowNumPad(true)
-  }
-
   return(
     <>
-      <Amount>
+      <Transaction>
         <Switch 
           values={["Income", "Expense"]}
           selected={ entry.Type } 
           onPress={() => toggleType(entry.Type)} 
-          style={{ width: '40%' }}
+          style={{ width: '40%', maxWidth: `${SIZES.largeText*2}px` }}
         />
-        <TouchableWithoutFeedback onPress={() => toggleKeyPad()}>
-        <Input
-          disabled='true'
-          onFocus={() => Keyboard.dismiss()}
-          style={{ height: '100%', width: '60%', fontSize: 64, backgroundColor: '#191919', borderRadius: 0 }}
-          placeholder="$"
-          placeholderTextColor="grey"
-          value={entry.Amount}
-          onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Amount', e.nativeEvent.text)}
-        />
-        </TouchableWithoutFeedback>
-      </Amount>
+        <Price
+          onPress={() => setShowNumPad(true)}
+          style={{ minWidth: '60%' }}
+        >
+          <Amount>{entry.Amount || '$'}</Amount>
+        </Price>
+      </Transaction>
 
       <NumPad style={{display: showNumPad ? 'block' : 'none' }} 
         setEntry={setEntry} 
@@ -121,10 +118,10 @@ function EntryForm(props:Obj) {
   )
 }
 
-const Amount = styled.View<Obj>`
+const Transaction = styled.View<Obj>`
   display: flex;
   flex-direction: row;
-  height: 18%;
+  height: ${SIZES.fieldHeight}px;
   border-radius: 30px;
   text-align: left;
   overflow: hidden;
@@ -132,33 +129,51 @@ const Amount = styled.View<Obj>`
 const Categories = styled.View`
   flex: 1;
   background-color: #292929;
-  margin-top: 8px;
+  margin-top: ${SIZES.fieldMargin}px;
   border-radius: 25px;
 `
 const CategoryHeader = styled.Text`
   text-align: center;
   color: grey;
-  font-size: 16px;
-  margin: 8px;
+  font-size: ${SIZES.smallText}px;
+  margin: ${SIZES.fieldMargin}px;
 `
 const CatText = styled.Text<Obj>`
   height: 60px;
-  font-size: 32px;
+  font-size: ${SIZES.mediumText}px;
   text-align: center;
   color: ${props => props.color};
 `
 const Input = styled.TextInput`
   border: 1px solid rgba(1, 1, 1, .6);
+  margin-top: ${SIZES.fieldMargin}px;
+  font-size: ${SIZES.mediumText}px;
   width: 100%;
-  height: 18%;
+  height: ${SIZES.fieldHeight}px;
   overflow: hidden;
   background: #282828;
   border-radius: 50px;
-  font-size: 36px;
-  padding: 0 16px;
+  padding: 0 ${SIZES.mediumText/2}px;
   text-align: center;
   color: white;
 `
+const Price = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`
+const Amount = styled.Text`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(1, 1, 1, 0.2);
+  width: 100%;
+  height: 100%;
+  font-size: ${SIZES.largeText}px;
+  line-height: ${SIZES.fieldHeight}px;
+  text-align: center;
+  color: white;
+  `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;
   display: flex;
@@ -167,9 +182,9 @@ const Submit = styled.TouchableOpacity`
   background: #507272;
   color: #2C4E3D;
   width: 100%;
-  height: 20%;
+  height: ${SIZES.fieldHeight}px;
   border-radius: 50px;
-  font-size: 32px;
+  font-size: ${SIZES.largeText}px;
 `
 
 export default EntryForm;

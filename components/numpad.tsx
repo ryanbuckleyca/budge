@@ -1,16 +1,16 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
-import {Obj} from '../interfaces/'
+import {Obj} from '../interfaces/';
+import SIZES from '../utils/sizes';
 import { MaterialIcons } from "@expo/vector-icons";
-const windowWidth = Dimensions.get('window').width;
 
 export default function NumPad(props:Obj) {
   const {entry, setEntry, showNumPad, setShowNumPad} = props
   const buttons = [
     1, 2, 3, 4, 5, 6, 7, 8, 9,
-    <MaterialIcons name="keyboard-backspace" size={24} />,
-    0, <MaterialIcons name="check" size={24} style={{color:'#507272'}} />,
+    <MaterialIcons name="keyboard-backspace" size={SIZES.largeText} />,
+    0, <MaterialIcons name="check" size={SIZES.largeText} style={{color:'#507272'}} />,
   ]
 
   const OnPress = (item:any, index:number) => {
@@ -53,13 +53,13 @@ const KeyPad = styled.View`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin: 16px auto;
+  margin: ${SIZES.fieldMargin}px auto;
 `;
 
 const Number = styled.TouchableOpacity`
-  width: ${windowWidth / 4.5}px;
-  height: ${windowWidth / 4.5}px;
-  border-radius: ${windowWidth / 9}px;
+  width: ${SIZES.windowWidth / 4.5}px;
+  height: ${SIZES.windowWidth / 4.5}px;
+  border-radius: ${SIZES.windowWidth / 9}px;
   align-items: center;
   justify-content: center;
   margin: 8px;
@@ -69,5 +69,5 @@ const Number = styled.TouchableOpacity`
 const Key = styled.Text`
   font-weight: 500;
   color: #ffffff80;
-  font-size: ${windowWidth / 12}px;
+  font-size: ${SIZES.windowWidth / 12}px;
 `;
