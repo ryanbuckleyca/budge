@@ -32,7 +32,7 @@ const getBudgetRecords = () => (
   })
 )
 
-const postToLogs = (recordsList:Array<Entry>) => {
+const uploadRecords = (recordsList:Array<Entry>) => {
   const formatedRecords = {
     records: recordsList.map((record:Entry) => (
       {"fields": record}
@@ -48,6 +48,6 @@ const postToLogs = (recordsList:Array<Entry>) => {
 
 export { 
   getLogRecords, 
-  postToLogs, 
+  uploadRecords, 
   getBudgetRecords 
 };

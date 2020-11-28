@@ -88,7 +88,7 @@ export default class Clock extends Component {
 }
 
 const Container = styled.View`
-  border-radius: 30;
+  border-radius: 30px;
   width: 60px;
   height: 60px;
   margin: auto 0;
@@ -101,20 +101,20 @@ const Hours = styled.View`
   height: 35%;
   margin-top: 15%;
   width: 4px;
-  border-radius: 5;
+  border-radius: 5px;
 `
 const Minutes = styled.View`
   background-color: rgba(255, 255, 255, 1);
   height: 45%;
   margin-top: 5%;
   width: 4px;
-  border-radius: 5;
+  border-radius: 5px;
 `
 const Seconds = styled.View`
   background-color: rgba(255, 255, 255, 0.5);
   height: 50%;
   width: 2px;
-  border-radius: 5;
+  border-radius: 5px;
 `
 const styles = StyleSheet.create({
   mover: {
