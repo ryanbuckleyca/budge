@@ -1,11 +1,11 @@
 import React from 'react';
-import { Animated, Text, FlatList, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native';
+import { Keyboard, Text, FlatList, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData, Slider, TouchableWithoutFeedback} from 'react-native';
 import styled from 'styled-components/native';
 import {Obj} from '../interfaces/'
 // @ts-ignore -- remove .tsx before compiling
 import NumPad from './numpad.tsx'
 // @ts-ignore -- remove .tsx before compiling
-import SlideView from './slider-view.tsx'
+import Switch from './switch.tsx'
 
 function BottomElements(props:Obj) {
   const { 
@@ -70,38 +70,38 @@ function EntryForm(props:Obj) {
     setShowNumPad
   } = props;
 
-  const fadeIn = new Animated.Value(0);
-  Animated.timing(fadeIn, {
-  	toValue: 1,
-  	duration: 500,
-    useNativeDriver: true
-  }).start()
+  const toggleType = (type:string) => {
+    type === 'Expense'
+    ? setEntry({...entry, Type: 'Income'})
+    : setEntry({...entry, Type: 'Expense'})
+  }
+
+  const toggleKeyPad = () => {
+    Keyboard.dismiss()
+    setShowNumPad(true)
+  }
 
   return(
     <>
-      <AmountBG entry={entry} onFocus={() => setShowNumPad(true)}>
-        <SlideView style={{ height: '100%', width: '80%', position: 'absolute', left: 0 }} entry={ entry }>
-          <Input
-            style={{ height: '100%', left: entry.Type==='Expense' ? '20%' : '0%' }}
-            placeholder="Amount"
-            placeholderTextColor="grey"
-            value={entry.Amount}
-            onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Amount', e.nativeEvent.text)}
-          />
-        </SlideView>
-        <PlusMinus 
-          entry={entry}
-          onPress={
-            () => entry.Type === 'Expense'
-            ? setEntry({...entry, Type: 'Income'})
-            : setEntry({...entry, Type: 'Expense'})
-          }
-        >
-          <Animated.Text style={{opacity: fadeIn}}>
-            {entry.Type==='Expense' ? '-' : '+'}
-          </Animated.Text>
-        </PlusMinus>
-      </AmountBG>
+      <Amount>
+        <Switch 
+          values={["Income", "Expense"]}
+          selected={ entry.Type } 
+          onPress={() => toggleType(entry.Type)} 
+          style={{ width: '40%' }}
+        />
+        <TouchableWithoutFeedback onPress={() => toggleKeyPad()}>
+        <Input
+          disabled='true'
+          onFocus={() => Keyboard.dismiss()}
+          style={{ height: '100%', width: '60%', fontSize: 64, backgroundColor: '#191919', borderRadius: 0 }}
+          placeholder="$"
+          placeholderTextColor="grey"
+          value={entry.Amount}
+          onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => handleChange('Amount', e.nativeEvent.text)}
+        />
+        </TouchableWithoutFeedback>
+      </Amount>
 
       <NumPad style={{display: showNumPad ? 'block' : 'none' }} 
         setEntry={setEntry} 
@@ -121,12 +121,13 @@ function EntryForm(props:Obj) {
   )
 }
 
-const AmountBG = styled.View<Obj>`
-  position: relative;
+const Amount = styled.View<Obj>`
+  display: flex;
+  flex-direction: row;
   height: 18%;
-  border-radius: 50px;
-  text-align: ${(props: Obj) => props.entry.Type==='Expense' ? 'left' : 'right'}
-  background: ${(props: Obj) => props.entry.Type==='Expense' ? '#7C5454' : '#455E52'}
+  border-radius: 30px;
+  text-align: left;
+  overflow: hidden;
 `
 const Categories = styled.View`
   flex: 1;
@@ -157,25 +158,6 @@ const Input = styled.TextInput`
   padding: 0 16px;
   text-align: center;
   color: white;
-`
-const PlusMinus = styled.Text<Obj>`
-  margin: auto;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  bottom: 0;
-  align-content: center;
-  left: ${props => props.entry.Type==='Expense' ? '0' : '80%'};
-  color: white;
-  width: 20%;
-  padding: ${props => props.entry.Type==='Expense' ? '0 0 0 2%' : '0 2% 0 0'};
-  font-size: 32px;
-  font-weight: 700;
-  text-align: center;
-  line-height: 108px;
 `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;
