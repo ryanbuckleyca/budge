@@ -1,10 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native'
+import SIZES from './utils/sizes';
 
 const Container = styled.View`
   color: white;
   display: flex;
-  padding: 32px;
+  padding: ${SIZES.mediumText}px;
   flex-direction: column;
   background-color: #222;
   align-items: center;

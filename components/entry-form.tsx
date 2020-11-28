@@ -139,7 +139,7 @@ const CategoryHeader = styled.Text`
   margin: ${SIZES.fieldMargin}px;
 `
 const CatText = styled.Text<Obj>`
-  height: 60px;
+  height: ${SIZES.mediumText*1.7}px;
   font-size: ${SIZES.mediumText}px;
   text-align: center;
   color: ${props => props.color};
@@ -185,6 +185,7 @@ const Submit = styled.TouchableOpacity`
   height: ${SIZES.fieldHeight}px;
   border-radius: 50px;
   font-size: ${SIZES.largeText}px;
+  margin-top: ${SIZES.fieldMargin}px;
 `
 
 export default EntryForm;

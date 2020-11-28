@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Animated, StatusBar, StyleSheet } from 'react-native';
 import dayjs from 'dayjs';
 import styled from 'styled-components/native';
+import SIZES from '../utils/sizes';
 
 
 const TICK_INTERVAL = 1000;
@@ -88,10 +89,11 @@ export default class Clock extends Component {
 }
 
 const Container = styled.View`
-  border-radius: 30px;
-  width: 60px;
-  height: 60px;
+  border-radius: ${SIZES.largeText/2}px;
+  width: ${SIZES.largeText}px;
+  height: ${SIZES.largeText}px;
   margin: auto 0;
+  padding: 0;
   border: 4px solid white;
   align-items: center;
   justify-content: center;

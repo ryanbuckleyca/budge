@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import SIZES from '../utils/sizes'
 import { PieChart } from 'react-minimal-pie-chart';
 import Clock from './clock'
 import Cal from './cal'
@@ -33,24 +34,24 @@ export default function Menu() {
 const Row = styled.View`
   display: flex;
   width: 100%;
-  height: 70px;
-  margin-bottom: 32px;
+  height: ${SIZES.largeText}px;
+  margin-bottom: ${SIZES.mediumText}px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 `
 const Icon = styled.Text`
-  height: 70px;
+  height: ${SIZES.largeText}px;
   color: white;
   display: flex;
   flex: 1;
   margin: 0 auto;
-  padding: 5px 0;
+  padding: 0;
   font-weight: 900;
   text-align: center;
-  font-size: 32px;
+  font-size: ${SIZES.mediumText}px;
   align-items: center;
   align-self: center;
-  line-height: 70px;
+  line-height: ${SIZES.largeText}px;
   justify-content: center;
 `
