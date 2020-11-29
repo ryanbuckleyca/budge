@@ -9,8 +9,8 @@ export default function NumPad(props:Obj) {
   const {entry, setEntry, showNumPad, setShowNumPad} = props
   const buttons = [
     1, 2, 3, 4, 5, 6, 7, 8, 9,
-    <MaterialIcons name="keyboard-backspace" size={SIZES.largeText} />,
-    0, <MaterialIcons name="check" size={SIZES.largeText} style={{color:'#507272'}} />,
+    <MaterialIcons size={SIZES.windowWidth / 12} name="keyboard-backspace" />,
+    0, <MaterialIcons size={SIZES.windowWidth / 12} name="check" style={{color:'#507272'}} />,
   ]
 
   const OnPress = (item:any, index:number) => {

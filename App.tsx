@@ -20,7 +20,7 @@ const parseEntries = (entries:Array<Obj>) => (
 ))
 
 function App() {
-
+  
   useEffect(() => {
     loadOfflineData('queue').then(res => {
       console.log('raw queue value at start is ', res)

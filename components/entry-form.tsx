@@ -22,7 +22,7 @@ function BottomElements(props:Obj) {
   } = props;
 
   const renderItem = ({ item }: { item: Obj }) => {
-    const color = (item.id && item.id === entry.Category) ? 'white' : 'grey';
+    const color = (item.id && item.id === entry.Category[0]) ? 'white' : 'grey';
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
         <CatText color={color}>{item.fields.Category}</CatText>

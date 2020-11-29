@@ -26,15 +26,16 @@ export default function Menu() {
 
 const Row = styled.View`
   display: flex;
-  width: 100%;
-  height: ${SIZES.largeText}px;
-  margin-bottom: ${SIZES.mediumText}px;
   flex-direction: row;
+  width: 100%;
+  height: ${SIZES.icon}px;
+  margin-bottom: ${SIZES.mediumText}px;
   align-items: center;
   justify-content: space-between;
 `
 const Icon = styled.Text`
-  height: ${SIZES.largeText}px;
+  height: ${SIZES.icon}px;
   display: flex;
   flex: 1;
+  margin: auto;
 `

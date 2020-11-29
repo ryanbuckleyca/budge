@@ -89,12 +89,11 @@ export default class Clock extends Component {
 }
 
 const Container = styled.View`
-  border-radius: ${SIZES.largeText/2}px;
-  width: ${SIZES.largeText}px;
-  height: ${SIZES.largeText}px;
-  margin: 0 auto;
-  padding: 0; 
-  border-width: 4px;
+  border-radius: ${SIZES.icon/2}px;
+  width: ${SIZES.icon*.95}px;
+  height: ${SIZES.icon*.95}px;
+  margin: auto;
+  border-width: ${SIZES.icon/20}px;
   border-color: white;
   border-style: solid;
   align-items: center;
@@ -104,21 +103,21 @@ const Hours = styled.View`
   background-color: rgba(255, 255, 255, 1);
   height: 35%;
   margin-top: 15%;
-  width: 4px;
-  border-radius: 5px;
+  width: ${SIZES.icon/22}px;
+  border-radius: ${SIZES.icon/22}px;
 `
 const Minutes = styled.View`
   background-color: rgba(255, 255, 255, 1);
   height: 45%;
   margin-top: 5%;
-  width: 4px;
-  border-radius: 5px;
+  width: ${SIZES.icon/28}px;
+  border-radius: ${SIZES.icon/28}px;
 `
 const Seconds = styled.View`
   background-color: rgba(255, 255, 255, 0.5);
   height: 50%;
-  width: 2px;
-  border-radius: 5px;
+  width: ${SIZES.icon/40}px;
+  border-radius: ${SIZES.icon/20}px;
 `
 const styles = StyleSheet.create({
   mover: {
