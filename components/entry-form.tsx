@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   Text, 
   FlatList, 
@@ -6,12 +5,12 @@ import {
   NativeSyntheticEvent, 
   TextInputChangeEventData
 } from 'react-native';
+import React from 'react';
 import SIZES from '../utils/sizes'
 import styled from 'styled-components/native';
 import {Obj} from '../interfaces/'
 import NumPad from './numpad'
 import Switch from './switch'
-
 
 function BottomElements(props:Obj) {
   const { 
@@ -23,15 +22,15 @@ function BottomElements(props:Obj) {
   } = props;
 
   const renderItem = ({ item }: { item: Obj }) => {
-    const color = (item.id && item.id === props.entry.Category[0]) ? 'white' : 'grey'
+    const color = (item.id && item.id === entry.Category) ? 'white' : 'grey';
     return(
       <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
         <CatText color={color}>{item.fields.Category}</CatText>
       </TouchableOpacity>
-    )
+    );
   };
 
-  return(showNumPad ? null : <>
+  return (showNumPad ? null : <>
     <Categories>
       <CategoryHeader>Category: (Edit)</CategoryHeader>
       <FlatList
@@ -42,14 +41,14 @@ function BottomElements(props:Obj) {
       />
     </Categories>
     <Input
-      placeholder="Description"
+      placeholder="description"
       placeholderTextColor="grey"
       value={ entry.Description }
       onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
         handleChange('Description', e.nativeEvent.text)}
     />
     <Input
-      placeholder="Notes"
+      placeholder="notes"
       placeholderTextColor="grey"
       value={ entry.Notes }
       onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
@@ -83,14 +82,13 @@ function EntryForm(props:Obj) {
     : setEntry({...entry, Type: 'Expense'})
   }
 
-  return(
+  return (
     <>
       <Transaction>
         <Switch 
           values={["Income", "Expense"]}
           selected={ entry.Type } 
           onPress={() => toggleType(entry.Type)} 
-          style={{width: SIZES.largeText*2.5}}
         />
         <Price onPress={() => setShowNumPad(true)}>
           <Amount>{entry.Amount || '$'}</Amount>
@@ -118,8 +116,9 @@ function EntryForm(props:Obj) {
 const Transaction = styled.View<Obj>`
   display: flex;
   flex-direction: row;
-  height: ${SIZES.fieldHeight}px;
+  height: ${SIZES.transactionHeight}px;
   border-radius: 30px;
+  border: 1px solid rgba(1, 1, 1, 0.2);
   text-align: left;
   overflow: hidden;
 `
@@ -135,7 +134,7 @@ const Amount = styled.Text`
   width: 100%;
   height: 100%;
   font-size: ${SIZES.largeText}px;
-  line-height: ${SIZES.fieldHeight}px;
+  line-height: ${SIZES.transactionHeight}px;
   text-align: center;
   color: white;
   `

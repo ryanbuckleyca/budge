@@ -33,7 +33,7 @@ function App() {
   
   const netInfo = useNetInfo();
   const [ logs, setLogs ] = useState([,]);
-  const [ cats, setCats ] = useState();
+  const [ cats, setCats ] = useState([]);
   const [ entry, setEntry ] = useState<Obj>(blankEntry);
   const [ showNumPad, setShowNumPad ] = useState(true);
   const [ queue, setQueue ] = useState<Array<Obj>>();
@@ -47,7 +47,7 @@ function App() {
   const sendEntries = async (entries:Array<Obj>) => {
     try {
       const allEntries = await uploadRecords(parseEntries(entries))
-      setLogs([...allEntries])
+      setLogs(allEntries)
       setQueue([])
       saveOfflineData('queue', '[]')
     } catch (err) { 
@@ -97,6 +97,10 @@ function App() {
       .catch(err => console.log('saveOfflineData error: ', err))    
     }
     setEntry(blankEntry)
+  }
+
+  if(!cats) {
+    return "Loading..."
   }
 
   return (

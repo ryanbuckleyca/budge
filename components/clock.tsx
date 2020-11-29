@@ -92,9 +92,11 @@ const Container = styled.View`
   border-radius: ${SIZES.largeText/2}px;
   width: ${SIZES.largeText}px;
   height: ${SIZES.largeText}px;
-  margin: auto 0;
-  padding: 0;
-  border: 4px solid white;
+  margin: 0 auto;
+  padding: 0; 
+  border-width: 4px;
+  border-color: white;
+  border-style: solid;
   align-items: center;
   justify-content: center;
 `

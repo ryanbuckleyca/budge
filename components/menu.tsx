@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import SIZES from '../utils/sizes'
-import { PieChart } from 'react-minimal-pie-chart';
 import Clock from './clock'
 import Cal from './cal'
+import { ProgressCircle } from 'react-native-svg-charts'
 
 export default function Menu() {
   return(
@@ -13,19 +13,12 @@ export default function Menu() {
       <Icon><Cal type='month' /></Icon>
       <Icon><Cal type='year' /></Icon>
       <Icon>
-        {/* <PieChart 
-          data={[{ value: 82, color: '#92727D' }]}
-          totalValue={100}
-          lineWidth={20}
-          rounded
-          label={({ dataEntry }) => <Text>`${dataEntry.value}%`</Text>}
-          labelStyle={{
-            fontSize: '28px',
-            fontFamily: 'sans-serif',
-            fill: '#92727D',
-          }}
-          labelPosition={0}          
-        /> */}
+        <ProgressCircle 
+          style={{ height: SIZES.largeText }} 
+          progress={0.7} 
+          strokeWidth={5}
+          progressColor={'rgb(134, 255, 244)'} 
+        />
       </Icon>
     </Row>
   )
@@ -42,16 +35,6 @@ const Row = styled.View`
 `
 const Icon = styled.Text`
   height: ${SIZES.largeText}px;
-  color: white;
   display: flex;
   flex: 1;
-  margin: 0 auto;
-  padding: 0;
-  font-weight: 900;
-  text-align: center;
-  font-size: ${SIZES.mediumText}px;
-  align-items: center;
-  align-self: center;
-  line-height: ${SIZES.largeText}px;
-  justify-content: center;
 `

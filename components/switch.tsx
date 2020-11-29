@@ -29,9 +29,8 @@ const Toggle = styled.TouchableOpacity`
 const Type = styled.Text<Obj>`
   position: relative;
   margin: auto;
-  padding-right: ${SIZES.smallText}px;
+  padding: 0 ${SIZES.smallText}px;
   font-size: ${SIZES.smallText}px;
-  width: 100%;
   color: white;
   font-weight: 700;
   text-align: right;
@@ -42,12 +41,11 @@ const Off = styled(Type)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  line-height: ${SIZES.fieldHeight}px;
-  opacity: 0.2;
+  line-height: ${SIZES.smallText*2}px;
+  opacity: 0.1;
   ${props => props.selected && `
     background-color: #7C5563;
     opacity: 1;
-    box-shadow: rgba(1, 1, 1, 0.25) 0px 0px ${SIZES.smallText}px;
   `};
 `
 const On = styled(Type)`
@@ -56,12 +54,11 @@ const On = styled(Type)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  line-height: ${SIZES.fieldHeight}px;
-  opacity: 0.2;
+  line-height: ${SIZES.smallText*2}px;
+  opacity: 0.1;
   ${props => props.selected && `
     background-color: #83958D;
     opacity: 1;
-    box-shadow: rgba(1, 1, 1, 0.25) 0px 0px ${SIZES.smallText}px;
   `};
 `
 
