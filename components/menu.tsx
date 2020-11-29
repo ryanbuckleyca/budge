@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import SIZES from '../utils/sizes'
 import Clock from './clock'
 import Cal from './cal'
-import { ProgressCircle } from 'react-native-svg-charts'
+import Chart from './chart'
 
 export default function Menu() {
   return(
@@ -12,14 +12,7 @@ export default function Menu() {
       <Icon><Cal type='week' /></Icon>
       <Icon><Cal type='month' /></Icon>
       <Icon><Cal type='year' /></Icon>
-      <Icon>
-        <ProgressCircle 
-          style={{ height: SIZES.largeText }} 
-          progress={0.7} 
-          strokeWidth={5}
-          progressColor={'rgb(134, 255, 244)'} 
-        />
-      </Icon>
+      <Icon><Chart limit={.7} /></Icon>
     </Row>
   )
 }
@@ -37,5 +30,6 @@ const Icon = styled.Text`
   height: ${SIZES.icon}px;
   display: flex;
   flex: 1;
+  justify-content: center;
   margin: auto;
 `

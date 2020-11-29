@@ -7,7 +7,7 @@ const windowHeight = Dimensions.get('window').height;
 const SIZES = {
   windowWidth: windowWidth,
   windowHeight: windowHeight,
-  icon: windowWidth / 6, //approx 130px
+  icon: windowWidth / 7, //approx 130px
   fieldHeight: windowHeight / 9, //approx 86px
   transactionHeight: windowHeight / 8, //approx 100px
   fieldMargin: windowHeight / 50, // approx 15px

@@ -114,7 +114,7 @@ const Minutes = styled.View`
   border-radius: ${SIZES.icon/28}px;
 `
 const Seconds = styled.View`
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.25);
   height: 50%;
   width: ${SIZES.icon/40}px;
   border-radius: ${SIZES.icon/20}px;

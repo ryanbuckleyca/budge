@@ -130,7 +130,7 @@ const Amount = styled.Text`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(1, 1, 1, 0.2);
+  background: rgba(1, 1, 1, 0.1);
   width: 100%;
   height: 100%;
   font-size: ${SIZES.largeText}px;

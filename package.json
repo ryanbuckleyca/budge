@@ -19,10 +19,10 @@
     "react-minimal-pie-chart": "^8.1.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
     "react-native-dotenv": "^2.4.2",
+    "react-native-svg": "12.1.0",
     "react-native-svg-charts": "^5.4.0",
     "react-native-web": "~0.13.12",
-    "styled-components": "^5.2.1",
-    "react-native-svg": "12.1.0"
+    "styled-components": "^5.2.1"
   },
   "resolutions": {
     "styled-components": "^5"
