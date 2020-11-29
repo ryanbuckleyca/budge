@@ -1,20 +1,12 @@
 import React from 'react';
-import Svg, {
-  G,
-  Path,
-  ClipPath,
-  Rect,
-  Defs,
-} from 'react-native-svg';
-import { View, StyleSheet } from 'react-native';
-
-//@ts-ignore
+import Svg, {G, Path, ClipPath, Rect, Defs} from 'react-native-svg';
+import { View } from 'react-native';
 import {Obj, DMY} from '../interfaces/'
 import styled from 'styled-components/native';
 import SIZES from '../utils/sizes'
 import dayjs from 'dayjs';
 
-function Cal(props: Obj) {
+export default function Cal(props: Obj) {
   const d = new Date();
 
   const date:DMY = {
@@ -35,8 +27,8 @@ function Cal(props: Obj) {
         { dayjs(d).format('MMM').toUpperCase() }
       </TextCenter>,
     year:
-    <TextCenter size={SIZES.smallText} style={{paddingLeft: 5, paddingRight: 5}}>
-    { d.getFullYear() }
+      <TextCenter size={SIZES.smallText} style={{paddingLeft: 5, paddingRight: 5}}>
+        { d.getFullYear() }
       </TextCenter>
   } 
 
@@ -67,8 +59,6 @@ function Bg() {
     </Svg>
   );
 }
-
-export default Cal;
 
 const Block = styled.View`
   overflow: hidden;

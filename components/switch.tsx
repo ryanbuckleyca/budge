@@ -5,8 +5,14 @@ import SIZES from '../utils/sizes';
 
 const Switch = (props:Obj) => {
   return (
-    <Toggle onPress={() => props.onPress()} style={{...props.style, 
-      backgroundColor: props.selected === props.values[0] ? '#507272' : '#563E47'
+    <Toggle 
+    onPress={() => props.onPress()} 
+    style={{
+      ...props.style, 
+      backgroundColor: 
+        props.selected === props.values[0] 
+        ? '#507272' 
+        : '#563E47'
     }}>
       <On selected={ props.values[0] === props.selected }>
         {props.values[0]}:
@@ -29,8 +35,8 @@ const Toggle = styled.TouchableOpacity`
 const Type = styled.Text<Obj>`
   position: relative;
   margin: auto;
-  padding: 0 ${SIZES.smallText}px;
-  font-size: ${SIZES.smallText}px;
+  padding: 0 ${SIZES.smallText*.7}px;
+  font-size: ${SIZES.smallText*.7}px;
   color: white;
   font-weight: 700;
   text-align: right;
