@@ -23,10 +23,8 @@ function App() {
   
   useEffect(() => {
     loadOfflineData('queue').then(res => {
-      console.log('raw queue value at start is ', res)
       res && setQueue(JSON.parse(res))
     })
-    console.log("is app connected on first load? ", netInfo.isConnected)
   }, [])
   
   const netInfo = useNetInfo();
@@ -67,7 +65,6 @@ function App() {
       setLogs(logs.records)
       saveOfflineData("logs", JSON.stringify(logs.records))
       const cats = await getBudgetRecords()
-      console.log('loadDataFrAPI:getBudgetRecords = ', cats)
       setCats(cats.records)
       saveOfflineData("cats", JSON.stringify(cats.records))
     } catch (err) {

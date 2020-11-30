@@ -1,18 +1,15 @@
 import { 
   Text, 
-  View,
-  FlatList, 
-  TouchableOpacity, 
   NativeSyntheticEvent, 
   TextInputChangeEventData
 } from 'react-native';
 import React from 'react';
 import SIZES from '../utils/sizes'
 import styled from 'styled-components/native';
-import {Obj} from '../interfaces/'
-import NumPad from './numpad'
-import Switch from './switch'
-import Chart from './chart'
+import {Obj} from '../interfaces/';
+import Categories from './categories';
+import NumPad from './numpad';
+import Switch from './switch';
 
 function BottomElements(props:Obj) {
   const { 
@@ -23,38 +20,15 @@ function BottomElements(props:Obj) {
     cats
   } = props;
 
-  // TODO: render mothly items too
-  // sort by most frequent
-  // or sort by name
-  // or sort by type (monthly vs. weekly)
-  // figure out ThisMonth & LastMonth rollovers too
-  const renderItem = ({ item }: { item: Obj }) => {
-    const color = (item.id && item.id === entry.Category[0]) ? 'white' : 'grey';
-    const limit = (item.fields.Category.toLowerCase().charCodeAt(1)-96)/26;
-    console.log('cat entry is: ', item)
-    return(
-      <Category onPress={() => handleChange('Category', [item.id])}>
-          <CatText color={color}>{item.fields.Category}</CatText>
-          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={{padding: SIZES.smallText/2, fontSize: SIZES.smallText, color: 'grey'}}>{item.fields.SpentThisWeek} / {item.fields.BudgetWeekly}</Text>
-            <Chart limit={limit} size={SIZES.mediumText} />
-          </View>
-      </Category>
-    );
-  };
+
+  console.log('cats are ', cats)
 
   return (showNumPad ? null : <>
-    <Categories>
-      <FlatList
-        ListHeaderComponent={
-          <CategoryHeader>category: (edit)</CategoryHeader>
-        }
-        data={cats}
-        renderItem={renderItem}
-        extraData={entry}
-        keyExtractor={item => item.id}
-      />
-    </Categories>
+    <Categories 
+      cats={cats}
+      entry={entry}
+      handleChange={handleChange}
+    />
     <Input
       placeholder="description"
       placeholderTextColor="grey"
@@ -152,32 +126,6 @@ const Amount = styled.Text`
   line-height: ${SIZES.transactionHeight}px;
   text-align: center;
   color: white;
-  `
-const Categories = styled.View`
-  flex: 1;
-  background-color: #292929;
-  margin-top: ${SIZES.fieldMargin}px;
-  border-radius: 25px;
-`
-const CategoryHeader = styled.Text`
-  text-align: center;
-  color: grey;
-  font-size: ${SIZES.smallText}px;
-  margin: ${SIZES.fieldMargin*.8}px;
-`
-const Category = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  margin: 0 auto;
-  height: ${SIZES.mediumText*1.7}px;
-`
-const CatText = styled.Text<Obj>`
-  font-size: ${SIZES.mediumText}px;
-  text-align: center;
-  color: ${props => props.color};
 `
 const Input = styled.TextInput`
   border: 1px solid rgba(1, 1, 1, .6);

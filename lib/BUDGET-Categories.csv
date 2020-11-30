@@ -1,0 +1,33 @@
+﻿Category,BudgetWeekly,BudgetMonthly,Frequency,Auto,Notes,Popularity
+INCOME=,,"$2,100",,,,0
+SPEND=,,"$2,067",,,,0
+REMAIN=,,$33,,,,0
+Food,$80,$320,Weekly,,restaurants and groceries,2
+Transit,$15,$60,Weekly,,less in summer as I ride,0
+Drugs,$25,$100,Weekly,,,1
+Soul,$3,$12,Weekly,,weekly meditation groups?,0
+Fun,$10,$40,Weekly,,,1
+Wellness,$20,$80,Monthly,,bi-monthly massage,0
+Fitness,,$46,Monthly,,YMCA membership (CapitalOne),0
+French,,$100,Monthly,,,0
+Vacation,,$40,Monthly,,,0
+Clothes,,$60,Monthly,,,0
+Home,,$40,Monthly,,utilities,0
+Hobbies,,$20,Monthly,,,0
+Charity,,$20,Monthly,,,0
+Hair,,$25,Monthly,,,0
+Subscript,,$10,Monthly,checked,"$10/mo Drive, $0 spotify",0
+Biz. Exp.,,$10,Monthly,,,1
+Laundry,,$10,Monthly,,,0
+Gifts,,$10,Monthly,,,0
+Books,,$0,Monthly,,,0
+Misc,,$10,Monthly,,,0
+Errors,,$40,Monthly,,to account for missed expense recordings,0
+APAG,,$10,Monthly,,$100 annually,0
+Taxes,$0,$0,Monthly,,,0
+Loans,$0,$200,Monthly,,should be more aggresive,0
+Rent,,$704,Monthly,,,1
+Retire,$13,$50,Monthly,,Questrade,0
+Phone,,$50,Monthly,checked,extra will go towards phone upgrades every 2 yrs,0
+TN,,$0,Monthly,,,0
+Utilities,,$35,Monthly,checked,,0
