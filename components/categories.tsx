@@ -6,11 +6,10 @@ import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes'
 import styled from 'styled-components/native';
 
-// TODO: render mothly items too
 // sort by most used category
 // or sort by name
 // or sort by type (monthly vs. weekly)
-// figure out ThisMonth & LastMonth rollovers too
+// what to do about rollovers?
 
 const getWeeksInMonth = (year: number, month: number) => { 
   const daysName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -29,7 +28,6 @@ const getWeeksInMonth = (year: number, month: number) => {
       start = i;           
     }
   }
-  console.log()
   return weeks
 }
 
@@ -58,7 +56,6 @@ export default function Categories(props:Obj) {
       ? item.fields.SpentThisMonth / item.fields.BudgetMonthly 
       : item.fields.SpentThisWeek / (item.fields.BudgetMonth/weeksThisMonth.length);
 
-    
     return (
       <CategoryItem 
         key={item.id}
@@ -67,7 +64,7 @@ export default function Categories(props:Obj) {
         <IconCol>{freq}</IconCol>
         <CatText color={color}>{item.fields.Category}</CatText>
         <Flex0Col>
-          <Text style={{padding: SIZES.smallText/2, fontSize: SIZES.smallText, color: 'grey'}}>
+          <Text style={{padding: SIZES.smallText/2, fontSize: SIZES.smallText}}>
             {freq === 'M' ? spentThisMonth : spentThisWeek}
           </Text>
           <Chart limit={limit} size={SIZES.mediumText} />
@@ -91,21 +88,21 @@ const Flex0Col = styled.Text`
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: grey;
 `
 const Flex1Col = styled.Text`
   flex: 1;
   text-align: left;
 `
 const IconCol = styled(Flex0Col)`
-  flex-basis: ${SIZES.smallText*2}px;
-  width: ${SIZES.smallText*2}px;
-  color: grey;
+  flex-basis: ${SIZES.mediumText}px;
+  width: ${SIZES.mediumText}px;
 `
 const CategoryList = styled.FlatList`
   flex: 1;
   background-color: #292929;
   margin-top: ${SIZES.fieldMargin}px;
-  padding: 0 ${SIZES.fieldMargin}px;
+  padding: 0 ${SIZES.fieldMargin/3}px;
   border-radius: 25px;
 `
 const Header = styled.Text`
