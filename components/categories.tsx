@@ -51,10 +51,13 @@ export default function Categories(props:Obj) {
     const selected = item.id && item.id === props.entry.Category[0]
     const weeksThisMonth = getWeeksInMonth(2021, 11).filter(week => week.length > 3)
     const color = selected ? 'white' : 'grey';
-    const limit = (item.fields.Category.toLowerCase().charCodeAt(1)-96)/26;
     const freq = item.fields.Frequency === 'Monthly' ? "M" : "W"
     const spentThisMonth = item.fields.SpentThisMonth +'/'+ item.fields.BudgetMonthly
     const spentThisWeek = item.fields.SpentThisWeek +'/'+ (item.fields.BudgetMonth/weeksThisMonth.length)
+    const limit = (freq === 'M') 
+      ? item.fields.SpentThisMonth / item.fields.BudgetMonthly 
+      : item.fields.SpentThisWeek / (item.fields.BudgetMonth/weeksThisMonth.length);
+
     
     return (
       <CategoryItem 
@@ -63,12 +66,12 @@ export default function Categories(props:Obj) {
       >
         <IconCol>{freq}</IconCol>
         <CatText color={color}>{item.fields.Category}</CatText>
-        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <Flex0Col>
           <Text style={{padding: SIZES.smallText/2, fontSize: SIZES.smallText, color: 'grey'}}>
             {freq === 'M' ? spentThisMonth : spentThisWeek}
           </Text>
           <Chart limit={limit} size={SIZES.mediumText} />
-        </View>
+        </Flex0Col>
       </CategoryItem>
     );
   };
@@ -85,6 +88,9 @@ export default function Categories(props:Obj) {
 const Flex0Col = styled.Text`
   flex: 0;
   text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `
 const Flex1Col = styled.Text`
   flex: 1;
