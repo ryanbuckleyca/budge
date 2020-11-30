@@ -12,7 +12,7 @@ export default function Menu() {
       <Icon><Cal type='week' /></Icon>
       <Icon><Cal type='month' /></Icon>
       <Icon><Cal type='year' /></Icon>
-      <Icon><Chart limit={.7} /></Icon>
+      <Icon><Chart limit={0.7} size={SIZES.icon} /></Icon>
     </Row>
   )
 }

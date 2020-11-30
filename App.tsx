@@ -26,9 +26,7 @@ function App() {
       console.log('raw queue value at start is ', res)
       res && setQueue(JSON.parse(res))
     })
-    netInfo.isConnected
-      ? loadDataFrAPI()
-      : loadDataFrCache()
+    console.log("is app connected on first load? ", netInfo.isConnected)
   }, [])
   
   const netInfo = useNetInfo();
@@ -39,8 +37,14 @@ function App() {
   const [ queue, setQueue ] = useState<Array<Obj>>();
 
   useEffect(() => {
-    if (netInfo.isConnected && queue) {
-      sendEntries(queue)
+    if (netInfo.isConnected) {
+      if(queue) {
+        sendEntries(queue)
+      }
+      loadDataFrAPI()
+    }
+    else {
+      loadDataFrCache()
     }
   }, [netInfo.isConnected])
 
@@ -63,6 +67,7 @@ function App() {
       setLogs(logs.records)
       saveOfflineData("logs", JSON.stringify(logs.records))
       const cats = await getBudgetRecords()
+      console.log('loadDataFrAPI:getBudgetRecords = ', cats)
       setCats(cats.records)
       saveOfflineData("cats", JSON.stringify(cats.records))
     } catch (err) {

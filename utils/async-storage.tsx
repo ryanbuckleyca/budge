@@ -5,6 +5,7 @@ const loadOfflineData = async (type:string) => {
     const value = await AsyncStorage.getItem(type);
     if (value === null)
       return '[]'
+    console.log('loading offline data: ', value)
     return value as string;
   } catch (error) {
     console.log(error);
@@ -13,6 +14,7 @@ const loadOfflineData = async (type:string) => {
 }
 const saveOfflineData = async (type:string, value:string) => {
   try {
+    console.log(`trying to save recent ${type} fetch to cache: `, value)
     const saved = await AsyncStorage.setItem(type, value);
     return saved;
   } catch (error) {

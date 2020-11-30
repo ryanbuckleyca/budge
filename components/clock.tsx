@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { Animated, StatusBar, StyleSheet } from 'react-native';
 import dayjs from 'dayjs';
 import styled from 'styled-components/native';
 import SIZES from '../utils/sizes';
 
-
-const TICK_INTERVAL = 1000;
+const TICK_INTERVAL = 1000; // one second
 
 export default class Clock extends Component {
 
@@ -93,28 +92,29 @@ const Container = styled.View`
   width: ${SIZES.icon*.95}px;
   height: ${SIZES.icon*.95}px;
   margin: auto;
-  border-width: ${SIZES.icon/20}px;
-  border-color: white;
+  border-width: ${SIZES.icon/18}px;
+  border-color: grey;
   border-style: solid;
   align-items: center;
   justify-content: center;
 `
 const Hours = styled.View`
-  background-color: rgba(255, 255, 255, 1);
+  background-color: grey;
   height: 35%;
   margin-top: 15%;
   width: ${SIZES.icon/22}px;
   border-radius: ${SIZES.icon/22}px;
 `
 const Minutes = styled.View`
-  background-color: rgba(255, 255, 255, 1);
+  background-color: grey;
   height: 45%;
   margin-top: 5%;
   width: ${SIZES.icon/28}px;
   border-radius: ${SIZES.icon/28}px;
 `
 const Seconds = styled.View`
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: grey;
+  opacity: 0.25;
   height: 50%;
   width: ${SIZES.icon/40}px;
   border-radius: ${SIZES.icon/20}px;

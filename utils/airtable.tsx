@@ -11,7 +11,14 @@ const headers:Headers = { Authorization: `Bearer ${AIRTABLE_ID}` }
 
 const callAPI = (table:string, options:object) => (
   fetch(url+table, options)
-    .then(res => res.json())
+    .then(res => {
+      if (res === null) {
+        throw new Error('no records found');
+      }
+      else {
+        return res.json()
+      }
+    })
     .catch(err => {
       console.log(err)
       return {error: err}
@@ -26,7 +33,7 @@ const getLogRecords = () => (
 )
 
 const getBudgetRecords = () => (
-  callAPI('Budget?'+sortBUDGET+'&'+filterBUDGET, {
+  callAPI('BUDGET?'+sortBUDGET+'&'+filterBUDGET, {
     method: 'GET',
     headers: headers
   })

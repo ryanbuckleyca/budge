@@ -1,5 +1,6 @@
 import { 
   Text, 
+  View,
   FlatList, 
   TouchableOpacity, 
   NativeSyntheticEvent, 
@@ -11,6 +12,7 @@ import styled from 'styled-components/native';
 import {Obj} from '../interfaces/'
 import NumPad from './numpad'
 import Switch from './switch'
+import Chart from './chart'
 
 function BottomElements(props:Obj) {
   const { 
@@ -21,19 +23,32 @@ function BottomElements(props:Obj) {
     cats
   } = props;
 
+  // TODO: render mothly items too
+  // sort by most frequent
+  // or sort by name
+  // or sort by type (monthly vs. weekly)
+  // figure out ThisMonth & LastMonth rollovers too
   const renderItem = ({ item }: { item: Obj }) => {
     const color = (item.id && item.id === entry.Category[0]) ? 'white' : 'grey';
+    const limit = (item.fields.Category.toLowerCase().charCodeAt(1)-96)/26;
+    console.log('cat entry is: ', item)
     return(
-      <TouchableOpacity onPress={() => handleChange('Category', [item.id])}>
-        <CatText color={color}>{item.fields.Category}</CatText>
-      </TouchableOpacity>
+      <Category onPress={() => handleChange('Category', [item.id])}>
+          <CatText color={color}>{item.fields.Category}</CatText>
+          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{padding: SIZES.smallText/2, fontSize: SIZES.smallText, color: 'grey'}}>{item.fields.SpentThisWeek} / {item.fields.BudgetWeekly}</Text>
+            <Chart limit={limit} size={SIZES.mediumText} />
+          </View>
+      </Category>
     );
   };
 
   return (showNumPad ? null : <>
     <Categories>
-      <CategoryHeader>Category: (Edit)</CategoryHeader>
       <FlatList
+        ListHeaderComponent={
+          <CategoryHeader>category: (edit)</CategoryHeader>
+        }
         data={cats}
         renderItem={renderItem}
         extraData={entry}
@@ -148,10 +163,18 @@ const CategoryHeader = styled.Text`
   text-align: center;
   color: grey;
   font-size: ${SIZES.smallText}px;
-  margin: ${SIZES.fieldMargin}px;
+  margin: ${SIZES.fieldMargin*.8}px;
+`
+const Category = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+  height: ${SIZES.mediumText*1.7}px;
 `
 const CatText = styled.Text<Obj>`
-  height: ${SIZES.mediumText*1.7}px;
   font-size: ${SIZES.mediumText}px;
   text-align: center;
   color: ${props => props.color};
