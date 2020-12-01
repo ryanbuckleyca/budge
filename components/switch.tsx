@@ -35,8 +35,8 @@ const Toggle = styled.TouchableOpacity`
 const Type = styled.Text<Obj>`
   position: relative;
   margin: auto;
-  padding: 0 ${SIZES.smallText*.7}px;
-  font-size: ${SIZES.smallText*.7}px;
+  padding: 0 ${SIZES.xsText}px;
+  font-size: ${SIZES.xsText}px;
   color: white;
   font-weight: 700;
   text-align: right;
@@ -47,7 +47,7 @@ const Off = styled(Type)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  line-height: ${SIZES.smallText*2}px;
+  line-height: ${SIZES.fieldHeight/2}px;
   opacity: 0.1;
   ${props => props.selected && `
     background-color: #7C5563;
@@ -60,7 +60,7 @@ const On = styled(Type)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  line-height: ${SIZES.smallText*2}px;
+  line-height: ${SIZES.fieldHeight/2}px;
   opacity: 0.1;
   ${props => props.selected && `
     background-color: #83958D;

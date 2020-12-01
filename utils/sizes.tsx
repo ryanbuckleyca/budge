@@ -14,6 +14,7 @@ const SIZES = {
   largeText: windowHeight / 14, //approx 64px
   mediumText: windowHeight /26, //approx 32px
   smallText: windowHeight / 40, //approx 22px
+  xsText: windowHeight / 56, //approx 22px
 }
 
 export default SIZES;

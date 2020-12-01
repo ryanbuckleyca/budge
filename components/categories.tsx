@@ -37,7 +37,7 @@ function CategoryHeader() {
   return (
     <Header>
       <Icon>
-        <Coins size={SIZES.smallText+'px'} qty={"medium"} />
+        <Coins size={SIZES.xsText+'px'} rating={3} />
       </Icon>
       <HeaderText style={{flex: 1}}>
         CATEGORY
@@ -46,7 +46,7 @@ function CategoryHeader() {
         SPENT
       </HeaderText>
       <Icon>
-        <Calendar size={SIZES.smallText+'px'} />
+        <Calendar size={SIZES.xsText+'px'} />
       </Icon>
     </Header>
   )
@@ -70,7 +70,7 @@ export default function Categories(props:Obj) {
       ? spentThisMonth
       : spentThisWeek
     const selected = id && id === props.entry.Category[0]
-    const TEMPqty = ['low', 'medium', 'high'][Math.floor(Math.random()*3)]
+    const TEMPqty = Math.floor(Math.random()*7)
     return (
       <CategoryItem key={id} onPress={() => handleChange('Category', [id])}>
         <Icon>
@@ -120,7 +120,7 @@ const Header = styled.View`
   ${row}
   ${grey}
   padding: ${SIZES.fieldMargin}px 
-           ${SIZES.smallText/2}px 
+           ${SIZES.xsText}px 
            ${SIZES.fieldMargin/2}px;
 `
 const Icon = styled.Text`
@@ -134,7 +134,7 @@ const Row = styled.View`
   ${row}
 `
 const HeaderText = styled.Text`
-  font-size: ${SIZES.smallText}px;
+  font-size: ${SIZES.xsText}px;
   ${grey}
 `
 const CategoryList = styled.FlatList`
@@ -146,12 +146,12 @@ const CategoryList = styled.FlatList`
 `
 const CategoryItem = styled.TouchableOpacity`
   ${row}
-  padding: 0 ${SIZES.smallText/2}px;
+  padding: 0 ${SIZES.xsText}px;
   height: ${SIZES.mediumText*1.6}px;
 `
 const CategoryName = styled.Text<Obj>`
   ${flex1}
-  font-size: ${SIZES.mediumText}px;
+  font-size: ${SIZES.mediumText*.8}px;
   text-align: left;
   color: ${props => props.color};
 `

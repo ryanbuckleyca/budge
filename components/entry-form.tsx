@@ -122,6 +122,7 @@ const Amount = styled.Text`
   background: rgba(1, 1, 1, 0.1);
   width: 100%;
   height: 100%;
+  flex: 1;
   font-size: ${SIZES.largeText}px;
   line-height: ${SIZES.transactionHeight}px;
   text-align: center;
@@ -131,6 +132,7 @@ const Input = styled.TextInput`
   border: 1px solid rgba(1, 1, 1, .6);
   margin-top: ${SIZES.fieldMargin}px;
   font-size: ${SIZES.mediumText}px;
+  flex: 0 0 auto;
   width: 100%;
   height: ${SIZES.fieldHeight}px;
   overflow: hidden;
