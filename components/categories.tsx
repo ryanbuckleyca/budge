@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from './chart';
 import { Bg as Calendar } from './cal';
+import Coins from './coins';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes'
 import styled, { css } from 'styled-components/native';
@@ -35,9 +36,18 @@ console.log("weeksInMonth: ", weeksInMonth(1, 2021));
 function CategoryHeader() {
   return (
     <Header>
-      <HeaderText style={{flex: 1}}>CATEGORY</HeaderText>
-      <HeaderText>SPENT</HeaderText>
-      <Icon><Calendar size={SIZES.smallText+'px'} /></Icon>
+      <Icon>
+        <Coins size={SIZES.smallText+'px'} qty={"medium"} />
+      </Icon>
+      <HeaderText style={{flex: 1}}>
+        CATEGORY
+      </HeaderText>
+      <HeaderText style={{paddingHorizontal: 10}}>
+        SPENT
+      </HeaderText>
+      <Icon>
+        <Calendar size={SIZES.smallText+'px'} />
+      </Icon>
     </Header>
   )
 }
@@ -60,8 +70,12 @@ export default function Categories(props:Obj) {
       ? spentThisMonth
       : spentThisWeek
     const selected = id && id === props.entry.Category[0]
+    const TEMPqty = ['low', 'medium', 'high'][Math.floor(Math.random()*3)]
     return (
       <CategoryItem key={id} onPress={() => handleChange('Category', [id])}>
+        <Icon>
+          <Coins size={SIZES.smallText+'px'} qty={TEMPqty}/>
+        </Icon>
         <CategoryName color={selected ? 'white' : 'grey'}>
           {fields.Category}
         </CategoryName>
@@ -105,14 +119,16 @@ const flex1 = css`
 const Header = styled.View`
   ${row}
   ${grey}
-  padding: ${SIZES.fieldMargin}px;
+  padding: ${SIZES.fieldMargin}px 
+           ${SIZES.smallText/2}px 
+           ${SIZES.fieldMargin/2}px;
 `
 const Icon = styled.Text`
   ${flex0}
   ${grey}
   width: ${SIZES.fieldMargin*2}px
   font-size: ${SIZES.smallText}px
-  margin: 0 auto;
+  text-align: center;
 `
 const Row = styled.View`
   ${row}
@@ -122,7 +138,7 @@ const HeaderText = styled.Text`
   ${grey}
 `
 const CategoryList = styled.FlatList`
-  flex: 1;
+  ${flex1}
   background-color: #292929;
   margin-top: ${SIZES.fieldMargin}px;
   padding: 0 ${SIZES.fieldMargin/3}px;
@@ -130,17 +146,17 @@ const CategoryList = styled.FlatList`
 `
 const CategoryItem = styled.TouchableOpacity`
   ${row}
-  padding: 0 ${SIZES.fieldMargin}px;
+  padding: 0 ${SIZES.smallText/2}px;
   height: ${SIZES.mediumText*1.6}px;
 `
 const CategoryName = styled.Text<Obj>`
+  ${flex1}
   font-size: ${SIZES.mediumText}px;
   text-align: left;
-  flex: 1;
   color: ${props => props.color};
 `
 const Fraction = styled.Text`
-  padding: ${SIZES.smallText/2}px;
+  padding: ${SIZES.smallText/3}px;
   font-size: ${SIZES.smallText}px;
   ${grey}
 `

@@ -11,9 +11,9 @@ const SIZES = {
   fieldHeight: windowHeight / 9, //approx 86px
   transactionHeight: windowHeight / 8, //approx 100px
   fieldMargin: windowHeight / 50, // approx 15px
-  largeText: windowHeight / 12, //approx 64px
-  mediumText: windowHeight /24, //approx 32px
-  smallText: windowHeight / 36, //approx 22px
+  largeText: windowHeight / 14, //approx 64px
+  mediumText: windowHeight /26, //approx 32px
+  smallText: windowHeight / 40, //approx 22px
 }
 
 export default SIZES;
