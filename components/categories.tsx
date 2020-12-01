@@ -1,17 +1,16 @@
-import { Text, View } from 'react-native';
 import React from 'react';
 import Chart from './chart';
 import { Bg as Calendar } from './cal';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes'
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 // sort by most used category
 // or sort by name
 // or sort by type (monthly vs. weekly)
 // what to do about rollovers?
 
-const getWeeksInMonth = (year: number, month: number) => { 
+const weeksInMonth = (year: number, month: number) => { 
   const daysName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const weeks=[];      
   const lastDate = new Date(year, month + 1, 0); 
@@ -31,44 +30,48 @@ const getWeeksInMonth = (year: number, month: number) => {
   return weeks
 }
 
-console.log("getWeeksInMonth: ", getWeeksInMonth(1, 2021));  
+console.log("weeksInMonth: ", weeksInMonth(1, 2021));  
 
 function CategoryHeader() {
   return (
     <Header>
-      <IconCol><Calendar size={SIZES.smallText+'px'} /></IconCol>
-      <Flex1Col>CATEGORY</Flex1Col>
-      <Flex0Col>SPENT</Flex0Col>
+      <HeaderText style={{flex: 1}}>CATEGORY</HeaderText>
+      <HeaderText>SPENT</HeaderText>
+      <Icon><Calendar size={SIZES.smallText+'px'} /></Icon>
     </Header>
   )
 }
 
 export default function Categories(props:Obj) {
+  const { handleChange } = props
 
   const renderItem = ({ item }:Obj) => {
-    const selected = item.id && item.id === props.entry.Category[0]
-    const weeksThisMonth = getWeeksInMonth(2021, 11).filter(week => week.length > 3)
-    const color = selected ? 'white' : 'grey';
-    const freq = item.fields.Frequency === 'Monthly' ? "M" : "W"
-    const spentThisMonth = item.fields.SpentThisMonth +'/'+ item.fields.BudgetMonthly
-    const spentThisWeek = item.fields.SpentThisWeek +'/'+ (item.fields.BudgetMonth/weeksThisMonth.length)
-    const limit = (freq === 'M') 
-      ? item.fields.SpentThisMonth / item.fields.BudgetMonthly 
-      : item.fields.SpentThisWeek / (item.fields.BudgetMonth/weeksThisMonth.length);
-
+    const { id, fields } = item
+    const { SpentThisMonth, SpentThisWeek, BudgetMonthly, Frequency } = fields;
+    
+    const frequency = Frequency === 'Monthly' ? "M" : "W"
+    const weeksThisMonth = weeksInMonth(2021, 11).filter(wk => wk.length > 3)
+    const spentThisMonth = SpentThisMonth+'/'+BudgetMonthly
+    const spentThisWeek = SpentThisWeek+'/'+(BudgetMonthly/weeksThisMonth.length)
+    const limit = (frequency === 'M') 
+      ? eval(spentThisMonth)
+      : eval(spentThisWeek)
+    const fraction = frequency === 'M' 
+      ? spentThisMonth
+      : spentThisWeek
+    const selected = id && id === props.entry.Category[0]
     return (
-      <CategoryItem 
-        key={item.id}
-        onPress={() => props.handleChange('Category', [item.id])}
-      >
-        <IconCol>{freq}</IconCol>
-        <CatText color={color}>{item.fields.Category}</CatText>
-        <Flex0Col>
-          <Text style={{padding: SIZES.smallText/2, fontSize: SIZES.smallText}}>
-            {freq === 'M' ? spentThisMonth : spentThisWeek}
-          </Text>
+      <CategoryItem key={id} onPress={() => handleChange('Category', [id])}>
+        <CategoryName color={selected ? 'white' : 'grey'}>
+          {fields.Category}
+        </CategoryName>
+        <Row>
+          <Fraction>{fraction}</Fraction>
           <Chart limit={limit} size={SIZES.mediumText} />
-        </Flex0Col>
+        </Row>
+        <Icon>
+          {frequency}
+        </Icon>
       </CategoryItem>
     );
   };
@@ -77,26 +80,46 @@ export default function Categories(props:Obj) {
     <CategoryList
       ListHeaderComponent={<CategoryHeader />}
       data={props.cats}
-      renderItem={renderItem}
       extraData={props.entry}
+      renderItem={renderItem}
     />
   )
 }
-const Flex0Col = styled.Text`
-  flex: 0;
-  text-align: left;
+
+const grey = css`
+  color: grey
+`;
+const row = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: grey;
+  justify-content: center;
+`;
+const flex0 = css`
+  flex: 0 0 auto;
+`;
+const flex1 = css`
+  flex: 1 1 auto;
+`;
+
+const Header = styled.View`
+  ${row}
+  ${grey}
+  padding: ${SIZES.fieldMargin}px;
 `
-const Flex1Col = styled.Text`
-  flex: 1;
-  text-align: left;
+const Icon = styled.Text`
+  ${flex0}
+  ${grey}
+  width: ${SIZES.fieldMargin*2}px
+  font-size: ${SIZES.smallText}px
+  margin: 0 auto;
 `
-const IconCol = styled(Flex0Col)`
-  flex-basis: ${SIZES.mediumText}px;
-  width: ${SIZES.mediumText}px;
+const Row = styled.View`
+  ${row}
+`
+const HeaderText = styled.Text`
+  font-size: ${SIZES.smallText}px;
+  ${grey}
 `
 const CategoryList = styled.FlatList`
   flex: 1;
@@ -105,27 +128,19 @@ const CategoryList = styled.FlatList`
   padding: 0 ${SIZES.fieldMargin/3}px;
   border-radius: 25px;
 `
-const Header = styled.Text`
-  text-align: center;
-  color: grey;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: ${SIZES.smallText}px;
-  margin: ${SIZES.fieldMargin*.8}px;
-`
 const CategoryItem = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  ${row}
   padding: 0 ${SIZES.fieldMargin}px;
-  height: ${SIZES.mediumText*1.7}px;
+  height: ${SIZES.mediumText*1.6}px;
 `
-const CatText = styled.Text<Obj>`
+const CategoryName = styled.Text<Obj>`
   font-size: ${SIZES.mediumText}px;
   text-align: left;
   flex: 1;
   color: ${props => props.color};
+`
+const Fraction = styled.Text`
+  padding: ${SIZES.smallText/2}px;
+  font-size: ${SIZES.smallText}px;
+  ${grey}
 `

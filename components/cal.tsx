@@ -46,7 +46,6 @@ export default function Cal(props: Obj) {
 
 
 export function Bg(props: Obj) {
-  console.log('Bg called with props: ', props)
   return (
     <Svg width={props.size} height={props.size} viewBox="0 0 400 400" fill="none">
       <G clipPath="url(#clip0)">
