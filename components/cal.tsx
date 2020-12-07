@@ -12,13 +12,13 @@ export default function Cal(props: Obj) {
   const date:DMY = {
     week:
       <>
-        <TextCenter size={SIZES.icon*.3} style={{opacity: 0.8}}>
+        <TextCenter size={SIZES.icon*.3} style={{opacity: 0.6}}>
           {new Date(d.getTime() - 864e5).getDate()}
         </TextCenter>
         <TextCenter size={SIZES.icon*.33} style={{paddingLeft: SIZES.icon/16, paddingRight: SIZES.icon/16}}>
-          {d.getDate()}
+          {dayjs(d).format('DD')}
         </TextCenter>
-          <TextCenter size={SIZES.icon*.3} style={{opacity: 0.8}}>
+          <TextCenter size={SIZES.icon*.3} style={{opacity: 0.6}}>
           {new Date(d.getTime() + 864e5).getDate()}
         </TextCenter>
       </>,

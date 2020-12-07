@@ -4,6 +4,7 @@ import { Bg as Calendar } from './cal';
 import Coins from './coins';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes'
+import { weeksInMonth, weekOfYear } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
 
 // sort by most used category
@@ -11,27 +12,9 @@ import styled, { css } from 'styled-components/native';
 // or sort by type (monthly vs. weekly)
 // what to do about rollovers?
 
-const weeksInMonth = (year: number, month: number) => { 
-  const daysName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const weeks=[];      
-  const lastDate = new Date(year, month + 1, 0); 
-  let start:number = 0;
-  let end:number; 
-  for (let i = 1; i < lastDate.getDate()+1; i++) {         
-    if (daysName[Number(new Date(year, month, i).getDay())] =="Monday" || i == lastDate.getDate()) {
-      end = i;
-      weeks.push({
-        start:start+1,
-        end:end,
-        length:end-start
-      }); 
-      start = i;           
-    }
-  }
-  return weeks
-}
 
 console.log("weeksInMonth: ", weeksInMonth(1, 2021));  
+console.log("weeksOfYear: ", weekOfYear());  
 
 function CategoryHeader() {
   return (
