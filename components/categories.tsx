@@ -4,7 +4,7 @@ import { Bg as Calendar } from './cal';
 import Coins from './coins';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes'
-import { weeksInMonth, weekOfYear } from '../utils/dates';
+import { weeksInMonth, weekOfYear, weekOfMonth } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
 
 // sort by most used category
@@ -13,8 +13,9 @@ import styled, { css } from 'styled-components/native';
 // what to do about rollovers?
 
 
-console.log("weeksInMonth: ", weeksInMonth(1, 2021));  
-console.log("weeksOfYear: ", weekOfYear());  
+console.log("weeksInMonth: ", weeksInMonth(2020, 12));  
+console.log("weekOfYear: ", weekOfYear());  
+console.log("weekOfMonth: ", weekOfMonth());  
 
 function CategoryHeader() {
   return (
