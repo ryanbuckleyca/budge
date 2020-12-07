@@ -1,4 +1,9 @@
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { useState, useEffect } from 'react';
+import {Text} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { getLogRecords, uploadRecords, getBudgetRecords } from './utils/airtable'
 import { useNetInfo } from "@react-native-community/netinfo";
@@ -10,6 +15,7 @@ import ListLogs from './components/list-logs'
 import EntryForm from './components/entry-form'
 import { weekInfo } from './utils/dates';
 
+const Tab = createMaterialTopTabNavigator();
 
 const blankEntry:Obj = {
   Type: 'Expense', Amount: '', Description: '', Category: [], Notes: ''
@@ -40,7 +46,7 @@ function App() {
     if (netInfo.isConnected) {
       queue && sendEntries(queue)
       loadDataFrAPI()
-    }
+    } 
     else {
       loadDataFrCache()
     }
@@ -104,28 +110,36 @@ function App() {
   }
 
   if(!cats) {
-    return "Loading..."
+    return <Text>Loading...</Text>
   }
 
   return (
-    <Container>
-      <Menu />
-      <Content>
-        <EntryForm
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          setEntry={setEntry}
-          entry={entry}
-          setShowNumPad={setShowNumPad}
-          showNumPad={showNumPad}
-          cats={cats}
-        />
-      {/*
-        <ListLogs logs={logs} />
-      */}
-      </Content>
-      <StatusBar style="auto" />
-    </Container>
+    <NavigationContainer>
+      <Container>
+        <Content>
+          <Tab.Navigator tabBar={props => <Menu {...props} />}>
+            <Tab.Screen name="Home">
+              {
+              props => <EntryForm 
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                setEntry={setEntry}
+                entry={entry}
+                setShowNumPad={setShowNumPad}
+                showNumPad={showNumPad}
+                cats={cats} />
+              }
+            </Tab.Screen>
+            <Tab.Screen name="Logs">
+              {
+              props => <ListLogs logs={logs} />
+              }
+            </Tab.Screen>
+          </Tab.Navigator>
+        </Content>
+        <StatusBar style="auto" />
+      </Container>
+    </NavigationContainer>
   );
 }
 

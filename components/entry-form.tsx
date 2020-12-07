@@ -1,5 +1,5 @@
 import { 
-  Text, 
+  Text, View,
   NativeSyntheticEvent, 
   TextInputChangeEventData
 } from 'react-native';
@@ -69,7 +69,7 @@ function EntryForm(props:Obj) {
   }
 
   return (
-    <>
+    <View style={{backgroundColor: '#222', height: '100%'}}>
       <Transaction>
         <Switch 
           values={["Income", "Expense"]}
@@ -95,7 +95,7 @@ function EntryForm(props:Obj) {
         cats={cats}
         showNumPad={showNumPad}
        />
-    </>
+    </View>
   )
 }
 

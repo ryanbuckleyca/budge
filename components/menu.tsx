@@ -5,14 +5,24 @@ import Clock from './clock'
 import Cal from './cal'
 import Chart from './chart'
 
-export default function Menu() {
+export default function Menu(props:any) {
   return(
     <Row>
-      <Icon><Clock /></Icon>
-      <Icon><Cal type='week' /></Icon>
-      <Icon><Cal type='month' /></Icon>
-      <Icon><Cal type='year' /></Icon>
-      <Icon><Chart limit={0.7} size={SIZES.icon} /></Icon>
+      <Icon onPress={() => props.navigation.navigate('Home')}>
+        <Clock />
+      </Icon>
+      <Icon onPress={() => props.navigation.navigate('Logs')}>
+        <Cal type='week' />
+      </Icon>
+      <Icon onPress={() => props.navigation.navigate('Logs')}>
+        <Cal type='month' />
+      </Icon>
+      <Icon onPress={() => props.navigation.navigate('Logs')}>
+        <Cal type='year' />
+      </Icon>
+      <Icon onPress={() => props.navigation.navigate('Logs')}>
+        <Chart limit={0.7} size={SIZES.icon} />
+      </Icon>
     </Row>
   )
 }
@@ -26,7 +36,7 @@ const Row = styled.View`
   align-items: center;
   justify-content: space-between;
 `
-const Icon = styled.Text`
+const Icon = styled.TouchableOpacity`
   height: ${SIZES.icon}px;
   display: flex;
   flex: 1;
