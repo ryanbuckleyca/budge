@@ -25,6 +25,7 @@ const Card = styled.View`
 const Row = styled.View`
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `
 

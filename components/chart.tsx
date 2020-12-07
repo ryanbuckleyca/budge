@@ -14,6 +14,7 @@ export default function Chart(props:Obj) {
     progressColor={color} 
     animate={true}
     backgroundColor={'rgba(255, 255, 255, 0.2)'}
-    strokeWidth={SIZES.icon/10}
-  />
+    strokeWidth={SIZES.icon/10}>
+      {props.children}
+    </ProgressCircle>
 }
