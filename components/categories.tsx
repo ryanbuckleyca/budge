@@ -3,15 +3,15 @@ import Chart from './chart';
 import { Bg as Calendar } from './cal';
 import Coins from './coins';
 import { Obj } from '../interfaces/';
-import SIZES from '../utils/sizes'
-import { weeksInMonth, weekOfYear, weekOfMonth, weekInfo } from '../utils/dates';
+import SIZES from '../utils/sizes';
+import {Text} from 'react-native';
+import { weeksInMonth, weekOfYear, weekInfo } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
 
 // sort by most used category
 // or sort by name
 // or sort by type (monthly vs. weekly)
 // what to do about rollovers?
-
 
 console.log("weeksInMonth: ", weeksInMonth(2020, 12));  
 console.log("weekOfYear: ", weekOfYear());  
@@ -20,14 +20,14 @@ console.log("weekInfo: ", weekInfo());
 function CategoryHeader() {
   return (
     <Header>
-      <Icon>
-        <Coins size={SIZES.xsText+'px'} rating={3} />
+      <Icon style={{marginRight: 5}}>
+        <Text style={{color: 'grey'}}>QTY</Text>
       </Icon>
       <HeaderText style={{flex: 1}}>
         CATEGORY
       </HeaderText>
-      <HeaderText style={{paddingHorizontal: 10}}>
-        SPENT
+      <HeaderText>
+        SPENDING
       </HeaderText>
       <Icon>
         <Calendar size={SIZES.xsText+'px'} />
@@ -57,7 +57,7 @@ export default function Categories(props:Obj) {
     const TEMPqty = Math.floor(Math.random()*7)
     return (
       <CategoryItem key={id} onPress={() => handleChange('Category', [id])}>
-        <Icon>
+        <Icon style={{marginRight: 5}}>
           <Coins size={SIZES.smallText+'px'} qty={TEMPqty}/>
         </Icon>
         <CategoryName color={selected ? 'white' : 'grey'}>
@@ -68,19 +68,21 @@ export default function Categories(props:Obj) {
           <Chart limit={limit} size={SIZES.mediumText} />
         </Row>
         <Icon>
-          {frequency}
+          <Text style={{color: 'grey'}}>{frequency}</Text>
         </Icon>
       </CategoryItem>
     );
   };
 
   return (
-    <CategoryList
-      ListHeaderComponent={<CategoryHeader />}
-      data={props.cats}
-      extraData={props.entry}
-      renderItem={renderItem}
-    />
+    <CategoriesContainer>
+      <CategoryHeader />
+      <CategoryList
+        data={props.cats}
+        extraData={props.entry}
+        renderItem={renderItem}
+      />
+    </CategoriesContainer>
   )
 }
 
@@ -107,13 +109,18 @@ const Header = styled.View`
            ${SIZES.xsText}px 
            ${SIZES.fieldMargin/2}px;
 `
-const Icon = styled.Text`
-  ${flex0}
+const Icon = styled.View`
   ${grey}
-  width: ${SIZES.fieldMargin*2}px
-  font-size: ${SIZES.smallText}px
+  width: ${SIZES.fieldMargin*2}px;
+  height: auto;
+  font-size: ${SIZES.smallText}px;
   text-align: center;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
+
 const Row = styled.View`
   ${row}
 `
@@ -121,12 +128,17 @@ const HeaderText = styled.Text`
   font-size: ${SIZES.xsText}px;
   ${grey}
 `
-const CategoryList = styled.FlatList`
+const CategoriesContainer = styled.View`
   ${flex1}
   background-color: #292929;
   margin-top: ${SIZES.fieldMargin}px;
   padding: 0 ${SIZES.fieldMargin/3}px;
   border-radius: 25px;
+  overflow: hidden;
+`
+const CategoryList = styled.FlatList`
+  ${flex1}
+  background-color: #292929;
 `
 const CategoryItem = styled.TouchableOpacity`
   ${row}

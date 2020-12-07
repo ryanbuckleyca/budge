@@ -1,27 +1,26 @@
 import React from 'react';
-import { Row, Card } from '../styles'
+import { Row, Card } from '../styles';
 import { Text, View } from 'react-native';
-import { withTheme } from 'styled-components';
+import {Obj} from '../interfaces';
 
-function ListLogs(props) {
+function ListLogs(props:any) {
   const logs = props.logs
 
-  if(!logs)
-    return <Text style={{color: 'white'}}>Loading...</Text>
+  if(!logs) return (<Text style={{color: 'white'}}>Loading...</Text>)
 
   return(
     <View style={{backgroundColor: '#222', height: '100%'}}>
       <Text style={{color: 'white'}}>
-        { `${ logs && logs.length || 'no' } items in LOG:` }
+        { logs && ((logs.length || 'no') + 'items in LOG:') }
       </Text>
       <Row>
         <Text style={{color: 'white'}}>Amount</Text>
         <Text style={{color: 'white'}}>Description</Text>
-        <Text style={{color: 'white'}}>Categoriy</Text>
+        <Text style={{color: 'white'}}>Category</Text>
       </Row>
 
       {
-        logs.map(log => {
+        logs.map((log:any) => {
           const { Type, Amount, Description, Category } = log.fields
           return(
             <Card key={log.id}>
@@ -30,9 +29,6 @@ function ListLogs(props) {
                   <Text style={{color: Type === 'Expense' ? 'red' : 'green' }}>{ Amount }</Text>
                 </View>
                 <View><Text style={{color: 'white'}}>{ Description }</Text></View>
-                {/* TODO: Category is a controlled list */}
-                {/* Categories should be part of the Budget section */}
-                {/* https://www.npmjs.com/package/react-select2-native */}
                 <View><Text style={{color: 'white'}}>{ Category }</Text></View>
               </Row>
             </Card>

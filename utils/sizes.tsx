@@ -8,7 +8,7 @@ const SIZES = {
   windowWidth: windowWidth,
   windowHeight: windowHeight,
   icon: windowWidth / 7, //approx 130px
-  fieldHeight: windowHeight / 9, //approx 86px
+  fieldHeight: windowHeight / 10, //approx 80px
   transactionHeight: windowHeight / 8, //approx 100px
   fieldMargin: windowHeight / 50, // approx 15px
   largeText: windowHeight / 14, //approx 64px
