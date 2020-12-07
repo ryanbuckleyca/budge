@@ -20,9 +20,6 @@ function BottomElements(props:Obj) {
     cats
   } = props;
 
-
-  console.log('cats are ', cats)
-
   return (showNumPad ? null : <>
     <Categories 
       cats={cats}

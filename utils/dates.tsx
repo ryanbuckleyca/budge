@@ -13,6 +13,7 @@ export const weekOfYear = (date:Date=new Date) => {
 }
 
 // array of weeks in month, starting on Monday
+// TODO: change this to receive a date object argument
 export const weeksInMonth = (year: number, month: number) => { 
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const weeks=[];      
@@ -35,47 +36,51 @@ export const weeksInMonth = (year: number, month: number) => {
   return weeks
 }
 
-export const weekOfMonth = (date:Date=new Date) => {
+export const weekInfo = (date:Date=new Date) => {
   const d = dayjs(date)
   const thisMonth = d.month()+1
-  const prevMonth = d.subtract(1,'month').month()+1
-  const nextMonth = d.add(1,'month').month()+1
-  const prevYear = d.subtract(1, 'year').year()
-  const nextYear = d.add(1, 'year').year()
+  const prevWeeksMonth = d.subtract(1,'month').month()+1
+  const nextWeeksMonth = d.add(1,'month').month()+1
+  const prevWeeksYear = d.subtract(1,'month').year()
+  const nextWeeksYear = d.add(1, 'month').year()
   const theseWeeks:Array<Obj> = weeksInMonth(d.year(), thisMonth)
-  const prevWeeks:Array<Obj> = weeksInMonth(prevYear, prevMonth)
-  const nextWeeks:Array<Obj> = weeksInMonth(nextYear, nextMonth)
+  const prevWeeks:Array<Obj> = weeksInMonth(prevWeeksYear, prevWeeksMonth)
+  const nextWeeks:Array<Obj> = weeksInMonth(nextWeeksYear, nextWeeksMonth)
   const day = d.date()
   const thisWeek = theseWeeks.find(
     (week:Obj) => day >= week.start && day <= week.end
   ) || {error: 'could not find week'}
   const weeksIndex = theseWeeks.indexOf(thisWeek);
 
-  if(!thisWeek) return -1;
+  if (!thisWeek) return -1;
 
+  const dateInfo = {
+    WeekOfMonth: weeksIndex+1,
+    WeekOfYear: weekOfYear(date),
+    WeekID: -1,
+    Year: -1,
+    Month: -1,
+    Days: {}
+  }
 
   if (thisWeek.length < 4 && weeksIndex === 0) {
-    return {
-      Month: prevMonth, 
-      Days: prevWeeks[prevWeeks.length-1],
-      WeekOfMonth: weeksIndex+1,
-      WeekOfYear: weekOfYear(date)
-    }
+    dateInfo.WeekID = prevWeeksYear*100+dateInfo.WeekOfYear
+    dateInfo.Year = prevWeeksYear
+    dateInfo.Month = prevWeeksMonth
+    dateInfo.Days = prevWeeks[prevWeeks.length-1]
   }
   else if (thisWeek.length < 4 && weeksIndex === thisWeek.length-1) {
-    return {
-      Month: nextMonth, 
-      Days: nextWeeks[0],
-      WeekOfMonth: weeksIndex+1,
-      WeekOfYear: weekOfYear(date)
-    }
+    dateInfo.WeekID = nextWeeksYear*100+dateInfo.WeekOfYear
+    dateInfo.Year = nextWeeksYear
+    dateInfo.Month = nextWeeksMonth
+    dateInfo.Days = nextWeeks[0]
   }
   else {
-    return {
-      Month: thisMonth, 
-      Days: thisWeek,
-      WeekOfMonth: weeksIndex+1,
-      WeekOfYear: weekOfYear(date)
-    }
+    dateInfo.WeekID = d.year()*100+dateInfo.WeekOfYear
+    dateInfo.Year = d.year()
+    dateInfo.Month = thisMonth
+    dateInfo.Days = thisWeek
   }
+
+  return dateInfo;
 }

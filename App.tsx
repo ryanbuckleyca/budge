@@ -8,6 +8,8 @@ import { loadOfflineData, saveOfflineData } from './utils/async-storage'
 import Menu from './components/menu'
 import ListLogs from './components/list-logs'
 import EntryForm from './components/entry-form'
+import { weekInfo } from './utils/dates';
+
 
 const blankEntry:Obj = {
   Type: 'Expense', Amount: '', Description: '', Category: [], Notes: ''
@@ -36,9 +38,7 @@ function App() {
 
   useEffect(() => {
     if (netInfo.isConnected) {
-      if(queue) {
-        sendEntries(queue)
-      }
+      queue && sendEntries(queue)
       loadDataFrAPI()
     }
     else {
@@ -89,12 +89,14 @@ function App() {
   const handleSubmit = (e:Obj) => {
     e.preventDefault();
     // TODO: perform verification of form data
+    const payload = { ...entry, dateInfo: weekInfo(new Date) }
+
     if (netInfo.isConnected) {
-      sendEntries([entry])
+      sendEntries([payload])
       alert('your entry was successfully logged')
     }
     else {
-      saveOfflineData("queue", JSON.stringify([entry]))
+      saveOfflineData("queue", JSON.stringify([payload]))
       .then(res => alert('entry will be added when you reconnect'))
       .catch(err => console.log('saveOfflineData error: ', err))    
     }
