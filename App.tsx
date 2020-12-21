@@ -54,10 +54,9 @@ function App() {
 
   const sendEntries = async (entries:Array<Obj>) => {
     try {
-      const payload = await uploadRecords(parseEntryAmt(entries))
-      if(payload.error) {
-        throw Error(payload.error.message)
-      }
+      const req = await uploadRecords(parseEntryAmt(entries))
+      if(req.error) throw Error(req.error.message)
+
       setQueue([])
       saveOfflineData('queue', '[]')
       loadDataFrAPI()

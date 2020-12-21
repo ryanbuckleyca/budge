@@ -46,17 +46,12 @@ function Card(props:any) {
   )
 }
 
-// called from App.tsx
 function ListLogs(props:any) {
-  console.log("listList component has props.logs: ", props.logs)
-  // props.logs is returning {record: [object]}
-
   if(!props.logs || !props.cats) 
     return <Text style={{color: 'white'}}>Loading...</Text>
 
   if(!Array.isArray(props.logs))
     return <Text style={{color: 'red'}}>error loading logs</Text>
-
 
   return(
     <View style={{backgroundColor: '#222', height: '100%'}}>
