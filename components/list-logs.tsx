@@ -15,6 +15,8 @@ function Card(props:any) {
   const d = dayjs(props.log.createdTime)
   const DisplayDate = d.format('MMM DD, HH:mm A')
 
+  // TODO: it would be cool to show the time between cards
+  // to indicate the buy nothing streak of not spending
   return (
     <Row style={{backgroundColor: '#292929', borderWidth: 1, borderColor: '#111', marginVertical: 1, padding: 15, borderRadius: 20}}>
     <View style={{flex: 1, marginHorizontal: 15}}>
@@ -47,14 +49,15 @@ function Card(props:any) {
 function ListLogs(props:any) {
   const logs = props.logs
 
-  if(!logs) return (<Text style={{color: 'white'}}>Loading...</Text>)
+  if(!logs || !props.cats) 
+    return <Text style={{color: 'white'}}>Loading...</Text>
 
   return(
     <View style={{backgroundColor: '#222', height: '100%'}}>
       <Row style={{marginHorizontal: 15, marginBottom: 15}}>
-        <Text style={{color: 'white'}}>
-          Your BuyNothing streak/record: 
-          <Text style={{fontWeight: '600'}}>4/45 days</Text>
+        <Text style={{color: 'white', width: '100%', textAlign: 'center'}}>
+          BuyNothing streak: 
+          <Text style={{fontWeight: '600'}}>4 days (45 record)</Text>
         </Text>
       </Row>
       { 

@@ -13,10 +13,6 @@ import styled, { css } from 'styled-components/native';
 // and/or sort by type (monthly vs. weekly)
 // what to do about rollovers?
 
-console.log("weeksInMonth: ", weeksInMonth(2020, 12));  
-console.log("weekOfYear: ", weekOfYear());  
-console.log("weekInfo: ", weekInfo());  
-
 function CategoryHeader() {
   return (
     <Header>
@@ -42,7 +38,7 @@ export default function Categories(props:Obj) {
   const renderItem = ({ item }:Obj) => {
     const { id, fields } = item
     const { SpentThisMonth, SpentThisWeek, BudgetMonthly, Frequency } = fields;
-    // can these easily be calculated on Airtable side?
+    // TODO: can these easily be calculated on Airtable side?
     // if so, do it there
     // MonthNum and WeekNum can't be determined by AT
     // so these should be calculated here and pushed with data

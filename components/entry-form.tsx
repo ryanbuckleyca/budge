@@ -20,6 +20,8 @@ function BottomElements(props:Obj) {
     cats
   } = props;
 
+  // TODO: when Entry is submitted,
+  // update Logs to show new submission
   return (showNumPad ? null : <>
     <Categories 
       cats={cats}
