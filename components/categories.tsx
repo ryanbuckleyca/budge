@@ -9,8 +9,8 @@ import { weeksInMonth, weekOfYear, weekInfo } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
 
 // sort by most used category
-// or sort by name
-// or sort by type (monthly vs. weekly)
+// and/or sort by name
+// and/or sort by type (monthly vs. weekly)
 // what to do about rollovers?
 
 console.log("weeksInMonth: ", weeksInMonth(2020, 12));  
@@ -43,6 +43,9 @@ export default function Categories(props:Obj) {
     const { id, fields } = item
     const { SpentThisMonth, SpentThisWeek, BudgetMonthly, Frequency } = fields;
     
+    // spendThisMonth and spentThisWeek 
+    // should be available globally
+    // need to use these in Logs too
     const frequency = Frequency === 'Monthly' ? "M" : "W"
     const weeksThisMonth = weeksInMonth(2021, 11).filter(wk => wk.length > 3)
     const spentThisMonth = SpentThisMonth+'/'+BudgetMonthly

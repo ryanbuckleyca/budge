@@ -7,7 +7,12 @@ import SIZES from '../utils/sizes';
 // @ts-ignore
 
 function Card(props:any) {
-  const {Type, Amount, Desc, Category} = props.fields;
+  if(!props.cat || !props.fields) {
+    return <Text>Loading...</Text>
+  }
+
+  const { Type, Amount, Desc, Category } = props.fields;
+  const { Icon, BudgetMonthly } = props.cat.fields;
 
   return (
     <Row style={{backgroundColor: '#191919', borderWidth: 1, borderColor: '#111', padding: 15, borderRadius: 20}}>
@@ -15,7 +20,7 @@ function Card(props:any) {
       <Chart limit={.8} size={SIZES.largeText}>
         {/* {console.log("props.cat in Log Card:", props.cat)} */}
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{color: 'white'}}>{props.cat.fields.Icon}</Text>
+          <Text style={{color: 'white'}}>{Icon}</Text>
         </View>
       </Chart>
     </View>
@@ -25,7 +30,7 @@ function Card(props:any) {
     </View>
     <View>
       <Text style={{color: "white", fontSize: SIZES.xsText}}>$1412</Text>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>/$910</Text>
+      <Text style={{color: "white", fontSize: SIZES.xsText}}>/{BudgetMonthly}</Text>
     </View>
   </Row>
   )
@@ -33,11 +38,6 @@ function Card(props:any) {
 
 function ListLogs(props:any) {
   const logs = props.logs
-
-  // console.log(
-  //   "props.cats.find recIuWF2DZnCf9tfy is:", 
-  //   props.cats.find((cat:any) => cat.id === "recIuWF2DZnCf9tfy")
-  // )
 
   if(!logs) return (<Text style={{color: 'white'}}>Loading...</Text>)
 

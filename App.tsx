@@ -109,7 +109,7 @@ function App() {
     setEntry(blankEntry)
   }
 
-  if(!cats) {
+  if(!cats || !logs) {
     return <Text>Loading...</Text>
   }
 
