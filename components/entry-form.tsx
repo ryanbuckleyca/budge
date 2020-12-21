@@ -31,9 +31,9 @@ function BottomElements(props:Obj) {
     <Input
       placeholder="description"
       placeholderTextColor="grey"
-      value={ entry.Description }
+      value={ entry.Desc }
       onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
-        handleChange('Description', e.nativeEvent.text)}
+        handleChange('Desc', e.nativeEvent.text)}
     />
     <Input
       placeholder="notes"

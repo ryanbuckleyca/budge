@@ -49,10 +49,8 @@ export const weekInfo = (date:Date=new Date) => {
   const day = d.date()
   const thisWeek = theseWeeks.find(
     (week:Obj) => day >= week.start && day <= week.end
-  ) || {error: 'could not find week'}
+  ) || {error: "could not find week"}
   const weeksIndex = theseWeeks.indexOf(thisWeek);
-
-  if (!thisWeek) return -1;
 
   const dateInfo = {
     WeekOfMonth: weeksIndex+1,

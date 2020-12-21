@@ -9,8 +9,9 @@ const url = `https://api.airtable.com/v0/appA67zYW50gE6q8E/`
 const headers:Headers = { Authorization: `Bearer ${AIRTABLE_ID}` }
 
 
-const callAPI = (table:string, options:object) => (
-  fetch(url+table, options)
+const callAPI = (table:string, options:object) => {
+  console.log('callAPI called with (table, options): ', table, options)
+  return fetch(url+table, options)
     .then(res => {
       if (res === null) {
         throw new Error('no records found');
@@ -23,7 +24,7 @@ const callAPI = (table:string, options:object) => (
       console.log(err)
       return {error: err}
     })
-)
+  }
 
 const getLogRecords = () => (
   callAPI('LOG?'+sortLOGS, {
@@ -39,17 +40,16 @@ const getBudgetRecords = () => (
   })
 )
 
-const uploadRecords = (recordsList:Array<Entry>) => {
-  const formatedRecords = {
-    records: recordsList.map((record:Entry) => (
-      {"fields": record}
-    ))
+const uploadRecords = (recs:Array<Entry>) => {
+  console.log('uploadRecords called:')
+  const formattedRecs = {
+    records: recs.map((rec:Entry) => ({"fields": rec}))
   }
   headers['Content-Type'] = 'application/json'
   return callAPI('LOG', {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify(formatedRecords)
+    body: JSON.stringify(formattedRecs)
   })
 }
 

@@ -18,10 +18,10 @@ import { weekInfo } from './utils/dates';
 const Tab = createMaterialTopTabNavigator();
 
 const blankEntry:Obj = {
-  Type: 'Expense', Amount: '', Description: '', Category: [], Notes: ''
+  Type: 'Expense', Amount: '', Desc: '', Category: [], Notes: ''
 }
 
-const parseEntries = (entries:Array<Obj>) => (
+const parseEntryAmt = (entries:Array<Obj>) => (
   entries.map((entry) => (
     {...entry, Amount: parseInt(entry.Amount)} as Entry
   )
@@ -42,6 +42,8 @@ function App() {
   const [ showNumPad, setShowNumPad ] = useState(true);
   const [ queue, setQueue ] = useState<Array<Obj>>();
 
+  useEffect(() => console.log('queue state set to: ', queue), [queue])
+
   useEffect(() => {
     if (netInfo.isConnected) {
       queue && sendEntries(queue)
@@ -54,7 +56,7 @@ function App() {
 
   const sendEntries = async (entries:Array<Obj>) => {
     try {
-      const allEntries = await uploadRecords(parseEntries(entries))
+      const allEntries = await uploadRecords(parseEntryAmt(entries))
       setLogs(allEntries)
       setQueue([])
       saveOfflineData('queue', '[]')
@@ -62,6 +64,8 @@ function App() {
       console.log('error sending queued entries: ', err)
     } finally { 
       console.log('submitted queued entries: logs is ', logs)
+      alert('your entry was successfully logged')
+      // TODO: alert still gets called even when error
     }
   }
 
@@ -95,11 +99,16 @@ function App() {
   const handleSubmit = (e:Obj) => {
     e.preventDefault();
     // TODO: perform verification of form data
-    const payload = { ...entry, dateInfo: weekInfo(new Date) }
+    const d = weekInfo(new Date)
+    const payload = { 
+      ...entry, 
+      WeekOfMonth: d.WeekOfMonth,
+      WeekOfYear: d.WeekOfYear,
+      WeekID: d.WeekID
+    }
 
     if (netInfo.isConnected) {
       sendEntries([payload])
-      alert('your entry was successfully logged')
     }
     else {
       saveOfflineData("queue", JSON.stringify([payload]))

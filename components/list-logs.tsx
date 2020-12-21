@@ -5,9 +5,11 @@ import Chart from './chart';
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
 
+console.log("XXXXXX list-logs.tsx rendered")
+
 function Card(props:any) {
   if(!props.cat || !props.log) {
-    return <Text>Loading...</Text>
+    return <Text style={{color: 'white'}}>Loading...</Text>
   }
 
   const { Type, Amount, Desc, Category } = props.log.fields;
@@ -47,10 +49,15 @@ function Card(props:any) {
 }
 
 function ListLogs(props:any) {
-  const logs = props.logs
 
-  if(!logs || !props.cats) 
+  console.log('logs in listLogs is: ', props.logs)
+
+  if(!props.logs || !props.cats) 
     return <Text style={{color: 'white'}}>Loading...</Text>
+
+  if(!Array.isArray(props.logs))
+    return <Text style={{color: 'red'}}>error loading logs</Text>
+
 
   return(
     <View style={{backgroundColor: '#222', height: '100%'}}>
@@ -60,17 +67,17 @@ function ListLogs(props:any) {
           <Text style={{fontWeight: '600'}}>4 days (45 record)</Text>
         </Text>
       </Row>
-      { 
-        logs.map((log:any) => <Card 
-            key={log.id} 
-            log={log}
-            cat={
-              props.cats.find(
-                (cat:any) => cat.id === log.fields.Category[0]
-              )
-            }
-          />
-        )
+      { // TODO: if there is an error, props.logs is not an array
+        // instead it will be an objects with { error: "msg"}
+        props.logs.map((log:any) => <Card 
+          key={log.id} 
+          log={log}
+          cat={
+            props.cats.find(
+              (cat:any) => cat.id === log.fields.Category[0]
+            )
+          }
+        />)
       }
     </View>
   )
