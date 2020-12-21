@@ -46,6 +46,7 @@ export default function Categories(props:Obj) {
     // spendThisMonth and spentThisWeek 
     // should be available globally
     // need to use these in Logs too
+    
     const frequency = Frequency === 'Monthly' ? "M" : "W"
     const weeksThisMonth = weeksInMonth(2021, 11).filter(wk => wk.length > 3)
     const spentThisMonth = SpentThisMonth+'/'+BudgetMonthly

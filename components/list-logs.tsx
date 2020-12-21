@@ -3,33 +3,35 @@ import { Row } from '../styles';
 import { Text, View, Image } from 'react-native';
 import {Obj} from '../interfaces';
 import Chart from './chart';
+import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
 // @ts-ignore
 
 function Card(props:any) {
-  if(!props.cat || !props.fields) {
+  if(!props.cat || !props.log) {
     return <Text>Loading...</Text>
   }
 
-  const { Type, Amount, Desc, Category } = props.fields;
+  const { Type, Amount, Desc, Category } = props.log.fields;
   const { Icon, BudgetMonthly } = props.cat.fields;
+  const d = dayjs(props.log.createdTime)
+  const DisplayDate = d.format('MMM DD, HH:mm A')
 
   return (
     <Row style={{backgroundColor: '#191919', borderWidth: 1, borderColor: '#111', padding: 15, borderRadius: 20}}>
     <View>
       <Chart limit={.8} size={SIZES.largeText}>
-        {/* {console.log("props.cat in Log Card:", props.cat)} */}
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{color: 'white'}}>{Icon}</Text>
         </View>
       </Chart>
     </View>
     <View style={{flex: 1, marginHorizontal: 15}}>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>{Desc}</Text>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>to December 6</Text>
+      <Text style={{color: "white", fontSize: SIZES.xsText, fontWeight: '700'}}>{Desc}</Text>
+      <Text style={{color: "white", fontSize: SIZES.xsText}}>{DisplayDate}</Text>
     </View>
     <View>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>$1412</Text>
+      <Text style={{color: "white", fontSize: SIZES.xsText}}>{Amount}</Text>
       <Text style={{color: "white", fontSize: SIZES.xsText}}>/{BudgetMonthly}</Text>
     </View>
   </Row>
@@ -55,7 +57,7 @@ function ListLogs(props:any) {
           return (
             <Card 
               key={log.id} 
-              fields={log.fields}
+              log={log}
               cat={
                 props.cats.find((cat:any) => cat.id === log.fields.Category[0])
               }
