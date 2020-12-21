@@ -60,12 +60,15 @@ function App() {
       setLogs(allEntries)
       setQueue([])
       saveOfflineData('queue', '[]')
-    } catch (err) { 
-      console.log('error sending queued entries: ', err)
-    } finally { 
       console.log('submitted queued entries: logs is ', logs)
+      if(allEntries.error) {
+        throw Error(allEntries.error.message)
+      }
       alert('your entry was successfully logged')
-      // TODO: alert still gets called even when error
+    } catch (err) { 
+      const msg = 'error sending queued entries: ' + err
+      console.log(msg)
+      alert(msg)
     }
   }
 
