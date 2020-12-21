@@ -42,13 +42,18 @@ export default function Categories(props:Obj) {
   const renderItem = ({ item }:Obj) => {
     const { id, fields } = item
     const { SpentThisMonth, SpentThisWeek, BudgetMonthly, Frequency } = fields;
-    
+    // can these easily be calculated on Airtable side?
+    // if so, do it there
+    // MonthNum and WeekNum can't be determined by AT
+    // so these should be calculated here and pushed with data
+    // also:
     // spendThisMonth and spentThisWeek 
     // should be available globally
-    // need to use these in Logs too
-    
+    // need to use them in Logs too
+    const d = new Date()
     const frequency = Frequency === 'Monthly' ? "M" : "W"
-    const weeksThisMonth = weeksInMonth(2021, 11).filter(wk => wk.length > 3)
+    const weeksThisMonth = weeksInMonth(d.getFullYear(), d.getMonth()+1)
+      .filter(wk => wk.length > 3)
     const spentThisMonth = SpentThisMonth+'/'+BudgetMonthly
     const spentThisWeek = SpentThisWeek+'/'+(BudgetMonthly/weeksThisMonth.length)
     const limit = (frequency === 'M') 
@@ -59,6 +64,7 @@ export default function Categories(props:Obj) {
       : spentThisWeek
     const selected = id && id === props.entry.Category[0]
     const TEMPqty = Math.floor(Math.random()*7)
+
     return (
       <CategoryItem key={id} onPress={() => handleChange('Category', [id])}>
         <Icon style={{marginRight: 5}}>

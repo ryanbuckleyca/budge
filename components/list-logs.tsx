@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 import Chart from './chart';
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
-// @ts-ignore
 
 function Card(props:any) {
   if(!props.cat || !props.log) {
@@ -17,7 +16,7 @@ function Card(props:any) {
   const DisplayDate = d.format('MMM DD, HH:mm A')
 
   return (
-    <Row style={{backgroundColor: '#191919', borderWidth: 1, borderColor: '#111', padding: 15, borderRadius: 20}}>
+    <Row style={{backgroundColor: '#292929', borderWidth: 1, borderColor: '#111', marginVertical: 1, padding: 15, borderRadius: 20}}>
     <View style={{flex: 1, marginHorizontal: 15}}>
       <Text style={{color: "white", fontSize: SIZES.xsText, fontWeight: '700'}}>
         {Desc}
@@ -52,25 +51,23 @@ function ListLogs(props:any) {
 
   return(
     <View style={{backgroundColor: '#222', height: '100%'}}>
-      <Text style={{color: 'white'}}>
-      </Text>
-      <Row>
-        <Text style={{color: 'white'}}>Amount</Text>
-        <Text style={{color: 'white'}}>Description</Text>
-        <Text style={{color: 'white'}}>Category</Text>
+      <Row style={{marginHorizontal: 15, marginBottom: 15}}>
+        <Text style={{color: 'white'}}>
+          Your BuyNothing streak/record: 
+          <Text style={{fontWeight: '600'}}>4/45 days</Text>
+        </Text>
       </Row>
       { 
-        logs.map((log:any) => {
-          return (
-            <Card 
-              key={log.id} 
-              log={log}
-              cat={
-                props.cats.find((cat:any) => cat.id === log.fields.Category[0])
-              }
-            />
-          )
-        })
+        logs.map((log:any) => <Card 
+            key={log.id} 
+            log={log}
+            cat={
+              props.cats.find(
+                (cat:any) => cat.id === log.fields.Category[0]
+              )
+            }
+          />
+        )
       }
     </View>
   )
