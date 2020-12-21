@@ -31,7 +31,6 @@ function CategoryHeader() {
 }
 
 export default function Categories(props:Obj) {  
-  console.log('props in Categories is ', props)
   return (
     <CategoriesContainer>
       <CategoryHeader />
