@@ -132,7 +132,7 @@ function App() {
             </Tab.Screen>
             <Tab.Screen name="Logs">
               {
-              props => <ListLogs logs={logs} />
+              props => <ListLogs logs={logs} cats={cats} />
               }
             </Tab.Screen>
           </Tab.Navigator>

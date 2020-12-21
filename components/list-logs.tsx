@@ -5,35 +5,22 @@ import {Obj} from '../interfaces';
 import Chart from './chart';
 import SIZES from '../utils/sizes';
 // @ts-ignore
-import { ICON_FINDER_API } from '@env';
 
+function Card(props:any) {
+  const {Type, Amount, Desc, Category} = props.fields;
 
-fetch('https://api.iconfinder.com/v4/categories', { 
-  method: 'GET', 
-  mode: 'cors',
-  headers: new Headers({
-    Authorization: `Basic ${ICON_FINDER_API}`
-  })
-})
-.then(res => res.json())
-.then(
-  data => console.log('fetch from iconfinder: ', data)
-)
-.catch(err => console.log(err))
-
-function Card(props) {
-  const {Type, Amount, Description, Category} = props;
   return (
     <Row style={{backgroundColor: '#191919', borderWidth: 1, borderColor: '#111', padding: 15, borderRadius: 20}}>
     <View>
       <Chart limit={.8} size={SIZES.largeText}>
+        {/* {console.log("props.cat in Log Card:", props.cat)} */}
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          {/* <Image /> */}
+          <Text style={{color: 'white'}}>{props.cat.fields.Icon}</Text>
         </View>
       </Chart>
     </View>
     <View style={{flex: 1, marginHorizontal: 15}}>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>November 30</Text>
+      <Text style={{color: "white", fontSize: SIZES.xsText}}>{Desc}</Text>
       <Text style={{color: "white", fontSize: SIZES.xsText}}>to December 6</Text>
     </View>
     <View>
@@ -47,6 +34,11 @@ function Card(props) {
 function ListLogs(props:any) {
   const logs = props.logs
 
+  // console.log(
+  //   "props.cats.find recIuWF2DZnCf9tfy is:", 
+  //   props.cats.find((cat:any) => cat.id === "recIuWF2DZnCf9tfy")
+  // )
+
   if(!logs) return (<Text style={{color: 'white'}}>Loading...</Text>)
 
   return(
@@ -58,8 +50,19 @@ function ListLogs(props:any) {
         <Text style={{color: 'white'}}>Description</Text>
         <Text style={{color: 'white'}}>Category</Text>
       </Row>
-
-      { logs.map((log:any) => <Card fields={log.fields} />) }
+      { 
+        logs.map((log:any) => {
+          return (
+            <Card 
+              key={log.id} 
+              fields={log.fields}
+              cat={
+                props.cats.find((cat:any) => cat.id === log.fields.Category[0])
+              }
+            />
+          )
+        })
+      }
     </View>
   )
 }

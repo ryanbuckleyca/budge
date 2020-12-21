@@ -3,7 +3,6 @@ import Svg, {G, Path} from 'react-native-svg';
 import { Obj } from '../interfaces/'
 
 export default function Coins(props: Obj) {
-  console.log('params in Coins is ', props)
   const { qty } = props
 
 
