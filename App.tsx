@@ -102,6 +102,7 @@ function App() {
     const d = weekInfo(new Date)
     const payload = { 
       ...entry, 
+      Time: new Date,
       WeekOfMonth: d.WeekOfMonth,
       WeekOfYear: d.WeekOfYear,
       WeekID: d.WeekID
