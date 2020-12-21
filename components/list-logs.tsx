@@ -5,8 +5,6 @@ import Chart from './chart';
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
 
-console.log("XXXXXX list-logs.tsx rendered")
-
 function Card(props:any) {
   if(!props.cat || !props.log) {
     return <Text style={{color: 'white'}}>Loading...</Text>
@@ -48,9 +46,10 @@ function Card(props:any) {
   )
 }
 
+// called from App.tsx
 function ListLogs(props:any) {
-
-  console.log('logs in listLogs is: ', props.logs)
+  console.log("listList component has props.logs: ", props.logs)
+  // props.logs is returning {record: [object]}
 
   if(!props.logs || !props.cats) 
     return <Text style={{color: 'white'}}>Loading...</Text>

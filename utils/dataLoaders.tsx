@@ -3,7 +3,7 @@ export const loadDataFrAPI = async () => {
     const logs = await getLogRecords()
     setLogs(logs.records)
     saveOfflineData("logs", JSON.stringify(logs.records))
-    const cats = await getBudgetRecords()
+    const cats = await getCatRecords()
     setCats(cats.records)
     saveOfflineData("cats", JSON.stringify(cats.records))
   } catch (err) {

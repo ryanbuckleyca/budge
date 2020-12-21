@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React, { useState, useEffect } from 'react';
 import {Text} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { getLogRecords, uploadRecords, getBudgetRecords } from './utils/airtable'
+import { getLogRecords, uploadRecords, getCatRecords } from './utils/airtable'
 import { useNetInfo } from "@react-native-community/netinfo";
 import { Container, Content } from './styles'
 import { Entry, Obj } from './interfaces'
@@ -42,11 +42,9 @@ function App() {
   const [ showNumPad, setShowNumPad ] = useState(true);
   const [ queue, setQueue ] = useState<Array<Obj>>();
 
-  useEffect(() => console.log('queue state set to: ', queue), [queue])
-
   useEffect(() => {
     if (netInfo.isConnected) {
-      queue && sendEntries(queue)
+      queue && queue.length > 0 && sendEntries(queue)
       loadDataFrAPI()
     } 
     else {
@@ -56,14 +54,13 @@ function App() {
 
   const sendEntries = async (entries:Array<Obj>) => {
     try {
-      const allEntries = await uploadRecords(parseEntryAmt(entries))
-      setLogs(allEntries)
+      const payload = await uploadRecords(parseEntryAmt(entries))
+      if(payload.error) {
+        throw Error(payload.error.message)
+      }
       setQueue([])
       saveOfflineData('queue', '[]')
-      console.log('submitted queued entries: logs is ', logs)
-      if(allEntries.error) {
-        throw Error(allEntries.error.message)
-      }
+      loadDataFrAPI()
       alert('your entry was successfully logged')
     } catch (err) { 
       const msg = 'error sending queued entries: ' + err
@@ -77,7 +74,7 @@ function App() {
       const logs = await getLogRecords()
       setLogs(logs.records)
       saveOfflineData("logs", JSON.stringify(logs.records))
-      const cats = await getBudgetRecords()
+      const cats = await getCatRecords()
       setCats(cats.records)
       saveOfflineData("cats", JSON.stringify(cats.records))
     } catch (err) {

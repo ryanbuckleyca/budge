@@ -3,8 +3,8 @@ import { AIRTABLE_ID } from '@env';
 import { Headers, Entry } from '../interfaces';
 
 const sortLOGS = 'sort%5B0%5D%5Bfield%5D=Time&sort%5B0%5D%5Bdirection%5D=desc'
-const sortBUDGET = 'sort%5B0%5D%5Bfield%5D=Category&sort%5B0%5D%5Bdirection%5D=asc'
-const filterBUDGET = 'filterByFormula=NOT(Right(%7BCategory%7D%2C+1)+%3D+%22%3D%22)'
+const sortCATS = 'sort%5B0%5D%5Bfield%5D=Category&sort%5B0%5D%5Bdirection%5D=asc'
+const filterCATS = 'filterByFormula=NOT(Right(%7BCategory%7D%2C+1)+%3D+%22%3D%22)'
 const url = `https://api.airtable.com/v0/appA67zYW50gE6q8E/`
 const headers:Headers = { Authorization: `Bearer ${AIRTABLE_ID}` }
 
@@ -13,12 +13,8 @@ const callAPI = (table:string, options:object) => {
   console.log('callAPI called with (table, options): ', table, options)
   return fetch(url+table, options)
     .then(res => {
-      if (res === null) {
-        throw new Error('no records found');
-      }
-      else {
-        return res.json()
-      }
+      if (res === null) throw new Error('no records found');
+      return res.json()
     })
     .catch(err => {
       console.log(err)
@@ -33,8 +29,8 @@ const getLogRecords = () => (
   })
 )
 
-const getBudgetRecords = () => (
-  callAPI('BUDGET?'+sortBUDGET+'&'+filterBUDGET, {
+const getCatRecords = () => (
+  callAPI('CATS?'+sortCATS+'&'+filterCATS, {
     method: 'GET',
     headers: headers
   })
@@ -56,5 +52,5 @@ const uploadRecords = (recs:Array<Entry>) => {
 export { 
   getLogRecords, 
   uploadRecords, 
-  getBudgetRecords 
+  getCatRecords 
 };
