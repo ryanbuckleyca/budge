@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row } from '../styles';
-import { Text, View, Image } from 'react-native';
-import {Obj} from '../interfaces';
+import { Text, View } from 'react-native';
 import Chart from './chart';
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
@@ -19,20 +18,28 @@ function Card(props:any) {
 
   return (
     <Row style={{backgroundColor: '#191919', borderWidth: 1, borderColor: '#111', padding: 15, borderRadius: 20}}>
+    <View style={{flex: 1, marginHorizontal: 15}}>
+      <Text style={{color: "white", fontSize: SIZES.xsText, fontWeight: '700'}}>
+        {Desc}
+      </Text>
+      <Text style={{color: "grey", fontSize: SIZES.xsText}}>
+        {DisplayDate}
+      </Text>
+    </View>
+    <View style={{marginRight: 15}}>
+      <Text style={{textAlign: 'right', color: "white", fontSize: SIZES.xsText}}>
+        {'$'+Math.ceil(Amount)}
+      </Text>
+    </View>
     <View>
       <Chart limit={.8} size={SIZES.largeText}>
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{color: 'white'}}>{Icon}</Text>
+          <Text style={{color: "grey", fontSize: SIZES.xsText}}>
+            /{BudgetMonthly}
+          </Text>
         </View>
       </Chart>
-    </View>
-    <View style={{flex: 1, marginHorizontal: 15}}>
-      <Text style={{color: "white", fontSize: SIZES.xsText, fontWeight: '700'}}>{Desc}</Text>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>{DisplayDate}</Text>
-    </View>
-    <View>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>{Amount}</Text>
-      <Text style={{color: "white", fontSize: SIZES.xsText}}>/{BudgetMonthly}</Text>
     </View>
   </Row>
   )
