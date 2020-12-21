@@ -31,6 +31,7 @@ function CategoryHeader() {
 }
 
 export default function Categories(props:Obj) {  
+  console.log('props in Categories is ', props)
   return (
     <CategoriesContainer>
       <CategoryHeader />
@@ -39,6 +40,7 @@ export default function Categories(props:Obj) {
         extraData={props.entry}
         renderItem={(cat:object) => (
           <CategoryItem 
+            logs={props.logs}
             cat={cat} 
             handleChange={props.handleChange}
             entry={props.entry} 

@@ -17,7 +17,8 @@ function BottomElements(props:Obj) {
     handleSubmit, 
     entry, 
     showNumPad,
-    cats
+    cats,
+    logs
   } = props;
 
   // TODO: when Entry is submitted,
@@ -25,6 +26,7 @@ function BottomElements(props:Obj) {
   return (showNumPad ? null : <>
     <Categories 
       cats={cats}
+      logs={logs}
       entry={entry}
       handleChange={handleChange}
     />
@@ -59,6 +61,7 @@ function EntryForm(props:Obj) {
     handleSubmit, 
     entry, 
     cats,
+    logs,
     setEntry,
     showNumPad,
     setShowNumPad
@@ -95,6 +98,7 @@ function EntryForm(props:Obj) {
         handleSubmit={handleSubmit} 
         entry={entry}
         cats={cats}
+        logs={logs}
         showNumPad={showNumPad}
        />
     </View>

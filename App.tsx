@@ -15,6 +15,9 @@ import ListLogs from './components/list-logs'
 import EntryForm from './components/entry-form'
 import { weekInfo } from './utils/dates';
 
+// TODO: introduce React.Context
+// props such as Logs are being passed down almost 5 layers
+
 const Tab = createMaterialTopTabNavigator();
 
 const blankEntry:Obj = {
@@ -134,6 +137,7 @@ function App() {
                 handleSubmit={handleSubmit}
                 setEntry={setEntry}
                 entry={entry}
+                logs={logs}
                 setShowNumPad={setShowNumPad}
                 showNumPad={showNumPad}
                 cats={cats} />

@@ -24,7 +24,7 @@ const CategoryItem = (props:Obj) => {
   // if this gets generated here it's going to be very slow
   // no matter where it happens it's going to be slow
   // it requires a loop, no matter what
-  //
+  console.log("PROPs in catItem component: ", props)
   // needs to update state so we only do this once
   // const SpentThisMonth = (cat) => {
   //   const catLogs = logs.filter((log:object) => log.cat === cat.id)
