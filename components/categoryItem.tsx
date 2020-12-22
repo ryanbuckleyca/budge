@@ -31,7 +31,7 @@ const CategoryItem = (props:Obj) => {
   return (
     <CatItem key={id} onPress={() => props.handleChange('Category', [id])}>
       <Icon style={{marginRight: 5}}>
-        <Coins size={SIZES.smallText+'px'} qty={props.entry.Popularity}/>
+        <Coins size={SIZES.smallText+'px'} qty={props.cat.Popularity}/>
       </Icon>
       <CategoryName color={selected ? 'white' : 'grey'}>
         {fields.Category}
