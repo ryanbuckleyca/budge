@@ -30,7 +30,7 @@ export const SpentThisWeek = (catID:object, logs:Array<Object>) => {
     (log:Obj) => log.fields.Category[0] === catID
   )
   const weekly:Array<Obj> = catLogs.filter(
-    (log:Obj) => weekOfYear(log.fields.Time) === weekOfYear(new Date)
+    (log:Obj) => weekOfYear(new Date(log.fields.Time)) === weekOfYear(new Date())
   )
 
   if(!weekly[0]) return 0
