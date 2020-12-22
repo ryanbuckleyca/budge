@@ -4,7 +4,7 @@ import Coins from './coins';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes';
 import {Text} from 'react-native';
-import dayjs from 'dayjs';
+import {SpentThisMonth, SpentThisWeek} from '../utils/spending'
 import { weeksInMonth, weekOfYear, weekInfo } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
 
@@ -14,43 +14,12 @@ const CategoryItem = (props:Obj) => {
   const { id, fields } = props.cat.item
   const { BudgetMonthly, Frequency } = fields;
 
-  const SpentThisWeek = 0;
-  // TODO: spendThisMonth and spentThisWeek 
-  // should be available globally
-  // same with ThisWeek and ThisMonth
-  // need to use them in Logs too
-  //
-  // Category needs access to log
-  // if this gets generated here it's going to be very slow
-  // no matter where it happens it's going to be slow
-  // it requires a loop, no matter what
-  // needs to update state so we only do this once
-  const SpentThisMonth = (catID:object) => {
-    const catLogs = props.logs.filter(
-      (log:Obj) => log.fields.Category[0] === catID
-    )
-    const monthly = catLogs.filter(
-      (log:Obj) => dayjs(log.fields.Time).month() === dayjs().month()
-    )
-
-    if(!monthly[0]) return 0
-
-    if (monthly.length > 1) {
-      const total = monthly.reduce((a:Obj, b:Obj) => (
-        {sum: a.fields.Amount + b.fields.Amount}
-      ))
-      return total.sum
-    }
-
-    return monthly[0].fields.Amount
-  }
-
   const d = new Date()
   const frequency = Frequency === 'Monthly' ? "M" : "W"
   const weeksThisMonth = weeksInMonth(d.getFullYear(), d.getMonth()+1)
     .filter(wk => wk.length > 3)
-  const spentThisMonth = SpentThisMonth(id)+'/'+BudgetMonthly
-  const spentThisWeek = `${SpentThisWeek}/${BudgetMonthly / weeksThisMonth.length}`
+  const spentThisMonth = SpentThisMonth(id, props.logs)+'/'+BudgetMonthly
+  const spentThisWeek = `${SpentThisWeek(id, props.logs)}/${BudgetMonthly / weeksThisMonth.length}`
   const limit = (frequency === 'M') 
     ? eval(spentThisMonth)
     : eval(spentThisWeek)
@@ -58,12 +27,11 @@ const CategoryItem = (props:Obj) => {
     ? spentThisMonth
     : spentThisWeek
   const selected = id && id === props.entry.Category[0]
-  const TEMPqty = Math.floor(Math.random()*7)
 
   return (
     <CatItem key={id} onPress={() => props.handleChange('Category', [id])}>
       <Icon style={{marginRight: 5}}>
-        <Coins size={SIZES.smallText+'px'} qty={TEMPqty}/>
+        <Coins size={SIZES.smallText+'px'} qty={props.entry.Popularity}/>
       </Icon>
       <CategoryName color={selected ? 'white' : 'grey'}>
         {fields.Category}
