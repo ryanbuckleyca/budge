@@ -4,7 +4,7 @@ import Coins from './coins';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes';
 import {Text} from 'react-native';
-import {SpentThisMonth, SpentThisWeek} from '../utils/spending'
+import {CategorySpending} from '../utils/spending'
 import { weeksInMonth, weekOfYear, weekInfo } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
 
@@ -12,21 +12,9 @@ import styled, { css } from 'styled-components/native';
 const CategoryItem = (props:Obj) => {
   
   const { id, fields } = props.cat.item
-  const { BudgetMonthly, Frequency } = fields;
 
-  const d = new Date()
-  const frequency = Frequency === 'Monthly' ? "M" : "W"
-  const weeksThisMonth = weeksInMonth(d.getFullYear(), d.getMonth()+1)
-    .filter(wk => wk.length > 3)
-  const spentThisMonth = SpentThisMonth(id, props.logs)+'/'+BudgetMonthly
-  const spentThisWeek = `${SpentThisWeek(id, props.logs)}/${BudgetMonthly / weeksThisMonth.length}`
-  const limit = (frequency === 'M') 
-    ? eval(spentThisMonth)
-    : eval(spentThisWeek)
-  const fraction = frequency === 'M' 
-    ? spentThisMonth
-    : spentThisWeek
   const selected = id && id === props.entry.Category[0]
+  const catSpending = CategorySpending(props.cat, props.logs)
 
   return (
     <CatItem key={id} onPress={() => props.handleChange('Category', [id])}>
@@ -37,11 +25,11 @@ const CategoryItem = (props:Obj) => {
         {fields.Category}
       </CategoryName>
       <Row>
-        <Fraction>{fraction}</Fraction>
-        <Chart limit={limit} size={SIZES.mediumText} />
+        <Fraction>{catSpending.fraction}</Fraction>
+        <Chart limit={catSpending.limit} size={SIZES.mediumText} />
       </Row>
       <Icon>
-        <Text style={{color: 'grey'}}>{frequency}</Text>
+        <Text style={{color: 'grey'}}>{catSpending.frequency}</Text>
       </Icon>
     </CatItem>
   );

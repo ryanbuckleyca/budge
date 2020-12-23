@@ -4,6 +4,8 @@ import { Text, View } from 'react-native';
 import Chart from './chart';
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
+import {CategorySpending} from '../utils/spending'
+
 
 function Card(props:any) {
   if(!props.cat || !props.log) {
@@ -14,6 +16,10 @@ function Card(props:any) {
   const { Icon, BudgetMonthly } = props.cat.fields;
   const d = dayjs(props.log.createdTime)
   const DisplayDate = d.format('MMM DD, HH:mm A')
+
+  // TODO: CategorySpending needs access to logs
+  // or this could be stored in state instead?
+  // const catSpending = CategorySpending(props.cat, props.logs)
 
   // TODO: it would be cool to show the time between cards
   // to indicate the buy nothing streak of not spending
@@ -33,7 +39,7 @@ function Card(props:any) {
       </Text>
     </View>
     <View>
-      <Chart limit={.8} size={SIZES.largeText}>
+      <Chart limit={0.8} size={SIZES.largeText}>
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{color: 'white'}}>{Icon}</Text>
           <Text style={{color: "grey", fontSize: SIZES.xsText}}>
