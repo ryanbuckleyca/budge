@@ -5,7 +5,8 @@ import Chart from './chart';
 import { Obj } from '../interfaces'
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
-import {CategorySpending} from '../utils/spending'
+import { CategorySpending } from '../utils/spending'
+import { FlatList } from 'react-native-gesture-handler';
 
 // TODO: renders twice for each cat... why?
 function Card(props:any) {
@@ -13,11 +14,12 @@ function Card(props:any) {
     return <Text style={{color: 'white'}}>Loading...</Text>
   }
 
-  const { Type, Amount, Desc, Category } = props.log.fields;
+  console.log('Card props is :', props)
+
+  const { Amount, Desc } = props.log.fields;
   const { Icon, BudgetMonthly } = props.cat.fields;
   const d = dayjs(props.log.createdTime)
   const DisplayDate = d.format('MMM DD, HH:mm A')
-
   const catSpending = CategorySpending(props.cat, props.logs)
 
   // TODO: it would be cool to show the time between cards
@@ -38,7 +40,7 @@ function Card(props:any) {
       </Text>
     </View>
     <View>
-      <Chart limit={0.8} size={SIZES.largeText}>
+      <Chart limit={catSpending.limit} size={SIZES.largeText}>
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{color: 'white'}}>{Icon}</Text>
           <Text style={{color: "grey", fontSize: SIZES.xsText}}>
@@ -66,7 +68,23 @@ function ListLogs(props:any) {
           <Text style={{fontWeight: '600'}}>4 days (45 record)</Text>
         </Text>
       </Row>
-      { // TODO: if there is an error, props.logs is not an array
+      <FlatList
+        data={props.logs}
+        renderItem={(log:Obj) => (
+          <Card 
+            key={log.item.id} 
+            log={log.item}
+            logs={props.logs}
+            cat={
+              props.cats.find(
+                (cat:any) => cat.id === log.item.fields.Category[0]
+              )
+            }
+          />
+        )}
+      />
+
+      {/* { // TODO: if there is an error, props.logs is not an array
         // instead it will be an object with { error: "msg"}
         props.logs.map((log:Obj) => <Card 
           key={log.id} 
@@ -78,7 +96,7 @@ function ListLogs(props:any) {
             )
           }
         />)
-      }
+      } */}
     </View>
   )
 }
