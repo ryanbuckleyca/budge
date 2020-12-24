@@ -5,6 +5,7 @@ import Chart from './chart';
 import { Obj } from '../interfaces'
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
+import { streaks } from '../utils/streaks';
 import { CategorySpending } from '../utils/spending'
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -16,7 +17,7 @@ function Card(props:any) {
 
   const { Amount, Desc } = props.log.fields;
   const { Icon, BudgetMonthly } = props.cat.fields;
-  const d = dayjs(props.log.createdTime)
+  const d = dayjs(props.log.Time)
   const DisplayDate = d.format('MMM DD, HH:mm A')
   const catSpending = CategorySpending(props.cat, props.logs)
 
@@ -36,14 +37,14 @@ function Card(props:any) {
       <Text style={{textAlign: 'right', color: "white", fontSize: SIZES.xsText}}>
         {'$'+Math.ceil(Amount)}
       </Text>
+      <Text style={{color: "grey", fontSize: SIZES.xsText}}>
+        / {BudgetMonthly}
+      </Text>
     </View>
     <View>
       <Chart limit={catSpending.limit} size={SIZES.largeText}>
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{color: 'white'}}>{Icon}</Text>
-          <Text style={{color: "grey", fontSize: SIZES.xsText}}>
-            /{BudgetMonthly}
-          </Text>
         </View>
       </Chart>
     </View>
@@ -58,19 +59,6 @@ function ListLogs(props:any) {
   if(!Array.isArray(props.logs))
     return <Text style={{color: 'red'}}>error loading logs</Text>
 
-  const streaks = (logs:Array<Obj>) => {
-    const current = dayjs().diff(logs[0].fields.Time, 'd')
-    
-    let record = 0;
-    let streak = current;
-    for(let i=0; i<logs.length; i++) {
-      streak = dayjs(logs[i].fields.Time)
-               .diff(logs[i+1].fields.Time, 'd')
-      if(streak > record) record = Math.abs(streak)
-      if (i===logs.length-2) break
-    }
-    return ({current, record})
-  }
   const streak = streaks(props.logs)
 
   return(
@@ -87,7 +75,7 @@ function ListLogs(props:any) {
       // TODO: if there is an error, props.logs is not an array
       // instead it will be an object with { error: "msg"} 
       }
-      <FlatList
+      <FlatList style={{width: '100%'}}
         data={props.logs}
         renderItem={(log:Obj) => (
           <Card 

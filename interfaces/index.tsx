@@ -4,7 +4,7 @@ export interface Obj {
 }
 
 export interface Entry extends Obj{
-  Desc?: string,
+  Vendor?: string,
   Type: string,
   Category: string[],
   Amount: number,

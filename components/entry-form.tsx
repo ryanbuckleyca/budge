@@ -31,11 +31,11 @@ function BottomElements(props:Obj) {
       handleChange={handleChange}
     />
     <Input
-      placeholder="description"
+      placeholder="vendor"
       placeholderTextColor="grey"
-      value={ entry.Desc }
+      value={ entry.Vendor }
       onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
-        handleChange('Desc', e.nativeEvent.text)}
+        handleChange('Vendor', e.nativeEvent.text)}
     />
     <Input
       placeholder="notes"

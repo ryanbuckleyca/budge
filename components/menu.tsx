@@ -15,13 +15,13 @@ export default function Menu(props:any) {
       <Icon onPress={() => props.navigation.navigate('Logs')}>
         <Cal type='week' />
       </Icon>
-      <Icon onPress={() => props.navigation.navigate('Logs')}>
+      <Icon onPress={() => alert('Monthly logs coming soon')}>
         <Cal type='month' />
       </Icon>
-      <Icon onPress={() => props.navigation.navigate('Logs')}>
+      <Icon onPress={() => alert('Annual logs coming soon')}>
         <Cal type='year' />
       </Icon>
-      <Icon onPress={() => props.navigation.navigate('Logs')}>
+      <Icon onPress={() => alert('Budget editing coming soon')}>
         <Chart limit={0.7} size={SIZES.icon}>
           <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Text style={{color: "grey", fontSize: SIZES.xsText}}>75%</Text>

@@ -21,7 +21,7 @@ import { weekInfo } from './utils/dates';
 const Tab = createMaterialTopTabNavigator();
 
 const blankEntry:Obj = {
-  Type: 'Expense', Amount: '', Desc: '', Category: [], Notes: ''
+  Type: 'Expense', Amount: '', Vendor: '', Category: [], Notes: ''
 }
 
 const parseEntryAmt = (entries:Array<Obj>) => (
@@ -129,7 +129,9 @@ function App() {
     <NavigationContainer>
       <Container>
         <Content>
-          <Tab.Navigator tabBar={props => <Menu {...props} />}>
+          <Tab.Navigator tabBar={
+            props => <Menu {...props} />
+          }>
             <Tab.Screen name="Home">
               {
               props => <EntryForm 

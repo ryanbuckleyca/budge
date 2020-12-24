@@ -15,7 +15,7 @@ export default function NumPad(props:Obj) {
 
   const OnPress = (item:any, index:number) => {
     if(index === 9)
-     setEntry({
+      setEntry({
        ...entry, 
        Amount: entry.Amount.slice(0, -1)
       })
@@ -23,7 +23,7 @@ export default function NumPad(props:Obj) {
       setShowNumPad(!showNumPad)
       // TODO: set focus to next field
     else
-     setEntry({
+      setEntry({
        ...entry, 
        Amount: `${entry.Amount}${item}`
       })
@@ -32,8 +32,8 @@ export default function NumPad(props:Obj) {
     
   return(!showNumPad ? null :
     <KeyPad>
-    {buttons.map((item, index) => {
-      return (
+    {
+      buttons.map((item, index) => (
         <Number 
           key={index} 
           onPress={() => OnPress(item, index)} 
@@ -41,21 +41,19 @@ export default function NumPad(props:Obj) {
         >
           <Key>{ item }</Key>
         </Number>
-      )
-    })}
+      ))
+    }
     </KeyPad>
   )
 }
-
 
 const KeyPad = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin: ${SIZES.fieldMargin}px auto;
-`;
-
+  margin: auto;
+`
 const Number = styled.TouchableOpacity`
   width: ${SIZES.windowWidth / 4.5}px;
   height: ${SIZES.windowWidth / 4.5}px;
@@ -65,9 +63,9 @@ const Number = styled.TouchableOpacity`
   margin: 8px;
   border-width: 1px;
   border-color: #ffffff20;
-`;
+`
 const Key = styled.Text`
   font-weight: 500;
   color: #ffffff80;
   font-size: ${SIZES.windowWidth / 12}px;
-`;
+`
