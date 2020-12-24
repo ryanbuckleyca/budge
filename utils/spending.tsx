@@ -46,7 +46,7 @@ export const SpentThisWeek = (catID:Obj, logs:Array<Obj>) => {
 }
 
 export const CategorySpending = (cat:Obj, logs:Array<Obj>) => {
-  const { id, fields } = cat.item
+  const { id, fields } = cat
   const { BudgetMonthly, Frequency } = fields;
 
   const d = new Date()

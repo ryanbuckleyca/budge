@@ -14,7 +14,7 @@ const CategoryItem = (props:Obj) => {
   const { id, fields } = props.cat.item
 
   const selected = id && id === props.entry.Category[0]
-  const catSpending = CategorySpending(props.cat, props.logs)
+  const catSpending = CategorySpending(props.cat.item, props.logs)
 
   return (
     <CatItem key={id} onPress={() => props.handleChange('Category', [id])}>

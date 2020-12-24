@@ -2,13 +2,14 @@ import React from 'react';
 import { Row } from '../styles';
 import { Text, View } from 'react-native';
 import Chart from './chart';
+import { Obj } from '../interfaces'
 import dayjs from 'dayjs';
 import SIZES from '../utils/sizes';
 import {CategorySpending} from '../utils/spending'
 
-
+// TODO: renders twice for each cat... why?
 function Card(props:any) {
-  if(!props.cat || !props.log) {
+  if(!props.cat || !props.log || !props.logs) {
     return <Text style={{color: 'white'}}>Loading...</Text>
   }
 
@@ -17,9 +18,7 @@ function Card(props:any) {
   const d = dayjs(props.log.createdTime)
   const DisplayDate = d.format('MMM DD, HH:mm A')
 
-  // TODO: CategorySpending needs access to logs
-  // or this could be stored in state instead?
-  // const catSpending = CategorySpending(props.cat, props.logs)
+  const catSpending = CategorySpending(props.cat, props.logs)
 
   // TODO: it would be cool to show the time between cards
   // to indicate the buy nothing streak of not spending
@@ -68,10 +67,11 @@ function ListLogs(props:any) {
         </Text>
       </Row>
       { // TODO: if there is an error, props.logs is not an array
-        // instead it will be an objects with { error: "msg"}
-        props.logs.map((log:any) => <Card 
+        // instead it will be an object with { error: "msg"}
+        props.logs.map((log:Obj) => <Card 
           key={log.id} 
           log={log}
+          logs={props.logs}
           cat={
             props.cats.find(
               (cat:any) => cat.id === log.fields.Category[0]
