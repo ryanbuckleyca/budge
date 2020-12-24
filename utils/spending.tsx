@@ -63,5 +63,11 @@ export const CategorySpending = (cat:Obj, logs:Array<Obj>) => {
   const fraction = frequency === 'M' 
     ? spentFractionMonth
     : spentFractionWeek
-  return ({ frequency, limit, fraction, thisWeek, thisMonth })
+  return ({ 
+    frequency, 
+    limit, 
+    fraction, 
+    thisWeek, 
+    thisMonth 
+  })
 }

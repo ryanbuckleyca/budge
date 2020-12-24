@@ -14,8 +14,6 @@ function Card(props:any) {
     return <Text style={{color: 'white'}}>Loading...</Text>
   }
 
-  console.log('Card props is :', props)
-
   const { Amount, Desc } = props.log.fields;
   const { Icon, BudgetMonthly } = props.cat.fields;
   const d = dayjs(props.log.createdTime)
@@ -60,14 +58,35 @@ function ListLogs(props:any) {
   if(!Array.isArray(props.logs))
     return <Text style={{color: 'red'}}>error loading logs</Text>
 
+  const streaks = (logs:Array<Obj>) => {
+    const current = dayjs().diff(logs[0].fields.Time, 'd')
+    
+    let record = 0;
+    let streak = current;
+    for(let i=0; i<logs.length; i++) {
+      streak = dayjs(logs[i].fields.Time)
+               .diff(logs[i+1].fields.Time, 'd')
+      if(streak > record) record = Math.abs(streak)
+      if (i===logs.length-2) break
+    }
+    return ({current, record})
+  }
+  const streak = streaks(props.logs)
+
   return(
     <View style={{backgroundColor: '#222', height: '100%'}}>
       <Row style={{marginHorizontal: 15, marginBottom: 15}}>
         <Text style={{color: 'white', width: '100%', textAlign: 'center'}}>
           BuyNothing streak: 
-          <Text style={{fontWeight: '600'}}>4 days (45 record)</Text>
+          <Text style={{fontWeight: '600'}}>
+            {streak.current} days ({streak.record} day record)
+          </Text>
         </Text>
       </Row>
+      {
+      // TODO: if there is an error, props.logs is not an array
+      // instead it will be an object with { error: "msg"} 
+      }
       <FlatList
         data={props.logs}
         renderItem={(log:Obj) => (
@@ -75,28 +94,12 @@ function ListLogs(props:any) {
             key={log.item.id} 
             log={log.item}
             logs={props.logs}
-            cat={
-              props.cats.find(
-                (cat:any) => cat.id === log.item.fields.Category[0]
-              )
-            }
+            cat={props.cats.find((cat:any) => (
+              cat.id === log.item.fields.Category[0]
+            ))}
           />
         )}
       />
-
-      {/* { // TODO: if there is an error, props.logs is not an array
-        // instead it will be an object with { error: "msg"}
-        props.logs.map((log:Obj) => <Card 
-          key={log.id} 
-          log={log}
-          logs={props.logs}
-          cat={
-            props.cats.find(
-              (cat:any) => cat.id === log.fields.Category[0]
-            )
-          }
-        />)
-      } */}
     </View>
   )
 }
