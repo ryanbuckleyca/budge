@@ -111,7 +111,6 @@ const Transaction = styled.View<Obj>`
   flex-direction: row;
   height: ${SIZES.transactionHeight}px;
   border-radius: 30px;
-  border: 1px solid rgba(${COLORS.canvas}, 0.2);
   text-align: left;
   overflow: hidden;
 `
@@ -123,7 +122,7 @@ const Amount = styled.Text`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(${COLORS.canvas}, 0.1);
+  background: rgba(${COLORS.canvas}, 0.15);
   width: 100%;
   height: 100%;
   flex: 1;
@@ -133,7 +132,7 @@ const Amount = styled.Text`
   color: rgb(${COLORS.accent});
 `
 const Input = styled.TextInput`
-  border: 1px solid rgba(${COLORS.canvas}, .6);
+  border: 1px solid rgba(${COLORS.canvas}, .55);
   margin-top: ${SIZES.fieldMargin}px;
   font-size: ${SIZES.mediumText}px;
   flex: 0 0 auto;
@@ -141,7 +140,7 @@ const Input = styled.TextInput`
   height: ${SIZES.fieldHeight}px;
   overflow: hidden;
   background: rgb(${COLORS.midground});
-  border-radius: 50px;
+  border-radius: 25px;
   padding: 0 ${SIZES.mediumText/2}px;
   text-align: center;
   color: rgb(${COLORS.accent});
@@ -154,7 +153,7 @@ const Submit = styled.TouchableOpacity`
   background: rgb(${COLORS.blue});
   width: 100%;
   height: ${SIZES.fieldHeight}px;
-  border-radius: 50px;
+  border-radius: 25px;
   font-size: ${SIZES.largeText}px;
   margin-top: ${SIZES.fieldMargin}px;
 `

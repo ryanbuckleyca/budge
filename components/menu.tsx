@@ -56,7 +56,7 @@ const Row = styled.View`
   flex-direction: row;
   width: 100%;
   height: ${SIZES.icon}px;
-  margin-bottom: ${SIZES.mediumText}px;
+  margin-bottom: ${SIZES.smallText}px;
   align-items: center;
   justify-content: space-between;
 `

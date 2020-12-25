@@ -91,6 +91,7 @@ const CategoriesContainer = styled.View`
   margin-top: ${SIZES.fieldMargin}px;
   padding: 0 ${SIZES.fieldMargin/3}px;
   border-radius: 25px;
+  border: 1px solid rgba(${COLORS.canvas}, .5);
   overflow: hidden;
 `
 const CategoryList = styled.FlatList`

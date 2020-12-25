@@ -56,12 +56,12 @@ const KeyPad = styled.View`
   margin: auto;
 `
 const Number = styled.TouchableOpacity`
-  width: ${SIZES.windowWidth / 4.5}px;
-  height: ${SIZES.windowWidth / 4.5}px;
-  border-radius: ${SIZES.windowWidth / 9}px;
+  width: ${SIZES.windowWidth / 3.8}px;
+  height: ${SIZES.windowWidth / 3.8}px;
+  border-radius: ${SIZES.windowWidth / 7}px;
   align-items: center;
   justify-content: center;
-  margin: 8px;
+  margin: ${SIZES.windowWidth / 55}px;
   border-width: 1px;
   border-color: rgba(${COLORS.accent}, .25);
 `
