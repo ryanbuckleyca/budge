@@ -3,7 +3,7 @@ import SIZES from './utils/sizes';
 import COLORS from './utils/colors';
 
 const Container = styled.View`
-  color: white;
+  color: rgb(${COLORS.accent});
   display: flex;
   padding: ${SIZES.mediumText}px;
   padding-top: ${SIZES.largeText}px;

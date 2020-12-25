@@ -13,7 +13,7 @@ import COLORS from '../utils/colors';
 // TODO: renders twice for each cat... why?
 function Card(props:any) {
   if(!props.cat || !props.log || !props.logs) {
-    return <Text style={{color: 'white'}}>Loading...</Text>
+    return <Text style={{color: `rgb(${COLORS.accent})`}}>Loading...</Text>
   }
 
   const { Amount, Vendor } = props.log.fields;
@@ -25,9 +25,9 @@ function Card(props:any) {
   // TODO: it would be cool to show the time between cards
   // to indicate the buy nothing streak of not spending
   return (
-    <Row style={{backgroundColor: `rgb(${COLORS.midground})`, borderWidth: 1, borderColor: '#111', marginVertical: 1, padding: 15, borderRadius: 20}}>
+    <Row style={{backgroundColor: `rgb(${COLORS.midground})`, borderWidth: 1, borderColor: `rgba(${COLORS.canvas}, .7)`, marginVertical: 1, padding: 15, borderRadius: 20}}>
     <View style={{flex: 1, marginHorizontal: 15}}>
-      <Text style={{color: "white", fontSize: SIZES.xsText, fontWeight: '700'}}>
+      <Text style={{color: `rgb(${COLORS.accent})`, fontSize: SIZES.xsText, fontWeight: '700'}}>
         {Vendor}
       </Text>
       <Text style={{color: `rgb(${COLORS.foreground})`, fontSize: SIZES.xsText}}>
@@ -35,7 +35,7 @@ function Card(props:any) {
       </Text>
     </View>
     <View style={{marginRight: 15}}>
-      <Text style={{textAlign: 'right', color: "white", fontSize: SIZES.xsText}}>
+      <Text style={{textAlign: 'right', color: `rgb(${COLORS.accent})`, fontSize: SIZES.xsText}}>
         {'$'+Math.ceil(Amount)}
       </Text>
       <Text style={{color: `rgb(${COLORS.foreground})`, fontSize: SIZES.xsText}}>
@@ -45,7 +45,7 @@ function Card(props:any) {
     <View>
       <Chart limit={catSpending.limit} size={SIZES.largeText}>
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{color: 'white'}}>{Icon}</Text>
+          <Text style={{color: `rgb(${COLORS.accent})`}}>{Icon}</Text>
         </View>
       </Chart>
     </View>
@@ -55,18 +55,18 @@ function Card(props:any) {
 
 function ListLogs(props:any) {
   if(!props.logs || !props.cats) 
-    return <Text style={{color: 'white'}}>Loading...</Text>
+    return <Text style={{color: `rgb(${COLORS.accent})`}}>Loading...</Text>
 
   if(!Array.isArray(props.logs))
-    return <Text style={{color: 'red'}}>error loading logs</Text>
+    return <Text style={{color: `rgb(${COLORS.red})`}}>error loading logs</Text>
 
   const streak = streaks(props.logs)
 
   return(
     <View style={{backgroundColor: `rgb(${COLORS.background})`, height: '100%'}}>
       <Row style={{marginHorizontal: 15, marginBottom: 15}}>
-        <Text style={{color: 'white', width: '100%', textAlign: 'center'}}>
-          BuyNothing streak: 
+        <Text style={{color: `rgb(${COLORS.accent})`, width: '100%', textAlign: 'center'}}>
+          BuyNothing streak: &nbsp; 
           <Text style={{fontWeight: '600'}}>
             {streak.current} days ({streak.record} day record)
           </Text>

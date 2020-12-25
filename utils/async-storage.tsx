@@ -3,15 +3,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const loadOfflineData = async (type:string) => {
   try {
     const value = await AsyncStorage.getItem(type);
-    if (value === null)
-      return '[]'
-    return value as string;
+    if(value!==null)
+      return value as string;
   } catch (error) {
     console.log(error);
     return error as string
   }
 }
 const saveOfflineData = async (type:string, value:string) => {
+  console.log('saving offline data with (type, value): ', type, value)
   try {
     const saved = await AsyncStorage.setItem(type, value);
     return saved;

@@ -86,10 +86,10 @@ function App() {
   }
   const loadDataFrCache = async () => {
     try {
-      const logs = await loadOfflineData("logs")
-      setLogs(JSON.parse(logs))
-      const cats = await loadOfflineData("cats")
-      setCats(JSON.parse(cats))
+      const logs = await loadOfflineData("logs") || "[]"
+      logs && setLogs(JSON.parse(logs))
+      const cats = await loadOfflineData("cats") || "[]"
+      cats && setCats(JSON.parse(cats))
     } catch (err) {
       console.log(`error loading from local storage: `, err)
     }
@@ -132,7 +132,10 @@ function App() {
       <Container>
         <Content>
           <Tab.Navigator tabBar={
-            props => <Menu {...props} />
+            props => <Menu 
+              logs={logs}
+              cats={cats}
+              nav={props.navigation} />
           }>
             <Tab.Screen name="Home">
               {

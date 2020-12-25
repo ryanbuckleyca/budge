@@ -5,10 +5,22 @@ import { weekOfYear, weeksInMonth } from './dates'
 
 // TODO: refactor to make use of common functionality
 
-export const SpentThisMonth = (catID:Obj, logs:Array<Obj>) => {
-  const catLogs:Array<Obj> = logs.filter(
+const filterLogsByCat = (logs:Array<Obj>, catID:string='') => (
+  catID==='' ? logs : logs.filter(
     (log:Obj) => log.fields.Category[0] === catID
   )
+)
+
+export const TotalBudget = (cats:Array<Obj>) => {
+  console.log('total budget called with: ', cats)
+  const total = cats.reduce(
+    (a:Obj, b:Obj) => ({sum: a.fields.BudgetMonthly + b.fields.BudgetMonthly})
+  )
+  return total.sum
+}
+
+export const SpentThisMonth = (logs:Array<Obj>, catID:string='') => {
+  const catLogs = filterLogsByCat(logs, catID)
   const monthly:Array<Obj> = catLogs.filter(
     (log:Obj) => dayjs(log.fields.Time).month() === dayjs().month()
   )
@@ -25,10 +37,8 @@ export const SpentThisMonth = (catID:Obj, logs:Array<Obj>) => {
   return monthly[0].fields.Amount
 }
 
-export const SpentThisWeek = (catID:Obj, logs:Array<Obj>) => {
-  const catLogs:Array<Obj> = logs.filter(
-    (log:Obj) => log.fields.Category[0] === catID
-  )
+export const SpentThisWeek = (logs:Array<Obj>, catID:string='') => {
+  const catLogs = filterLogsByCat(logs, catID)
   const weekly:Array<Obj> = catLogs.filter(
     (log:Obj) => weekOfYear(new Date(log.fields.Time)) === weekOfYear(new Date())
   )
@@ -53,8 +63,8 @@ export const CategorySpending = (cat:Obj, logs:Array<Obj>) => {
   const frequency = Frequency === 'Monthly' ? "M" : "W"
   const weeksThisMonth = weeksInMonth(d.getFullYear(), d.getMonth()+1)
     .filter(wk => wk.length > 3)
-  const thisWeek = SpentThisWeek(id, logs)
-  const thisMonth = SpentThisMonth(id, logs)
+  const thisWeek = SpentThisWeek(logs, id)
+  const thisMonth = SpentThisMonth(logs, id)
   const spentFractionMonth = thisMonth+'/'+BudgetMonthly
   const spentFractionWeek = `${thisWeek}/${BudgetMonthly / weeksThisMonth.length}`
   const limit = (frequency === 'M') 
@@ -68,6 +78,6 @@ export const CategorySpending = (cat:Obj, logs:Array<Obj>) => {
     limit, 
     fraction, 
     thisWeek, 
-    thisMonth 
+    thisMonth
   })
 }

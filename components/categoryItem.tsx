@@ -22,7 +22,7 @@ const CategoryItem = (props:Obj) => {
       <Icon style={{marginRight: 5}}>
         <Coins size={SIZES.smallText+'px'} qty={fields.Popularity}/>
       </Icon>
-      <CategoryName color={selected ? 'white' : `rgb(${COLORS.foreground})`}>
+      <CategoryName color={selected ? `rgb(${COLORS.accent})` : `rgb(${COLORS.foreground})`}>
         {fields.Category}
       </CategoryName>
       <Row>

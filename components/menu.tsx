@@ -6,14 +6,32 @@ import COLORS from '../utils/colors'
 import Clock from './clock'
 import Cal from './cal'
 import Chart from './chart'
+import { SpentThisWeek, TotalBudget } from '../utils/spending'
 
 export default function Menu(props:any) {
+
+  let limit = .75
+  // TODO: props are loading bad values from local storage
+  // error loading from local storage:
+  // [TypeError: undefined is not an object (evaluating 'a.fields.Amount')]
+  if(props.cats && props.cats.length > 1 && props.logs && props.logs.length > 1) {
+    console.log("props.logs in Menu: ", props.logs)
+    // console.log("props.cats in Menu: ", props.cats)
+    // limit = TotalBudget(props.cats) 
+    // why does SpentThisWeek(props.logs) trigger local storage?
+    // why does TotalBudget(props.cats) trigger local storage?
+    // hard passing a logs array of objects works fine
+    // so there's something wrong with the state of props here
+    // but console logging doesn't seem to indicate that
+    console.log("totalBudget: ", limit)
+  }
+
   return(
     <Row>
-      <Icon onPress={() => props.navigation.navigate('Home')}>
+      <Icon onPress={() => props.nav.navigate('Home')}>
         <Clock />
       </Icon>
-      <Icon onPress={() => props.navigation.navigate('Logs')}>
+      <Icon onPress={() => props.nav.navigate('Logs')}>
         <Cal type='week' />
       </Icon>
       <Icon onPress={() => alert('Monthly logs coming soon')}>
@@ -23,7 +41,7 @@ export default function Menu(props:any) {
         <Cal type='year' />
       </Icon>
       <Icon onPress={() => alert('Budget editing coming soon')}>
-        <Chart limit={0.7} size={SIZES.icon}>
+        <Chart limit={limit} size={SIZES.icon}>
           <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Text style={{color: `rgb(${COLORS.foreground})`, fontSize: SIZES.xsText}}>75%</Text>
           </View>

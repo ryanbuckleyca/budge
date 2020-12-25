@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import {Obj} from '../interfaces/';
 import SIZES from '../utils/sizes';
+import COLORS from '../utils/colors';
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function NumPad(props:Obj) {
@@ -10,7 +11,7 @@ export default function NumPad(props:Obj) {
   const buttons = [
     1, 2, 3, 4, 5, 6, 7, 8, 9,
     <MaterialIcons size={SIZES.windowWidth / 12} name="keyboard-backspace" />,
-    0, <MaterialIcons size={SIZES.windowWidth / 12} name="check" style={{color:'#507272'}} />,
+    0, <MaterialIcons size={SIZES.windowWidth / 12} name="check" style={{color:`rgb(${COLORS.green})`}} />,
   ]
 
   const OnPress = (item:any, index:number) => {
@@ -62,10 +63,10 @@ const Number = styled.TouchableOpacity`
   justify-content: center;
   margin: 8px;
   border-width: 1px;
-  border-color: #ffffff20;
+  border-color: rgba(${COLORS.accent}, .25);
 `
 const Key = styled.Text`
   font-weight: 500;
-  color: #ffffff80;
+  color: rgba(${COLORS.accent}, .7);
   font-size: ${SIZES.windowWidth / 12}px;
 `

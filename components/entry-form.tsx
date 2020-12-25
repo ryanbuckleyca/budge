@@ -49,7 +49,7 @@ function BottomElements(props:Obj) {
       onPress={(e) => handleSubmit(e)}
       accessibilityLabel="Submit log"
     >
-      <Text style={{fontSize: SIZES.mediumText, color: 'rgba(255, 255, 255, 0.8)'}}>
+      <Text style={{fontSize: SIZES.mediumText, color: `rgba(${COLORS.accent}, 0.8)`}}>
         submit
       </Text>
     </Submit>
@@ -111,7 +111,7 @@ const Transaction = styled.View<Obj>`
   flex-direction: row;
   height: ${SIZES.transactionHeight}px;
   border-radius: 30px;
-  border: 1px solid rgba(1, 1, 1, 0.2);
+  border: 1px solid rgba(${COLORS.canvas}, 0.2);
   text-align: left;
   overflow: hidden;
 `
@@ -123,17 +123,17 @@ const Amount = styled.Text`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(1, 1, 1, 0.1);
+  background: rgba(${COLORS.canvas}, 0.1);
   width: 100%;
   height: 100%;
   flex: 1;
   font-size: ${SIZES.largeText}px;
   line-height: ${SIZES.transactionHeight}px;
   text-align: center;
-  color: white;
+  color: rgb(${COLORS.accent});
 `
 const Input = styled.TextInput`
-  border: 1px solid rgba(1, 1, 1, .6);
+  border: 1px solid rgba(${COLORS.canvas}, .6);
   margin-top: ${SIZES.fieldMargin}px;
   font-size: ${SIZES.mediumText}px;
   flex: 0 0 auto;
@@ -144,15 +144,14 @@ const Input = styled.TextInput`
   border-radius: 50px;
   padding: 0 ${SIZES.mediumText/2}px;
   text-align: center;
-  color: white;
+  color: rgb(${COLORS.accent});
 `
 const Submit = styled.TouchableOpacity`
   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #507272;
-  color: #2C4E3D;
+  background: rgb(${COLORS.blue});
   width: 100%;
   height: ${SIZES.fieldHeight}px;
   border-radius: 50px;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Obj } from '../interfaces';
 import styled from 'styled-components/native';
 import SIZES from '../utils/sizes';
+import COLORS from '../utils/colors';
 
 const Switch = (props:Obj) => {
   return (
@@ -11,8 +12,8 @@ const Switch = (props:Obj) => {
       ...props.style, 
       backgroundColor: 
         props.selected === props.values[0] 
-        ? '#507272' 
-        : '#563E47'
+        ? `rgb(${COLORS.green})`
+        : `rgb(${COLORS.red})`
     }}>
       <On selected={ props.values[0] === props.selected }>
         {props.values[0]}:
@@ -37,7 +38,7 @@ const Type = styled.Text<Obj>`
   margin: auto;
   padding: 0 ${SIZES.xsText}px;
   font-size: ${SIZES.xsText}px;
-  color: white;
+  color: rgb(${COLORS.accent});
   font-weight: 700;
   text-align: right;
 `
@@ -50,7 +51,7 @@ const Off = styled(Type)`
   line-height: ${SIZES.fieldHeight/2}px;
   opacity: 0.1;
   ${props => props.selected && `
-    background-color: #7C5563;
+    background-color: rgba(${COLORS.accent}, .1);
     opacity: 1;
   `};
 `
@@ -63,8 +64,8 @@ const On = styled(Type)`
   line-height: ${SIZES.fieldHeight/2}px;
   opacity: 0.1;
   ${props => props.selected && `
-    background-color: #83958D;
-    opacity: 1;
+  background-color: rgba(${COLORS.accent}, .1);
+  opacity: 1;
   `};
 `
 
