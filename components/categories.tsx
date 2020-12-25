@@ -3,7 +3,7 @@ import { Bg as Calendar } from './cal';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes';
 import COLORS from '../utils/colors';
-import {Text} from 'react-native';
+import { View } from 'react-native';
 import CategoryItem from './categoryItem'
 import styled, { css } from 'styled-components/native';
 
@@ -15,9 +15,9 @@ import styled, { css } from 'styled-components/native';
 function CategoryHeader() {
   return (
     <Header>
-      <Icon style={{marginRight: 5}}>
-        <Text style={{color: `rgb(${COLORS.foreground})`}}>QTY</Text>
-      </Icon>
+      <HeaderText style={{color: `rgb(${COLORS.foreground})`, width: SIZES.fieldMargin*2.2, textAlign: 'center'}}>
+        # &nbsp;
+      </HeaderText>
       <HeaderText style={{flex: 1}}>
         CATEGORY
       </HeaderText>
@@ -66,9 +66,9 @@ const flex1 = css`
 const Header = styled.View`
   ${row}
   ${grey}
-  padding: ${SIZES.fieldMargin}px 
-           ${SIZES.xsText}px 
-           ${SIZES.fieldMargin/2}px;
+  padding: ${SIZES.fieldMargin*.9}px 
+           ${SIZES.xsText*.9}px 
+           ${SIZES.fieldMargin*.8}px;
 `
 const Icon = styled.View`
   ${grey}
@@ -89,7 +89,7 @@ const CategoriesContainer = styled.View`
   ${flex1}
   background-color: rgb(${COLORS.midground});
   margin-top: ${SIZES.fieldMargin}px;
-  padding: 0 ${SIZES.fieldMargin/3}px;
+  padding: 0;
   border-radius: 25px;
   border: 1px solid rgba(${COLORS.canvas}, .5);
   overflow: hidden;

@@ -55,7 +55,7 @@ const Row = styled.View`
 `
 const CatItem = styled.TouchableOpacity`
   ${row}
-  padding: 0 ${SIZES.xsText}px;
+  padding: 0 ${SIZES.xsText*.9}px;
   height: ${SIZES.mediumText*1.6}px;
 `
 const CategoryName = styled.Text<Obj>`

@@ -5,8 +5,8 @@ import COLORS from './utils/colors';
 const Container = styled.View`
   color: rgb(${COLORS.accent});
   display: flex;
-  padding: ${SIZES.xsText}px;
-  padding-top: ${SIZES.largeText}px;
+  padding: ${SIZES.largeText}px
+           ${SIZES.xsText*.8}px
   flex-direction: column;
   background-color: rgb(${COLORS.background});
   align-items: center;

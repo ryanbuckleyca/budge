@@ -25,7 +25,7 @@ function Card(props:any) {
   // TODO: it would be cool to show the time between cards
   // to indicate the buy nothing streak of not spending
   return (
-    <Row style={{backgroundColor: `rgb(${COLORS.midground})`, borderWidth: 1, borderColor: `rgba(${COLORS.canvas}, .7)`, marginVertical: 1, padding: 15, borderRadius: 20}}>
+    <Row style={{backgroundColor: `rgb(${COLORS.midground})`, borderWidth: 1, borderColor: `rgba(${COLORS.canvas}, .55)`, marginVertical: 3, paddingLeft: 5, paddingRight: 15, paddingVertical: 15, borderRadius: 4}}>
     <View style={{flex: 1, marginHorizontal: 15}}>
       <Text style={{color: `rgb(${COLORS.accent})`, fontSize: SIZES.xsText, fontWeight: '700'}}>
         {Vendor}
@@ -43,7 +43,7 @@ function Card(props:any) {
       </Text>
     </View>
     <View>
-      <Chart limit={catSpending.limit} size={SIZES.largeText}>
+      <Chart limit={catSpending.limit} size={SIZES.largeText*.8}>
         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={{color: `rgb(${COLORS.accent})`}}>{Icon}</Text>
         </View>

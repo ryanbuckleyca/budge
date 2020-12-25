@@ -12,9 +12,9 @@ const SIZES = {
   fieldHeight: windowHeight / 11, //approx 80px
   largeText: windowHeight / 14, //approx 64px
   mediumText: windowHeight /26, //approx 32px
-  smallText: windowHeight / 40, //approx 22px
+  smallText: windowHeight / 39, //approx 22px
+  xsText: windowHeight / 50, //approx 22px
   fieldMargin: windowHeight / 55, // approx 15px
-  xsText: windowHeight / 56, //approx 22px
 }
 
 export default SIZES;
