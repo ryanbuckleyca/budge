@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import SIZES from '../utils/sizes'
+import COLORS from '../utils/colors'
 import styled from 'styled-components/native';
 import {Obj} from '../interfaces/';
 import Categories from './categories';
@@ -32,14 +33,14 @@ function BottomElements(props:Obj) {
     />
     <Input
       placeholder="vendor"
-      placeholderTextColor="grey"
+      placeholderTextColor={`rgb(${COLORS.foreground})`}
       value={ entry.Vendor }
       onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
         handleChange('Vendor', e.nativeEvent.text)}
     />
     <Input
       placeholder="notes"
-      placeholderTextColor="grey"
+      placeholderTextColor={`rgb(${COLORS.foreground})`}
       value={ entry.Notes }
       onChange={(e:NativeSyntheticEvent<TextInputChangeEventData>) => 
         handleChange('Notes', e.nativeEvent.text)}
@@ -74,7 +75,7 @@ function EntryForm(props:Obj) {
   }
 
   return (
-    <View style={{backgroundColor: '#222', height: '100%'}}>
+    <View style={{backgroundColor: `rgb(${COLORS.background})`, height: '100%'}}>
       <Transaction>
         <Switch 
           values={["Income", "Expense"]}
@@ -139,7 +140,7 @@ const Input = styled.TextInput`
   width: 100%;
   height: ${SIZES.fieldHeight}px;
   overflow: hidden;
-  background: #282828;
+  background: rgb(${COLORS.midground});
   border-radius: 50px;
   padding: 0 ${SIZES.mediumText/2}px;
   text-align: center;

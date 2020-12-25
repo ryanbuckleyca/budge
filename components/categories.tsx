@@ -2,6 +2,7 @@ import React from 'react';
 import { Bg as Calendar } from './cal';
 import { Obj } from '../interfaces/';
 import SIZES from '../utils/sizes';
+import COLORS from '../utils/colors';
 import {Text} from 'react-native';
 import CategoryItem from './categoryItem'
 import styled, { css } from 'styled-components/native';
@@ -15,7 +16,7 @@ function CategoryHeader() {
   return (
     <Header>
       <Icon style={{marginRight: 5}}>
-        <Text style={{color: 'grey'}}>QTY</Text>
+        <Text style={{color: `rgb(${COLORS.foreground})`}}>QTY</Text>
       </Icon>
       <HeaderText style={{flex: 1}}>
         CATEGORY
@@ -51,7 +52,7 @@ export default function Categories(props:Obj) {
 }
 
 const grey = css`
-  color: grey
+  color: rgb(${COLORS.foreground})
 `
 const row = css`
   display: flex;
@@ -86,7 +87,7 @@ const HeaderText = styled.Text`
 `
 const CategoriesContainer = styled.View`
   ${flex1}
-  background-color: #292929;
+  background-color: rgb(${COLORS.midground});
   margin-top: ${SIZES.fieldMargin}px;
   padding: 0 ${SIZES.fieldMargin/3}px;
   border-radius: 25px;
@@ -94,5 +95,5 @@ const CategoriesContainer = styled.View`
 `
 const CategoryList = styled.FlatList`
   ${flex1}
-  background-color: #292929;
+  background-color: rgb(${COLORS.midground});
 `

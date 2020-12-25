@@ -3,6 +3,7 @@ import { Animated, StatusBar, StyleSheet } from 'react-native';
 import dayjs from 'dayjs';
 import styled from 'styled-components/native';
 import SIZES from '../utils/sizes';
+import COLORS from '../utils/colors';
 
 const TICK_INTERVAL = 1000; // one second
 
@@ -93,27 +94,27 @@ const Container = styled.View`
   height: ${SIZES.icon*.95}px;
   margin: auto;
   border-width: ${SIZES.icon/18}px;
-  border-color: grey;
+  border-color: rgb(${COLORS.foreground});
   border-style: solid;
   align-items: center;
   justify-content: center;
 `
 const Hours = styled.View`
-  background-color: grey;
+  background-color: rgb(${COLORS.foreground});
   height: 35%;
   margin-top: 15%;
   width: ${SIZES.icon/22}px;
   border-radius: ${SIZES.icon/22}px;
 `
 const Minutes = styled.View`
-  background-color: grey;
+  background-color: rgb(${COLORS.foreground});
   height: 45%;
   margin-top: 5%;
   width: ${SIZES.icon/28}px;
   border-radius: ${SIZES.icon/28}px;
 `
 const Seconds = styled.View`
-  background-color: grey;
+  background-color: rgb(${COLORS.foreground});
   opacity: 0.25;
   height: 50%;
   width: ${SIZES.icon/40}px;

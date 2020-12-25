@@ -2,6 +2,10 @@ import dayjs from 'dayjs';
 import { Obj } from '../interfaces';
 
 export const streaks = (logs:Array<Obj>) => {
+  if (!logs || logs.length < 1)
+    return ({ current: '?', record: '?' })
+
+  console.log('streaks called with (logs:Array<Obj>): ', logs)
   const current = dayjs().diff(logs[0].fields.Time, 'd')
   
   let record = 0;

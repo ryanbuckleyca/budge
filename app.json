@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Track and limit spending based on weekly and monthly budgetting",
+    "githubUrl": "https://github.com/ryanbuckleyca/budge"
   }
 }

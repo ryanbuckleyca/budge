@@ -4,9 +4,9 @@ import SIZES from '../utils/sizes'
 import { Obj } from '../interfaces'
  
 export default function Chart(props:Obj) {
-  const color = (props.limit < .5)
+  const color = (!props.limit || props.limit <= .55)
     ? '#83958d'
-    : ((props.limit > .75) ? '#7c5563' : '#C8AC65')
+    : ((props.limit > .8) ? '#7c5563' : '#C8AC65')
 
   return <ProgressCircle 
     style={{height: props.size, width: props.size}} 

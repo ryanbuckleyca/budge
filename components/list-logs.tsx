@@ -8,6 +8,7 @@ import SIZES from '../utils/sizes';
 import { streaks } from '../utils/streaks';
 import { CategorySpending } from '../utils/spending'
 import { FlatList } from 'react-native-gesture-handler';
+import COLORS from '../utils/colors';
 
 // TODO: renders twice for each cat... why?
 function Card(props:any) {
@@ -15,7 +16,7 @@ function Card(props:any) {
     return <Text style={{color: 'white'}}>Loading...</Text>
   }
 
-  const { Amount, Desc } = props.log.fields;
+  const { Amount, Vendor } = props.log.fields;
   const { Icon, BudgetMonthly } = props.cat.fields;
   const d = dayjs(props.log.Time)
   const DisplayDate = d.format('MMM DD, HH:mm A')
@@ -24,12 +25,12 @@ function Card(props:any) {
   // TODO: it would be cool to show the time between cards
   // to indicate the buy nothing streak of not spending
   return (
-    <Row style={{backgroundColor: '#292929', borderWidth: 1, borderColor: '#111', marginVertical: 1, padding: 15, borderRadius: 20}}>
+    <Row style={{backgroundColor: `rgb(${COLORS.midground})`, borderWidth: 1, borderColor: '#111', marginVertical: 1, padding: 15, borderRadius: 20}}>
     <View style={{flex: 1, marginHorizontal: 15}}>
       <Text style={{color: "white", fontSize: SIZES.xsText, fontWeight: '700'}}>
-        {Desc}
+        {Vendor}
       </Text>
-      <Text style={{color: "grey", fontSize: SIZES.xsText}}>
+      <Text style={{color: `rgb(${COLORS.foreground})`, fontSize: SIZES.xsText}}>
         {DisplayDate}
       </Text>
     </View>
@@ -37,7 +38,7 @@ function Card(props:any) {
       <Text style={{textAlign: 'right', color: "white", fontSize: SIZES.xsText}}>
         {'$'+Math.ceil(Amount)}
       </Text>
-      <Text style={{color: "grey", fontSize: SIZES.xsText}}>
+      <Text style={{color: `rgb(${COLORS.foreground})`, fontSize: SIZES.xsText}}>
         / {BudgetMonthly}
       </Text>
     </View>
@@ -62,7 +63,7 @@ function ListLogs(props:any) {
   const streak = streaks(props.logs)
 
   return(
-    <View style={{backgroundColor: '#222', height: '100%'}}>
+    <View style={{backgroundColor: `rgb(${COLORS.background})`, height: '100%'}}>
       <Row style={{marginHorizontal: 15, marginBottom: 15}}>
         <Text style={{color: 'white', width: '100%', textAlign: 'center'}}>
           BuyNothing streak: 

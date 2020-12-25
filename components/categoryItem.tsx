@@ -7,6 +7,7 @@ import {Text} from 'react-native';
 import {CategorySpending} from '../utils/spending'
 import { weeksInMonth, weekOfYear, weekInfo } from '../utils/dates';
 import styled, { css } from 'styled-components/native';
+import COLORS from '../utils/colors';
 
 
 const CategoryItem = (props:Obj) => {
@@ -21,7 +22,7 @@ const CategoryItem = (props:Obj) => {
       <Icon style={{marginRight: 5}}>
         <Coins size={SIZES.smallText+'px'} qty={fields.Popularity}/>
       </Icon>
-      <CategoryName color={selected ? 'white' : 'grey'}>
+      <CategoryName color={selected ? 'white' : `rgb(${COLORS.foreground})`}>
         {fields.Category}
       </CategoryName>
       <Row>
@@ -29,7 +30,7 @@ const CategoryItem = (props:Obj) => {
         <Chart limit={catSpending.limit} size={SIZES.mediumText} />
       </Row>
       <Icon>
-        <Text style={{color: 'grey'}}>{catSpending.frequency}</Text>
+        <Text style={{color: `rgb(${COLORS.foreground})`}}>{catSpending.frequency}</Text>
       </Icon>
     </CatItem>
   );
@@ -38,7 +39,7 @@ const CategoryItem = (props:Obj) => {
 export default CategoryItem;
 
 const grey = css`
-  color: grey
+  color: rgb(${COLORS.foreground})
 `
 const flex1 = css`
   flex: 1 1 auto;

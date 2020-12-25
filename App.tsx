@@ -32,6 +32,7 @@ const parseEntryAmt = (entries:Array<Obj>) => (
 
 function App() {
   
+  // on first load, get offline data
   useEffect(() => {
     loadOfflineData('queue').then(res => {
       res && setQueue(JSON.parse(res))
@@ -98,6 +99,7 @@ function App() {
     entry[name] = (name === 'Amount') ? parseFloat(value) : value
     setEntry({...entry})
   }
+
   const handleSubmit = (e:Obj) => {
     e.preventDefault();
     // TODO: perform verification of form data
@@ -147,7 +149,9 @@ function App() {
             </Tab.Screen>
             <Tab.Screen name="Logs">
               {
-              props => <ListLogs logs={logs} cats={cats} />
+              props => <ListLogs 
+                logs={logs} 
+                cats={cats} />
               }
             </Tab.Screen>
           </Tab.Navigator>
