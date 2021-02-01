@@ -10,15 +10,15 @@ import { CategorySpending } from '../utils/spending'
 import { FlatList } from 'react-native-gesture-handler';
 import COLORS from '../utils/colors';
 
-// TODO: renders twice for each cat... why?
 function Card(props:any) {
+  // cat is undefined for Income
   if(!props.cat || !props.log || !props.logs) {
     return <Text style={{color: `rgb(${COLORS.accent})`}}>Loading...</Text>
   }
 
   const { Amount, Vendor } = props.log.fields;
   const { Icon, BudgetMonthly } = props.cat.fields;
-  const d = dayjs(props.log.Time)
+  const d = dayjs(props.log.fields.Time)
   const DisplayDate = d.format('MMM DD, HH:mm A')
   const catSpending = CategorySpending(props.cat, props.logs)
 
@@ -83,6 +83,7 @@ function ListLogs(props:any) {
             key={log.item.id} 
             log={log.item}
             logs={props.logs}
+            // cat is undefined for Income
             cat={props.cats.find((cat:any) => (
               cat.id === log.item.fields.Category[0]
             ))}

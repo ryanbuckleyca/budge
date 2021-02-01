@@ -31,21 +31,19 @@ const parseEntryAmt = (entries:Array<Obj>) => (
 ))
 
 function App() {
-  
-  // on first load, get offline data
-  useEffect(() => {
-    loadOfflineData('queue').then(res => {
-      res && setQueue(JSON.parse(res))
-    })
-  }, [])
-  
   const netInfo = useNetInfo();
   const [ logs, setLogs ] = useState([,]);
   const [ cats, setCats ] = useState([]);
   const [ entry, setEntry ] = useState<Obj>(blankEntry);
   const [ showNumPad, setShowNumPad ] = useState(true);
   const [ queue, setQueue ] = useState<Array<Obj>>();
-
+  
+  useEffect(() => {
+    loadOfflineData('queue').then(res => {
+      res && setQueue(JSON.parse(res))
+    })
+  }, [])
+  
   useEffect(() => {
     if (netInfo.isConnected) {
       queue && queue.length > 0 && sendEntries(queue)
@@ -66,7 +64,7 @@ function App() {
       loadDataFrAPI()
       alert('your entry was successfully logged')
     } catch (err) { 
-      const msg = 'error sending queued entries: ' + err
+      const msg = 'error sending entries: ' + err
       console.log(msg)
       alert(msg)
     }
@@ -74,16 +72,17 @@ function App() {
 
   const loadDataFrAPI = async () => {
     try {
-      const logs = await getLogRecords()
-      setLogs(logs.records)
-      saveOfflineData("logs", JSON.stringify(logs.records))
       const cats = await getCatRecords()
-      setCats(cats.records)
+      const logs = await getLogRecords()
       saveOfflineData("cats", JSON.stringify(cats.records))
+      saveOfflineData("logs", JSON.stringify(logs.records))
+      setCats(cats.records)
+      setLogs(logs.records)
     } catch (err) {
       console.log(`error loading from API: `, err)
     }
   }
+
   const loadDataFrCache = async () => {
     try {
       const logs = await loadOfflineData("logs") || "[]"
@@ -124,7 +123,7 @@ function App() {
   }
 
   if(!cats || !logs) {
-    return <Text>Loading...</Text>
+    return <Text>Loading....</Text>
   }
 
   return (

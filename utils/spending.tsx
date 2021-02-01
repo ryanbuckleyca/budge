@@ -2,58 +2,47 @@ import dayjs from 'dayjs';
 import { Obj } from '../interfaces/';
 import { weekOfYear, weeksInMonth } from './dates'
 
-
-// TODO: refactor to make use of common functionality
-
 const filterLogsByCat = (logs:Array<Obj>, catID:string='') => (
   catID==='' ? logs : logs.filter(
     (log:Obj) => log.fields.Category[0] === catID
   )
 )
 
-export const TotalBudget = (cats:Array<Obj>) => {
-  console.log('total budget called with: ', cats)
-  const total = cats.reduce(
-    (a:Obj, b:Obj) => ({sum: a.fields.BudgetMonthly + b.fields.BudgetMonthly})
+export const TotalBudget = (cats:Array<Obj>, timeFrame:string='Monthly') => {
+  const budget = cats.filter((cat) => cat.fields.Frequency === timeFrame)
+  const total = budget.reduce((a:Obj, b:Obj) => ({
+      fields: { BudgetMonthly: a.fields.BudgetMonthly + b.fields.BudgetMonthly }
+    })
   )
-  return total.sum
+  return total.fields.BudgetMonthly
 }
 
-export const SpentThisMonth = (logs:Array<Obj>, catID:string='') => {
-  const catLogs = filterLogsByCat(logs, catID)
-  const monthly:Array<Obj> = catLogs.filter(
-    (log:Obj) => dayjs(log.fields.Time).month() === dayjs().month()
-  )
-
-  if(!monthly[0]) return 0
-
-  if (monthly.length > 1) {
-    const total:Obj = monthly.reduce((a:Obj, b:Obj) => (
-      {sum: a.fields.Amount + b.fields.Amount}
-    ))
-    return total.sum
+export const SpentThisPeriod = (timeFrame:string, logs:Array<Obj>, catID:string='') => {
+  const filter = (date:string, timeFrame:string) => {
+    const filters : { [string: string]: boolean } = {
+      month: dayjs(date).month() === dayjs().month(),
+      week: weekOfYear(new Date(date)) === weekOfYear(new Date())
+    }
+    return filters[timeFrame]
   }
 
-  return monthly[0].fields.Amount
-}
-
-export const SpentThisWeek = (logs:Array<Obj>, catID:string='') => {
   const catLogs = filterLogsByCat(logs, catID)
-  const weekly:Array<Obj> = catLogs.filter(
-    (log:Obj) => weekOfYear(new Date(log.fields.Time)) === weekOfYear(new Date())
+  const period:Array<Obj> = catLogs.filter(
+    (log:Obj) => filter(log.fields.Time, timeFrame)
   )
 
-  if(!weekly[0]) return 0
+  if(!period[0]) return 0
 
-  if (weekly.length > 1) {
-    const total:Obj = weekly.reduce((a:Obj, b:Obj) => (
-      {sum: a.fields.Amount + b.fields.Amount}
+  if (period.length > 1) {
+    const total:Obj = period.reduce((a:Obj, b:Obj) => (
+      { fields: { Amount: a.fields.Amount + b.fields.Amount } }
     ))
-    return total.sum
+    return total.fields.Amount
   }
 
-  return weekly[0].fields.Amount
+  return period[0].fields.Amount
 }
+
 
 export const CategorySpending = (cat:Obj, logs:Array<Obj>) => {
   const { id, fields } = cat
@@ -63,8 +52,8 @@ export const CategorySpending = (cat:Obj, logs:Array<Obj>) => {
   const frequency = Frequency === 'Monthly' ? "M" : "W"
   const weeksThisMonth = weeksInMonth(d.getFullYear(), d.getMonth()+1)
     .filter(wk => wk.length > 3)
-  const thisWeek = SpentThisWeek(logs, id)
-  const thisMonth = SpentThisMonth(logs, id)
+  const thisWeek = SpentThisPeriod('week', logs, id)
+  const thisMonth = SpentThisPeriod('month', logs, id)
   const spentFractionMonth = thisMonth+'/'+BudgetMonthly
   const spentFractionWeek = `${thisWeek}/${BudgetMonthly / weeksThisMonth.length}`
   const limit = (frequency === 'M') 

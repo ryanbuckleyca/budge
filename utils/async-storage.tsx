@@ -11,7 +11,6 @@ const loadOfflineData = async (type:string) => {
   }
 }
 const saveOfflineData = async (type:string, value:string) => {
-  console.log('saving offline data with (type, value): ', type, value)
   try {
     const saved = await AsyncStorage.setItem(type, value);
     return saved;

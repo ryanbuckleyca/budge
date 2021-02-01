@@ -4,14 +4,12 @@ import { Headers, Entry } from '../interfaces';
 
 const sortLOGS = 'sort%5B0%5D%5Bfield%5D=Time&sort%5B0%5D%5Bdirection%5D=desc'
 const sortCATS = 'sort%5B0%5D%5Bfield%5D=Category&sort%5B0%5D%5Bdirection%5D=asc'
-const filterCATS = 'filterByFormula=NOT(Right(%7BCategory%7D%2C+1)+%3D+%22%3D%22)'
 const url = `https://api.airtable.com/v0/appA67zYW50gE6q8E/`
 const headers:Headers = { Authorization: `Bearer ${AIRTABLE_ID}` }
 
 
-const callAPI = (table:string, options:object) => {
-  console.log('callAPI called with (table, options): ', table, options)
-  return fetch(url+table, options)
+const callAPI = (table:string, options:object) => (
+  fetch(url+table, options)
     .then(res => {
       if (res === null) throw new Error('no records found');
       return res.json()
@@ -20,7 +18,7 @@ const callAPI = (table:string, options:object) => {
       console.log(err)
       return {error: err}
     })
-  }
+)
 
 const getLogRecords = () => (
   callAPI('LOG?'+sortLOGS, {
@@ -30,14 +28,13 @@ const getLogRecords = () => (
 )
 
 const getCatRecords = () => (
-  callAPI('CATS?'+sortCATS+'&'+filterCATS, {
+  callAPI('CATS?'+sortCATS, {
     method: 'GET',
     headers: headers
   })
 )
 
 const uploadRecords = (recs:Array<Entry>) => {
-  console.log('uploadRecords called:')
   const formattedRecs = {
     records: recs.map((rec:Entry) => ({"fields": rec}))
   }
